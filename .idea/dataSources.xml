@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1711837769">
+    <data-source source="LOCAL" name="Django default" uuid="ed416fda-6a13-4d18-9481-931a4813a6cf">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:D:\python\kaska\kaska_pycharm\db.sqlite3</jdbc-url>
+      <libraries />
+    </data-source>
+  </component>
+</project>
