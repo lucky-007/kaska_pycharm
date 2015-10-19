@@ -140,6 +140,7 @@ class Player(AbstractBaseUser, PermissionsMixin):
     )
 
     # Hidden fields for users:
+    pool = models.SmallIntegerField(default=0)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_student = models.BooleanField(default=False)
