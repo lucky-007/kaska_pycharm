@@ -1,0 +1,26 @@
+
+{% if post_list %}
+    <ul>
+    {% for post in post_list %}
+        <h1> {{ post.name }}</h1>
+
+        <div id="{{ post.element_id }}"></div>
+            <script type="text/javascript">
+                (function(d, s, id)
+                    {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s); js.id = id;
+                        js.src = "//vk.com/js/api/openapi.js?117";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+                (document, 'script', 'vk_openapi_js'));
+                (function() {
+                    if (!window.VK || !VK.Widgets || !VK.Widgets.Post ||
+                    !VK.Widgets.Post( "{{ post.element_id }}", {{ post.owner_id }}, {{ post.post_id }}, '{{ post.post_hash }}', {width: 500}))
+
+                        setTimeout(arguments.callee, 50);  }())
+            </script>
+    {% endfor %}
+    </ul>
+{% endif %}
