@@ -26,6 +26,7 @@ SECRET_KEY = 'qbd$ccs(8abl9*=&*j@gvymaarmaugi5!*uyv12=rudy=(f__v'
 DEBUG = True
 
 AUTH_USER_MODEL = 'players.Player'
+LOGIN_URL = 'players/login/'
 
 ALLOWED_HOSTS = []
 

@@ -4,8 +4,8 @@ from django import forms
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from players.models import Player
-
+from django.views.decorators.csrf import csrf_protect
+from players.models import Player, CHOICES_POSITION, CHOICES_STYLE
 
 FILTER_CHOICES = (
     ('sur', 'Surname'),
@@ -22,8 +22,7 @@ class SearchForm(forms.Form):
 
 
 def roster(request):
-    players_list = Player.objects.filter(is_active=True)#.filter(is_admin=False)
-    # TODO Find filter() parameters (OR)
+    players_list = Player.objects.filter(is_active=True)  # .filter(is_admin=False)
     if request.method != 'GET':
         search_form = SearchForm()
         players_list = players_list.order_by('surname')
@@ -42,9 +41,9 @@ def roster(request):
             elif o == 'univer':
                 players_list = players_list.order_by('university', 'surname')
             elif o == 'paid':
-                players_list = players_list.order_by('is_paid', 'surname')
+                players_list = players_list.order_by('-is_paid', 'surname')
             elif o == 'stud':
-                players_list = players_list.order_by('is_student', 'surname')
+                players_list = players_list.order_by('-is_student', 'surname')
             elif o == 'play':
                 players_list = players_list.filter(is_paid=True, is_student=True)
                 players_list = players_list.order_by('surname')
@@ -70,11 +69,12 @@ def player_info(request, player_id):
     except Player.DoesNotExist:
         return HttpResponseRedirect(reverse('players:roster'))
 
-    context.update({'player': player})
+    context.update({'player': player, 'choices_pos': CHOICES_POSITION, 'choices_style': CHOICES_STYLE})
     return render(request, 'players/info.html', context)
 
 
 @login_required()
+@csrf_protect
 def player_change(request, player_id):
     context = {}
     if request.user.id != int(player_id):
