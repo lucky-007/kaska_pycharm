@@ -1,0 +1,19 @@
+
+
+.players {
+    max-width: 1500px;
+    
+}
+
+.player a{
+    text-decoration: none;
+}
+
+.player.highlighted a {
+    font-weight: bold;
+}
+
+.player img {
+    max-height: 50px;
+    border-radius: 50%;
+}

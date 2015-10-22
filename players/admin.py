@@ -49,6 +49,7 @@ class PlayerChangeForm(forms.ModelForm):
 
 
 class PlayerAdmin(UserAdmin):
+    # TODO try initial to add_form/vk_link
     form = PlayerChangeForm
     add_form = PlayerCreationForm
 
@@ -68,7 +69,7 @@ class PlayerAdmin(UserAdmin):
                          }
          ),
         ('Hidden data', {'fields': ('pool', 'is_active', 'is_admin', 'is_superuser', 'is_student', 'is_paid',
-                                    'date_joined',)
+                                    'date_joined', 'photo',)
                          }
          ),
     ]

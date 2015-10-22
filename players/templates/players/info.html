@@ -1,0 +1,11 @@
+{#{% extend kaska.html %}#}
+{#{% block main_data %}#}
+<div class="info_player">
+    <p>{{ player }}</p>
+
+    {% if this_player %}
+    <a href="{% url 'players:change' player.id %}">Change profile</a>
+    {% endif %}
+</div>
+
+{#{% endblock %}#}

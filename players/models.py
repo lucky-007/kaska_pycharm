@@ -39,8 +39,8 @@ class PlayerManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            surname=surname,
-            name=name,
+            surname=surname.capitalize(),
+            name=name.capitalize(),
             university=university.upper(),
             experience=experience,
             vk_link=vk_link.lower(),
@@ -141,6 +141,12 @@ class Player(AbstractBaseUser, PermissionsMixin):
 
     # Hidden fields for users:
     pool = models.SmallIntegerField(default=0)
+    photo = models.URLField(
+        null=True,
+        default='',
+        blank=True,
+    )
+
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_student = models.BooleanField(default=False)
