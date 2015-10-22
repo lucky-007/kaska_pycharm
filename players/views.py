@@ -90,9 +90,11 @@ class PlayerSelfCreateForm(forms.ModelForm):
         return password2
 
 
-class PlayerSelfChangeForm(PlayerSelfCreateForm):
+class PlayerSelfChangeForm(forms.ModelForm):
     class Meta:
-        exclude = ('password1', 'password2')
+        model = Player
+        fields = ('email', 'surname', 'name', 'university', 'experience', 'vk_link', 'position', 'fav_throw', 'style',
+                  'size')
 
 
 @csrf_protect
