@@ -2,12 +2,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django import forms
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
 from players.models import Player, CHOICES_POSITION, CHOICES_STYLE
 
-FILTER_CHOICES = (
+CHOICES_FILTER = (
     ('sur', 'Surname'),
     ('univer', 'University'),
     ('paid', 'Who paid'),
@@ -18,11 +18,11 @@ FILTER_CHOICES = (
 
 class SearchForm(forms.Form):
     s = forms.CharField(label='', max_length=50, required=False)
-    o = forms.ChoiceField(label='Sorted by:', choices=FILTER_CHOICES, initial='sur')
+    o = forms.ChoiceField(label='Sorted by:', choices=CHOICES_FILTER, initial='sur')
 
 
 def roster(request):
-    players_list = Player.objects.filter(is_active=True)  # .filter(is_admin=False)
+    players_list = Player.objects.filter(is_active=True)
     if request.method != 'GET':
         search_form = SearchForm()
         players_list = players_list.order_by('surname')
@@ -59,7 +59,7 @@ def admin(request):
     return HttpResponseRedirect('/admin')
 
 
-@login_required()
+@login_required
 def player_info(request, player_id):
     context = {}
     try:
@@ -73,17 +73,45 @@ def player_info(request, player_id):
     return render(request, 'players/info.html', context)
 
 
-@login_required()
+class PlayerSelfCreateForm(forms.ModelForm):
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+
+    class Meta:
+        model = Player
+        fields = ('email', 'password1', 'password2', 'surname', 'name', 'university', 'experience', 'vk_link',
+                  'position', 'fav_throw', 'style', 'size')
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords don't match")
+        return password2
+
+
+class PlayerSelfChangeForm(PlayerSelfCreateForm):
+    class Meta:
+        exclude = ('password1', 'password2')
+
+
 @csrf_protect
-def player_change(request, player_id):
+@login_required
+def player_change(request):
+    # TODO make sure to have opportunity to upload photo
     context = {}
-    if request.user.id != int(player_id):
-        return HttpResponseRedirect(reverse('players:info', args=[player_id]))
-    try:
-        player = Player.objects.get(pk=player_id)
-        context.update({'player_photo': player.photo})
-    #     here would be form
-    except Player.DoesNotExist:
-        return HttpResponseRedirect(reverse('players:roster'))
-    # TODO Create a form for change players
-    return HttpResponse('Right user')
+    player = request.user
+    context.update({'player_photo': player.photo})
+
+    if request.method == 'POST':
+        change_form = PlayerSelfChangeForm(instance=player, data=request.POST)
+        if change_form.is_valid():
+            change_form.save(commit=False)
+            # TODO download link to vk photo
+            change_form.save()
+            return HttpResponseRedirect(reverse('players:info', args=[player.id]))
+    else:
+        change_form = PlayerSelfChangeForm(instance=player)
+
+    context.update({'form': change_form})
+    return render(request, 'players/player_change.html', context)
