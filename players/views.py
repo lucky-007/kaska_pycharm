@@ -116,7 +116,6 @@ def login(request, template_name='players/login.html',
           redirect_field_name=REDIRECT_FIELD_NAME,
           authentication_form=AuthenticationForm,
           current_app=None, extra_context=None):
-
     redirect_to = request.POST.get(redirect_field_name,
                                    request.GET.get(redirect_field_name, ''))
 
@@ -148,6 +147,11 @@ def login(request, template_name='players/login.html',
     return TemplateResponse(request, template_name, context)
 
 
+def logout(request):
+    auth_logout(request)
+    return HttpResponseRedirect(reverse('index'))
+
+
 @csrf_protect
 @login_required
 def password_change(request):
@@ -162,3 +166,20 @@ def password_change(request):
 
     context = {'password_form': password_form}
     return render(request, 'players/change_password.html', context)
+
+
+def index(request):
+    context = {}
+    if request.user.is_anonymous():
+        if request.method == 'POST':
+            auth_form = AuthenticationForm(request, data=request.POST)
+            if auth_form.is_valid():
+                auth_login(request, auth_form.get_user())
+                return HttpResponseRedirect(reverse('index'))
+        else:
+            auth_form = AuthenticationForm(request)
+        context.update({'auth_form': auth_form})
+    else:
+        context.update({'player': request.user})
+    context.update({'current_url': request.path})
+    return render(request, 'players/index.html', context)

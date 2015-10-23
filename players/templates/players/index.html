@@ -1,0 +1,17 @@
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'kaska.css' %}" />
+
+{% if auth_form %}
+    <form action="{{ current_url }}" method="post">
+        {% csrf_token %}
+        {{ auth_form.as_p }}
+        <input type="submit" value="Go" />
+    </form>
+{% else %}
+    <div id="player_data">
+        <img src="{% if player.photo %}{{ player.photo }}{% else %}http://www.exaclair.com/images/placeholders/team-placeholder.jpg{% endif %}" />
+        <p>{{ player.get_full_name }}</p>
+        <p><a href="{% url 'players:logout' %}">Logout</a></p>
+    </div>
+{% endif %}

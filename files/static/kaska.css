@@ -1,4 +1,17 @@
+#player_data {
+    display: block;
+    float: right;
+    width: 300px;
+}
 
+#player_data img {
+    border-radius: 50%;
+    max-height: 50px;
+}
+
+#player_data p {
+    display: inline-block;
+}
 
 .players {
     max-width: 1500px;

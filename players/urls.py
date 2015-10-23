@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^change/$', views.player_change, name='change'),
     url(r'^create/$', views.player_create, name='create'),
     url(r'^login/$', views.login, name='login'),
+    url(r'^logout/$', views.logout, name='logout'),
     url(r'^change/password/$', views.password_change, name='password_change'),
 ]
