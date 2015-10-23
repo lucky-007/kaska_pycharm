@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'kaska.css' %}" />
 
 <div class="info_player">
-    <img class="photo" src="{% if player.photo %}{{ player.photo }}{% else %}http://www.exaclair.com/images/placeholders/team-placeholder.jpg{% endif %}" />
+    <img class="player_photo" src="{% if player.photo %}{{ player.photo }}{% else %}http://www.exaclair.com/images/placeholders/team-placeholder.jpg{% endif %}" />
 
     <p class="name"><a href="{{ player.vk_link }}">{{ player.get_full_name }}</a></p>
     {% if this_player %}
@@ -13,9 +13,9 @@
 
     <p class="feature">University: <span class="f_value">{{ player.university }}</span></p>
     <p class="feature">Experience: <span class="f_value">{{ player.experience }}</span></p>
-    <p class="feature">Favourite position: <span class="f_value">{{ player.position }}</span></p>
+    <p class="feature">Favourite position: <span class="f_value">{{ player.get_position_display }}</span></p>
     <p class="feature">Favourite throw: <span class="f_value">{{ player.fav_throw }}</span></p>
-    <p class="feature">Style of play: <span class="f_value">{{ player.style }}</span></p>
+    <p class="feature">Style of play: <span class="f_value">{{ player.get_style_display }}</span></p>
 
     <p class="feature">Team: <span class="f_value">No team right now</span></p>
     <p class="feature">Paid: <span class="f_value">{% if player.is_paid %}Yes{% else %}No{% endif %}</span></p>

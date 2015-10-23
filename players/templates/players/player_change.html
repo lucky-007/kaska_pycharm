@@ -1,6 +1,11 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'kaska.css' %}" />
+
 <img class="player_photo" src="{% if player_photo %}{{ player_photo }}{% else %}http://www.exaclair.com/images/placeholders/team-placeholder.jpg{% endif %}" />
-<form action="{% url 'players:change' %}" method="post">
+
+<form action="{% url 'players:change' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
+    <p><label for="password_change">To change password</label> <a href="{% url 'players:password_change' %}">use this form</a></p>
     <input type="submit" value="Go" />
 </form>

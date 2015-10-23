@@ -1,24 +1,22 @@
+from django.conf import settings
+from django.contrib.auth import (
+    REDIRECT_FIELD_NAME, login as auth_login,
+    logout as auth_logout, update_session_auth_hash,
+)
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse
-from django import forms
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, resolve_url
+from django.template.response import TemplateResponse
+from django.utils.http import is_safe_url
+from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-from players.models import Player, CHOICES_POSITION, CHOICES_STYLE
 
-CHOICES_FILTER = (
-    ('sur', 'Surname'),
-    ('univer', 'University'),
-    ('paid', 'Who paid'),
-    ('stud', 'Have stud photos'),
-    ('play', 'Already players')
-)
-
-
-class SearchForm(forms.Form):
-    s = forms.CharField(label='', max_length=50, required=False)
-    o = forms.ChoiceField(label='Sorted by:', choices=CHOICES_FILTER, initial='sur')
+from players.forms import SearchForm, PlayerSelfChangeForm, PlayerCreationForm, AuthenticationForm
+from players.models import Player
 
 
 def roster(request):
@@ -69,51 +67,98 @@ def player_info(request, player_id):
     except Player.DoesNotExist:
         return HttpResponseRedirect(reverse('players:roster'))
 
-    context.update({'player': player, 'choices_pos': CHOICES_POSITION, 'choices_style': CHOICES_STYLE})
+    context.update({'player': player})
     return render(request, 'players/info.html', context)
-
-
-class PlayerSelfCreateForm(forms.ModelForm):
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
-
-    class Meta:
-        model = Player
-        fields = ('email', 'password1', 'password2', 'surname', 'name', 'university', 'experience', 'vk_link',
-                  'position', 'fav_throw', 'style', 'size')
-
-    def clean_password2(self):
-        password1 = self.cleaned_data.get('password1')
-        password2 = self.cleaned_data.get('password2')
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords don't match")
-        return password2
-
-
-class PlayerSelfChangeForm(forms.ModelForm):
-    class Meta:
-        model = Player
-        fields = ('email', 'surname', 'name', 'university', 'experience', 'vk_link', 'position', 'fav_throw', 'style',
-                  'size')
 
 
 @csrf_protect
 @login_required
 def player_change(request):
-    # TODO make sure to have opportunity to upload photo
     context = {}
     player = request.user
     context.update({'player_photo': player.photo})
 
     if request.method == 'POST':
-        change_form = PlayerSelfChangeForm(instance=player, data=request.POST)
+        change_form = PlayerSelfChangeForm(instance=player, data=request.POST, files=request.FILES)
         if change_form.is_valid():
-            change_form.save(commit=False)
+            player = change_form.save(commit=False)
             # TODO download link to vk photo
-            change_form.save()
+            player.save()
             return HttpResponseRedirect(reverse('players:info', args=[player.id]))
     else:
         change_form = PlayerSelfChangeForm(instance=player)
 
     context.update({'form': change_form})
     return render(request, 'players/player_change.html', context)
+
+
+@csrf_protect
+def player_create(request):
+    if not request.user.is_anonymous():
+        return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
+
+    if request.method == 'POST':
+        form = PlayerCreationForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            player = form.save(commit=False)
+            # TODO download link to vk photo
+            player.save()
+            return HttpResponseRedirect(reverse('players:roster'))  # maybe to index?
+    else:
+        form = PlayerCreationForm()
+    context = {'form': form}
+    return render(request, 'players/player_create.html', context)
+
+
+@csrf_protect
+@never_cache
+def login(request, template_name='players/login.html',
+          redirect_field_name=REDIRECT_FIELD_NAME,
+          authentication_form=AuthenticationForm,
+          current_app=None, extra_context=None):
+
+    redirect_to = request.POST.get(redirect_field_name,
+                                   request.GET.get(redirect_field_name, ''))
+
+    if request.method == "POST":
+        form = authentication_form(request, data=request.POST)
+        if form.is_valid():
+            if not is_safe_url(url=redirect_to, host=request.get_host()):
+                redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
+
+            auth_login(request, form.get_user())
+            return HttpResponseRedirect(redirect_to)
+    else:
+        form = authentication_form(request)
+
+    current_site = get_current_site(request)
+
+    context = {
+        'form': form,
+        redirect_field_name: redirect_to,
+        'site': current_site,
+        'site_name': current_site.name,
+    }
+    if extra_context is not None:
+        context.update(extra_context)
+
+    if current_app is not None:
+        request.current_app = current_app
+
+    return TemplateResponse(request, template_name, context)
+
+
+@csrf_protect
+@login_required
+def password_change(request):
+    if request.method == 'POST':
+        password_form = PasswordChangeForm(user=request.user, data=request.POST)
+        if password_form.is_valid():
+            password_form.save()
+            update_session_auth_hash(request, password_form.user)
+            return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
+    else:
+        password_form = PasswordChangeForm(user=request.user)
+
+    context = {'password_form': password_form}
+    return render(request, 'players/change_password.html', context)

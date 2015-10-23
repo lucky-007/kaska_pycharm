@@ -1,0 +1,8 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'kaska.css' %}" />
+
+<form enctype="multipart/form-data" action="{% url 'players:create' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Go" />
+</form>

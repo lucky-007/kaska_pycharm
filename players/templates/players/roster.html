@@ -15,11 +15,13 @@
 
     {% for player in players_list %}
         <div class="player{% if user_id == player.id %} highlighted{% endif %}" id="{{ player.id }}">
-            {% if player.photo %}<img src="{{ player.photo }}"/>
-            {% else %}<img src="http://www.exaclair.com/images/placeholders/team-placeholder.jpg"/>
-            {% endif %}
+            <a href="{% url 'players:info' player.id %}">
+                {% if player.photo %}<img src="{{ player.photo }}"/>
+                {% else %}<img src="http://www.exaclair.com/images/placeholders/team-placeholder.jpg"/>
+                {% endif %}
 
-            <a href="{% url 'players:info' player.id %}">{{ player.get_full_name }}</a>
+                {{ player.get_full_name }}
+            </a>
             <p class="university">{{ player.university }}</p>
 
             {% if player.is_student %}<div class="student">1</div>
