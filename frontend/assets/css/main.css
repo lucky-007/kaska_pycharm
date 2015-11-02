@@ -1948,11 +1948,23 @@
 					}
 
 					#nav > ul > li.current > a {
-						background: #d52349;
+						background: #e0b63e;
 						color: #fff !important;
 						font-weight: 700;
 					}
-
+					#nav > ul > li.second:hover > a, #nav > ul > li.active > a {
+						background: #f11f1f;
+					}
+					#nav > ul > li.third:hover > a, #nav > ul > li.active > a {
+						background: #1f7df1;
+					}
+					#nav > ul > li.fourth:hover > a, #nav > ul > li.active > a {
+						background: #70d52d;
+					}
+					#nav > ul > li.drop:hover > a, #nav > ul > li.active > a {
+						background: #e33edd;
+					}
+					
 			.dropotron {
 				border-radius: 5px;
 				background-color: #252122;
