@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
@@ -10,6 +11,7 @@ from teams.models import Team
 # Create your views here.
 
 # Функция для обработки реквеста для teams/select
+@login_required
 def team_selection(request):
     #if not request.user.is_authenticated():
         #return redirect()
@@ -38,6 +40,8 @@ def team_selection(request):
     return render(request, 'teams/select_team.html', context)
 
 # Функция для обработки выбора команды
+
+@login_required
 def select(request):
     try:
         selected_choice = Team.objects.get(pk=request.POST['team'])
