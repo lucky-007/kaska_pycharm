@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
 from django.utils import timezone
+from teams.models import Team
 
 CHOICES_POSITION = (
     ('han', 'Handler'),
@@ -138,6 +139,10 @@ class Player(AbstractBaseUser, PermissionsMixin):
         help_text='Можно загрузить фотографию позже',
         blank=True,
     )
+
+    # Added by filletofish
+
+    team = models.ForeignKey(Team, default=None)
 
     # Hidden fields for users:
     pool = models.SmallIntegerField(default=0)

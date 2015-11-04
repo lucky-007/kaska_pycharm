@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'teams:select' %}" method="post">
+{% csrf_token %}
+{% for team in teams_list %}
+    <input type="radio" name="team" id="team{{ forloop.counter }}" value="{{ team.id }}" />
+    <label for="team{{ forloop.counter }}">{{ team.name }}</label><br />
+{% endfor %}
+<input type="submit" value="Подтверждаю" />
+</form>
+
+
+</body>
+</html>

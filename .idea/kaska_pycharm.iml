@@ -19,7 +19,7 @@
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/../kaska_pycharm\templates" />
+        <option value="$MODULE_DIR$/teams/templates" />
       </list>
     </option>
   </component>

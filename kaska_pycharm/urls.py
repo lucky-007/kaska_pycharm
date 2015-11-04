@@ -20,6 +20,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^posts/', include('vkPosts.urls', namespace = "vkPosts"))
+    url(r'^posts/', include('vkPosts.urls', namespace = "vkPosts")),
+    url(r'^teams/', include('teams.urls', namespace="teams"))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
