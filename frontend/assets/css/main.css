@@ -1947,6 +1947,11 @@
 					#nav > ul > li:hover > a, #nav > ul > li.active > a {
 						background: #f3f3f3;
 					}
+					
+					#nav > ul > li.first:hover > a, #nav > ul > li.active > a {
+						background: #ff0066;
+						color: #fff !important; 
+						}
 					#nav > ul > li.second:hover > a, #nav > ul > li.active > a {
 						background: #f11f1f;
 						color: #fff !important;
@@ -1957,6 +1962,10 @@
 					}
 					#nav > ul > li.fourth:hover > a, #nav > ul > li.active > a {
 						background: #70d52d;
+						color: #fff !important;
+					}
+					#nav > ul > li.fifth:hover > a, #nav > ul > li.active > a {
+						background: #6600ff;
 						color: #fff !important;
 					}
 					#nav > ul > li.drop:hover > a, #nav > ul > li.active > a {
