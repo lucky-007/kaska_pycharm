@@ -1,39 +1,36 @@
-{# {% extend 'kaska.html' %} #}
-{# {% block main_data %} #}
+{% extends 'kaska_base.html' %}
 {% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'kaska.css' %}" />
 
-<div class="players">
-    <form action="{% url 'players:roster' %}" method="get">
-        {{ search_form }}
-        <input type="submit" value="Go" />
-    </form>
+{% block content %}
+    <div class="players">
+        <form action="{% url 'players:roster' %}" method="get">
+            {{ search_form }}
+            <input type="submit" value="Go" />
+        </form>
 
-    {% if not players_list %}
-        <div class="no_players">There is no players for your request</div>
-    {% endif %}
+        {% if not players_list %}
+            <div class="no_players">There is no players for your request</div>
+        {% endif %}
 
-    {% for player in players_list %}
-        <div class="player{% if user_id == player.id %} highlighted{% endif %}" id="{{ player.id }}">
-            <a href="{% url 'players:info' player.id %}">
-                {% if player.photo %}<img src="{{ player.photo }}"/>
-                {% else %}<img src="http://www.exaclair.com/images/placeholders/team-placeholder.jpg"/>
+        {% for player in players_list %}
+            <div class="player{% if user_id == player.id %} highlighted{% endif %}" id="{{ player.id }}">
+                <a href="{% url 'players:info' player.id %}">
+                    <img src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" />
+
+                    {{ player.get_full_name }}
+                </a>
+                <p class="university">{{ player.university }}</p>
+
+                {% if player.is_student %}<div class="student">1</div>
+                {% else %}<div class="non-student">0</div>
                 {% endif %}
 
-                {{ player.get_full_name }}
-            </a>
-            <p class="university">{{ player.university }}</p>
+                {% if player.is_paid %}<div class="paid">1</div>
+                {% else %}<div class="non-paid">0</div>
+                {% endif %}
 
-            {% if player.is_student %}<div class="student">1</div>
-            {% else %}<div class="non-student">0</div>
-            {% endif %}
+            </div>
+        {% endfor %}
 
-            {% if player.is_paid %}<div class="paid">1</div>
-            {% else %}<div class="non-paid">0</div>
-            {% endif %}
-
-        </div>
-    {% endfor %}
-
-</div>
-{#{% endblock %}#}
+    </div>
+{% endblock %}

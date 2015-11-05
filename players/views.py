@@ -93,6 +93,22 @@ def player_change(request):
 
 
 @csrf_protect
+@login_required
+def password_change(request):
+    if request.method == 'POST':
+        password_form = PasswordChangeForm(user=request.user, data=request.POST)
+        if password_form.is_valid():
+            password_form.save()
+            update_session_auth_hash(request, password_form.user)
+            return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
+    else:
+        password_form = PasswordChangeForm(user=request.user)
+
+    context = {'password_form': password_form}
+    return render(request, 'players/change_password.html', context)
+
+
+@csrf_protect
 def player_create(request):
     if not request.user.is_anonymous():
         return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
@@ -150,22 +166,6 @@ def login(request, template_name='players/login.html',
 def logout(request):
     auth_logout(request)
     return HttpResponseRedirect(reverse('index'))
-
-
-@csrf_protect
-@login_required
-def password_change(request):
-    if request.method == 'POST':
-        password_form = PasswordChangeForm(user=request.user, data=request.POST)
-        if password_form.is_valid():
-            password_form.save()
-            update_session_auth_hash(request, password_form.user)
-            return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
-    else:
-        password_form = PasswordChangeForm(user=request.user)
-
-    context = {'password_form': password_form}
-    return render(request, 'players/change_password.html', context)
 
 
 def index(request):

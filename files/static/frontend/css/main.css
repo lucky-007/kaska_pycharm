@@ -1655,10 +1655,8 @@
 /* Banner */
 
 	#banner {
-		background: #CCE8F4 url("../../images/pic01.jpg");
-		background-position: center center;
 		background-size: auto 100%;
-		background-repeat: no-repeat;
+		background: #CCE8F4 url("../../../../frontend/images/pic01.jpg") no-repeat center center;
 		text-align: center;
 	}
 
@@ -1882,7 +1880,7 @@
 		/* Wrappers */
 
 			#header-wrapper {
-				padding: 4.5em 0 4em 0;
+				padding: 1.5em 0 1em 0;
 			}
 
 			#main-wrapper {
@@ -1890,7 +1888,7 @@
 			}
 
 			#footer-wrapper {
-				padding: 4em 0 4em 0;
+				padding: 1em 0 0em 0;
 			}
 
 				#footer-wrapper header {
