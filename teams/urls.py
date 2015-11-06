@@ -10,5 +10,5 @@ from teams import views
 
 urlpatterns = [
     # ex: /teams/select
-    url(r'^select$', views.team_selection, name='index'),
+    url(r'^select$', views.select, name='select'),
 ]

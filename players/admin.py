@@ -22,12 +22,12 @@ class PlayerAdmin(UserAdmin):
 
     fieldsets = [
         (None, {'fields': ('email', 'password')}),
-        ('Player data', {'fields': ('surname', 'name', 'university', 'stud_photo', 'experience', 'vk_link', 'position',
+        ('Player data', {'fields': ('surname', 'name', 'university', 'team', 'stud_photo', 'experience', 'vk_link', 'position',
                                     'fav_throw', 'style', 'size',)
                          }
          ),
         ('Hidden data', {'fields': ('pool', 'is_active', 'is_admin', 'is_superuser', 'is_student', 'is_paid',
-                                    'date_joined', 'photo',)
+                                    'date_joined', 'photo')
                          }
          ),
     ]

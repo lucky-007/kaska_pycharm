@@ -142,8 +142,7 @@ class Player(AbstractBaseUser, PermissionsMixin):
     )
 
     # Added by filletofish
-
-    team = models.ForeignKey(Team, default=None)
+    team = models.ForeignKey(Team, default=None, null=True, blank=True)
 
     # Hidden fields for users:
     pool = models.SmallIntegerField(default=0)
