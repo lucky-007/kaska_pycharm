@@ -40,13 +40,13 @@ class PlayerManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            surname=surname,
-            name=name,
+            surname=surname.capitalize(),
+            name=name.capitalize(),
             university=university.upper(),
             experience=experience,
             vk_link=vk_link.lower(),
             position=position,
-            fav_throw=fav_throw,
+            fav_throw=fav_throw.capitalize(),
             style=style,
             size=size,
 
@@ -99,6 +99,7 @@ class Player(AbstractBaseUser, PermissionsMixin):
     experience = models.PositiveSmallIntegerField(
         # verbose_name='Опыт игры (лет)',
         blank=False,
+        default=0,
     )
     vk_link = models.URLField(
         # verbose_name='Ссылка на vk-профиль',
@@ -146,6 +147,12 @@ class Player(AbstractBaseUser, PermissionsMixin):
 
     # Hidden fields for users:
     pool = models.SmallIntegerField(default=0)
+    photo = models.URLField(
+        null=True,
+        default='',
+        blank=True,
+    )
+
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_student = models.BooleanField(default=False)
@@ -176,6 +183,14 @@ class Player(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.get_full_name()
+
+    def make_nice(self):
+        self.surname = self.surname.capitalize()
+        self.name = self.name.capitalize()
+        self.fav_throw = self.fav_throw.capitalize()
+        self.university = self.university.upper()
+        self.vk_link = self.vk_link.lower()
+        return None
 
     @property
     def is_staff(self):

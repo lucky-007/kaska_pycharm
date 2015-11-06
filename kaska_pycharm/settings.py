@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-from django.conf.global_settings import MEDIA_URL
+from django.core.urlresolvers import reverse
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,6 +27,8 @@ SECRET_KEY = 'qbd$ccs(8abl9*=&*j@gvymaarmaugi5!*uyv12=rudy=(f__v'
 DEBUG = True
 
 AUTH_USER_MODEL = 'players.Player'
+LOGIN_URL = '/players/login'
+LOGIN_REDIRECT_URL = '/'
 
 ALLOWED_HOSTS = []
 
@@ -106,8 +108,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'files', 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'files', 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files', 'media')
-
-
-
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'files', 'static'),
+)

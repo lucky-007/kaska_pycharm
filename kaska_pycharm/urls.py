@@ -17,8 +17,11 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+import players.views
 
 urlpatterns = [
+    url(r'^$', players.views.index, name='index'),
+    url(r'^players/', include('players.urls', namespace='players')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^posts/', include('vkPosts.urls', namespace = "vkPosts")),
     url(r'^teams/', include('teams.urls', namespace="teams"))
