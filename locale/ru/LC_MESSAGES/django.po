@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 17:47+0300\n"
+"POT-Creation-Date: 2015-11-09 18:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,51 +19,49 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: .\players\forms.py:11
+#: .\players\forms.py:12
 msgid "Surname"
 msgstr "Фамилии"
 
-#: .\players\forms.py:12
-#, fuzzy
-#| msgid "University"
+#: .\players\forms.py:13
 msgctxt "Search by"
 msgid "University"
 msgstr "Университету"
 
-#: .\players\forms.py:13
+#: .\players\forms.py:14
 msgid "Have already paid"
 msgstr "Тем, кто оплатил"
 
-#: .\players\forms.py:14
+#: .\players\forms.py:15
 msgid "Have valid student ID"
 msgstr "Наличию студенческого"
 
-#: .\players\forms.py:15
+#: .\players\forms.py:16
 msgid "Registered as players"
 msgstr "По полностью зарегистрированным игрокам"
 
-#: .\players\forms.py:21
+#: .\players\forms.py:22
 msgid "Sorted by:"
 msgstr "Сортировать по:"
 
-#: .\players\forms.py:28 .\players\forms.py:92
+#: .\players\forms.py:29 .\players\forms.py:93
 msgid "Password"
 msgstr "Пароль"
 
-#: .\players\forms.py:29
+#: .\players\forms.py:30
 msgid "Password confirmation"
 msgstr "Подтверждение пароля"
 
-#: .\players\forms.py:40
+#: .\players\forms.py:41
 msgid "Passwords don't match"
 msgstr "Пароли не совпадают"
 
-#: .\players\forms.py:95
+#: .\players\forms.py:96
 #, python-format
 msgid "Incorrect combination of %(username)s and password"
 msgstr "Неправильная комбинация %(username)s и пароля"
 
-#: .\players\forms.py:96
+#: .\players\forms.py:97
 msgid "This account is inactive"
 msgstr "Этот аккаунт неактивен"
 
@@ -111,66 +109,58 @@ msgstr "Email обязателен"
 msgid "Email"
 msgstr "Email"
 
-#: .\players\models.py:81
+#: .\players\models.py:80
 msgid "We've have already this email"
 msgstr "Этот email уже зарегистрирован"
 
-#: .\players\models.py:85
+#: .\players\models.py:84
 msgid "Last name"
 msgstr "Фамилия"
 
-#: .\players\models.py:90
+#: .\players\models.py:89
 msgid "First name"
 msgstr "Имя"
 
-#: .\players\models.py:95
-#, fuzzy
-#| msgid "University"
-msgctxt "Models"
+#: .\players\models.py:94
+msgctxt "Model"
 msgid "University"
 msgstr "Университет"
 
-#: .\players\models.py:100
+#: .\players\models.py:99
 msgid "Experience"
 msgstr "Опыт игры"
 
-#: .\players\models.py:105
+#: .\players\models.py:104
 msgid "Link to vk profile"
 msgstr "Ссылка на vk-профиль"
 
-#: .\players\models.py:111
+#: .\players\models.py:109
 msgid "We've have already this"
 msgstr "Этот vk-профиль уже зарегистрирован"
 
-#: .\players\models.py:115
+#: .\players\models.py:113
 msgid "Favourite position"
 msgstr "Любимая позиция"
 
-#: .\players\models.py:121
+#: .\players\models.py:119
 msgid "Favourite throw"
 msgstr "Любимый бросок"
 
-#: .\players\models.py:126
+#: .\players\models.py:124
 msgid "Play style"
 msgstr "Стиль игры"
 
-#: .\players\models.py:132
+#: .\players\models.py:130
 msgid "T-shirt size"
 msgstr "Размер футболки"
 
-#: .\players\models.py:139
-#, fuzzy
-#| msgid "Student ID"
+#: .\players\models.py:137
 msgid "Student ID (photo)"
 msgstr "Студенческий билет (фото)"
 
-#: .\players\models.py:140
-#, fuzzy
-#| msgid "You can load the photo of the student ID later"
+#: .\players\models.py:138
 msgid "You can load the photo of the student ID later. For admins only"
-msgstr ""
-"Вы можете загрузить фото студенческого позже. Он будет доступен только для "
-"админов"
+msgstr "Можете загрузить фото позже. Оно будет доступно только админам"
 
 #: .\players\templates\players\change_password.html:8
 #: .\players\templates\players\index.html:10

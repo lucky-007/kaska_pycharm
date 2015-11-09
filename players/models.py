@@ -77,7 +77,6 @@ class Player(AbstractBaseUser, PermissionsMixin):
         unique=True,
         blank=False,
         error_messages={
-            # 'unique': 'Этот email уже зарегистрирован'
             'unique': _("We've have already this email")
         }
     )
@@ -92,7 +91,7 @@ class Player(AbstractBaseUser, PermissionsMixin):
         blank=False,
     )
     university = models.CharField(
-        verbose_name=pgettext_lazy('Models', u'University'),
+        verbose_name=pgettext_lazy('Model', 'University'),
         max_length=15,
         blank=False,
     )
@@ -107,7 +106,6 @@ class Player(AbstractBaseUser, PermissionsMixin):
         blank=False,
         default='http://vk.com/',
         error_messages={
-            # 'unique': 'Этот email уже зарегистрирован'
             'unique': _("We've have already this")
         }
     )

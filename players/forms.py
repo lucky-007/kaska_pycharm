@@ -3,14 +3,13 @@ from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
-#FIXME pgettext_lazy...
 
 from players.models import Player
 
 
 CHOICES_FILTER = (
     ('sur', _('Surname')),
-    ('univer', pgettext_lazy('Search by', u'University')),
+    ('univer', pgettext_lazy('Search by', 'University')),
     ('paid', _('Have already paid')),
     ('stud', _('Have valid student ID')),
     ('play', _('Registered as players'))
