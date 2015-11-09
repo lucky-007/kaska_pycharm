@@ -1,4 +1,5 @@
 {% extends 'kaska_base.html' %}
+{% load i18n %}
 
 {% block title %}Login{% endblock %}
 
@@ -7,6 +8,8 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="hidden" name="next" value="{{ next }}" />
-        <input type="submit" value="Go" />
+        <input type="submit" value={% trans "Go" %} />
     </form>
+    <a href="{% url 'players:create' %}">{% trans "Register" %}</a>
+    <a href="#" target="_blank">{% trans "Forgot password?" %}</a>
 {% endblock %}

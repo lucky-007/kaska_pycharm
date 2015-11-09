@@ -1,20 +1,21 @@
 {% extends 'kaska_base.html' %}
 {% load staticfiles %}
+{% load i18n %}
 
 {% block login %}
     {% if auth_form %}
         <form action="{{ current_url }}" method="post">
             {% csrf_token %}
             {{ auth_form.as_p }}
-            <input type="submit" value="Go" />
+            <input type="submit" value={% trans "Go" %} />
         </form>
-        <a href="{% url 'players:create' %}">Register</a>
-        <a href="#" target="_blank">Forgot password? (not working now)</a>
+        <a href="{% url 'players:create' %}">{% trans "Register" %}</a>
+        <a href="#" target="_blank">{% trans "Forgot password?" %}</a>
     {% else %}
         <div id="player_data">
             <img src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" />
             <p>{{ player.get_full_name }}</p>
-            <p><a href="{% url 'players:logout' %}">Logout</a></p>
+            <p><a href="{% url 'players:logout' %}">{% trans "Logout" %}</a></p>
         </div>
     {% endif %}
 {% endblock %}

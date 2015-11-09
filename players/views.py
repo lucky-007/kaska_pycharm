@@ -53,10 +53,6 @@ def roster(request):
     return render(request, 'players/roster.html', context)
 
 
-def admin(request):
-    return HttpResponseRedirect('/admin')
-
-
 @login_required
 def player_info(request, player_id):
     context = {}

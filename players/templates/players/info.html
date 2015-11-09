@@ -1,5 +1,6 @@
 {% extends 'kaska_base.html' %}
 {% load staticfiles %}
+{% load i18n %}
 
 {% block title %}Player Info{% endblock %}
 
@@ -11,7 +12,7 @@
 
         <p class="name"><a href="{{ player.vk_link }}">{{ player.get_full_name }}</a></p>
         {% if this_player %}
-            <a class="change_link" href="{% url 'players:change' %}">Change profile</a>
+            <a class="change_link" href="{% url 'players:change' %}">{% trans "Change profile" %}</a>
         {% endif %}
 
         <p class="feature">University: <span class="f_value">{{ player.university }}</span></p>

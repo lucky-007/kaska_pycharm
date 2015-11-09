@@ -1,20 +1,21 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 
 CHOICES_POSITION = (
-    ('han', 'Handler'),
-    ('mid', 'Middle'),
-    ('lon', 'Long'),
-    ('sid', 'On sideline')
+    ('han', _('Handler')),
+    ('mid', _('Middle')),
+    ('lon', _('Long')),
+    ('sid', _('On sideline')),
 )
 
 CHOICES_STYLE = (
-    ('slow', 'SlowPock'),
-    ('regul', 'Regular'),
-    ('cheek', 'cheeky'),
-    ('uncon', 'Uncontrollable'),
-    ('drunk', 'Drunk'),
+    ('slow', _('SlowPock')),
+    ('regul', _('Regular')),
+    ('cheek', _('Cheeky')),
+    ('uncon', _('Uncontrollable')),
+    ('drunk', _('Drunk')),
 )
 
 CHOICES_SIZE = (
@@ -33,7 +34,7 @@ class PlayerManager(BaseUserManager):
         Creates and saves user by all required params.
         """
         if not email:
-            raise ValueError('Email address is required')
+            raise ValueError(_('Email address is required'))
 
         now = timezone.now()
 
@@ -71,72 +72,72 @@ class PlayerManager(BaseUserManager):
 
 class Player(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
-        # verbose_name='Email',
+        verbose_name=_('Email'),
         max_length=255,
         unique=True,
         blank=False,
         error_messages={
             # 'unique': 'Этот email уже зарегистрирован'
-            'unique': "We've have already this"
+            'unique': _("We've have already this email")
         }
     )
     surname = models.CharField(
-        # verbose_name='Фамилия',
+        verbose_name=_('Last name'),
         max_length=25,
         blank=False,
     )
     name = models.CharField(
-        # verbose_name='Имя',
+        verbose_name=_('First name'),
         max_length=15,
         blank=False,
     )
     university = models.CharField(
-        # verbose_name='Университет',
+        verbose_name=pgettext_lazy('Models', u'University'),
         max_length=15,
         blank=False,
     )
     experience = models.PositiveSmallIntegerField(
-        # verbose_name='Опыт игры (лет)',
+        verbose_name=_('Experience'),
         blank=False,
         default=0,
     )
     vk_link = models.URLField(
-        # verbose_name='Ссылка на vk-профиль',
+        verbose_name=_('Link to vk profile'),
         unique=True,
         blank=False,
         default='http://vk.com/',
         error_messages={
             # 'unique': 'Этот email уже зарегистрирован'
-            'unique': "We've have already this"
+            'unique': _("We've have already this")
         }
     )
     position = models.CharField(
-        # verbose_name='Любимая позиция',
+        verbose_name=_('Favourite position'),
         max_length=3,
         choices=CHOICES_POSITION,
         blank=False,
     )
     fav_throw = models.CharField(
-        # verbose_name='Любимый бросок',
+        verbose_name=_('Favourite throw'),
         max_length=15,
         blank=False,
     )
     style = models.CharField(
-        # verbose_name='Стиль игры',
+        verbose_name=_('Play style'),
         max_length=5,
         choices=CHOICES_STYLE,
         blank=False,
     )
     size = models.CharField(
-        # verbose_name='Размер футболки',
+        verbose_name=_('T-shirt size'),
         max_length=2,
         choices=CHOICES_SIZE,
         blank=False,
     )
 
     stud_photo = models.ImageField(
-        # verbose_name='Фотография студенческого билета',
-        help_text='Можно загрузить фотографию позже',
+        verbose_name=_('Student ID (photo)'),
+        help_text=_('You can load the photo of the student ID later. For admins only'),
         blank=True,
     )
 

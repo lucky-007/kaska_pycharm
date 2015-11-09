@@ -1,11 +1,12 @@
 {% extends 'kaska_base.html' %}
+{% load i18n %}
 
-{% block title %}Registration{% endblock %}
+{% block title %}{% trans "Registration" %}{% endblock %}
 
 {% block content %}
     <form enctype="multipart/form-data" action="{% url 'players:create' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Go" />
+        <input type="submit" value={% trans "Go" %} />
     </form>
 {% endblock %}

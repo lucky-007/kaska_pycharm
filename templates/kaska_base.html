@@ -1,8 +1,9 @@
 {% load staticfiles %}
+{% load i18n %}
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>{% block title %}Kaska 2015{% endblock %}</title>
+		<title>{% block title %}{% trans "Kaska" %} 2015{% endblock %}</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="{% static 'frontend/js/ie/html5shiv.js' %}"></script><![endif]-->
@@ -22,12 +23,12 @@
                             {% block nav %}
 							<nav id="nav">
 								<ul>
-									<li class="current"><a href="{% url 'index' %}">Главная</a></li>
-									<li class="first"><a href="{% url 'index' %}">Турнирная сетка</a></li>
-									<li class="second"><a href="{% url 'players:roster' %}">Игроки</a></li>
-									<li class="third"><a href="{% url 'index' %}">Команды</a></li>
-									<li class="fourth"><a href="{% url 'index' %}">Информация</a></li>
-									<li class="fifth"><a href="{% url 'index' %}">Медиа</a></li>
+									<li class="current"><a href="{% url 'index' %}">{% trans "Main" %}</a></li>
+									<li class="first"><a href="{% url 'index' %}">{% trans "Tournament schedule" %}</a></li>
+									<li class="second"><a href="{% url 'players:roster' %}">{% trans "Players" %}</a></li>
+									<li class="third"><a href="{% url 'index' %}">{% trans "Teams" %}</a></li>
+									<li class="fourth"><a href="{% url 'index' %}">{% trans "Information" %}</a></li>
+									<li class="fifth"><a href="{% url 'index' %}">{% trans "Media" %}</a></li>
 								</ul>
 							</nav>
                             {% endblock %}
@@ -76,7 +77,7 @@
 								<!-- Copyright -->
 									<div id="copyright">
 										<ul class="links">
-											<li>&copy; Каска 2015</li><li>Design: <a href="{% url 'index' %}">Наш крутой сайт!</a></li>
+											<li>&copy; {% trans "Kaska" %} 2015</li><li>Design: <a href="{% url 'index' %}">{% trans "Our best site!" %}</a></li>
 										</ul>
 									</div>
 

@@ -1,11 +1,12 @@
 {% extends 'kaska_base.html' %}
 {% load staticfiles %}
+{% load i18n %}
 
 {% block content %}
     <div class="players">
         <form action="{% url 'players:roster' %}" method="get">
             {{ search_form }}
-            <input type="submit" value="Go" />
+            <input type="submit" value={% trans "Go" %} />
         </form>
 
         {% if not players_list %}

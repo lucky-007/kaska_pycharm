@@ -1,0 +1,244 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 17:47+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: .\players\forms.py:11
+msgid "Surname"
+msgstr "Фамилии"
+
+#: .\players\forms.py:12
+#, fuzzy
+#| msgid "University"
+msgctxt "Search by"
+msgid "University"
+msgstr "Университету"
+
+#: .\players\forms.py:13
+msgid "Have already paid"
+msgstr "Тем, кто оплатил"
+
+#: .\players\forms.py:14
+msgid "Have valid student ID"
+msgstr "Наличию студенческого"
+
+#: .\players\forms.py:15
+msgid "Registered as players"
+msgstr "По полностью зарегистрированным игрокам"
+
+#: .\players\forms.py:21
+msgid "Sorted by:"
+msgstr "Сортировать по:"
+
+#: .\players\forms.py:28 .\players\forms.py:92
+msgid "Password"
+msgstr "Пароль"
+
+#: .\players\forms.py:29
+msgid "Password confirmation"
+msgstr "Подтверждение пароля"
+
+#: .\players\forms.py:40
+msgid "Passwords don't match"
+msgstr "Пароли не совпадают"
+
+#: .\players\forms.py:95
+#, python-format
+msgid "Incorrect combination of %(username)s and password"
+msgstr "Неправильная комбинация %(username)s и пароля"
+
+#: .\players\forms.py:96
+msgid "This account is inactive"
+msgstr "Этот аккаунт неактивен"
+
+#: .\players\models.py:7
+msgid "Handler"
+msgstr "Хэндлер"
+
+#: .\players\models.py:8
+msgid "Middle"
+msgstr "Миддл"
+
+#: .\players\models.py:9
+msgid "Long"
+msgstr "Лонг"
+
+#: .\players\models.py:10
+msgid "On sideline"
+msgstr "На бровке"
+
+#: .\players\models.py:14
+msgid "SlowPock"
+msgstr "Слоу-пок"
+
+#: .\players\models.py:15
+msgid "Regular"
+msgstr "Нормальный"
+
+#: .\players\models.py:16
+msgid "Cheeky"
+msgstr "Дерзкий"
+
+#: .\players\models.py:17
+msgid "Uncontrollable"
+msgstr "Неконтроллируемый"
+
+#: .\players\models.py:18
+msgid "Drunk"
+msgstr "Пьяный"
+
+#: .\players\models.py:37
+msgid "Email address is required"
+msgstr "Email обязателен"
+
+#: .\players\models.py:75
+msgid "Email"
+msgstr "Email"
+
+#: .\players\models.py:81
+msgid "We've have already this email"
+msgstr "Этот email уже зарегистрирован"
+
+#: .\players\models.py:85
+msgid "Last name"
+msgstr "Фамилия"
+
+#: .\players\models.py:90
+msgid "First name"
+msgstr "Имя"
+
+#: .\players\models.py:95
+#, fuzzy
+#| msgid "University"
+msgctxt "Models"
+msgid "University"
+msgstr "Университет"
+
+#: .\players\models.py:100
+msgid "Experience"
+msgstr "Опыт игры"
+
+#: .\players\models.py:105
+msgid "Link to vk profile"
+msgstr "Ссылка на vk-профиль"
+
+#: .\players\models.py:111
+msgid "We've have already this"
+msgstr "Этот vk-профиль уже зарегистрирован"
+
+#: .\players\models.py:115
+msgid "Favourite position"
+msgstr "Любимая позиция"
+
+#: .\players\models.py:121
+msgid "Favourite throw"
+msgstr "Любимый бросок"
+
+#: .\players\models.py:126
+msgid "Play style"
+msgstr "Стиль игры"
+
+#: .\players\models.py:132
+msgid "T-shirt size"
+msgstr "Размер футболки"
+
+#: .\players\models.py:139
+#, fuzzy
+#| msgid "Student ID"
+msgid "Student ID (photo)"
+msgstr "Студенческий билет (фото)"
+
+#: .\players\models.py:140
+#, fuzzy
+#| msgid "You can load the photo of the student ID later"
+msgid "You can load the photo of the student ID later. For admins only"
+msgstr ""
+"Вы можете загрузить фото студенческого позже. Он будет доступен только для "
+"админов"
+
+#: .\players\templates\players\change_password.html:8
+#: .\players\templates\players\index.html:10
+#: .\players\templates\players\login.html:11
+#: .\players\templates\players\player_change.html:14
+#: .\players\templates\players\player_create.html:10
+#: .\players\templates\players\roster.html:9
+msgid "Go"
+msgstr "Вперед"
+
+#: .\players\templates\players\index.html:12
+#: .\players\templates\players\login.html:13
+msgid "Register"
+msgstr "Регистрация"
+
+#: .\players\templates\players\index.html:13
+#: .\players\templates\players\login.html:14
+msgid "Forgot password?"
+msgstr "Забыли пароль?"
+
+#: .\players\templates\players\index.html:18
+msgid "Logout"
+msgstr "Выйти"
+
+#: .\players\templates\players\info.html:15
+msgid "Change profile"
+msgstr "Изменить профиль"
+
+#: .\players\templates\players\player_change.html:13
+msgid "To change password"
+msgstr "Для изменения пароля"
+
+#: .\players\templates\players\player_change.html:13
+msgid "use this form"
+msgstr "используйте эту форму"
+
+#: .\players\templates\players\player_create.html:4
+msgid "Registration"
+msgstr "Регистрация"
+
+#: .\templates\kaska_base.html:6 .\templates\kaska_base.html.py:80
+msgid "Kaska"
+msgstr "Каска"
+
+#: .\templates\kaska_base.html:26
+msgid "Main"
+msgstr "Главная"
+
+#: .\templates\kaska_base.html:27
+msgid "Tournament schedule"
+msgstr "Турнирная сетка"
+
+#: .\templates\kaska_base.html:28
+msgid "Players"
+msgstr "Игроки"
+
+#: .\templates\kaska_base.html:29
+msgid "Teams"
+msgstr "Команды"
+
+#: .\templates\kaska_base.html:30
+msgid "Information"
+msgstr "Информация"
+
+#: .\templates\kaska_base.html:31
+msgid "Media"
+msgstr "Медиа"
+
+#: .\templates\kaska_base.html:80
+msgid "Our best site!"
+msgstr "Наш крутой сайт!"
