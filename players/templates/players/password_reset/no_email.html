@@ -1,0 +1,9 @@
+{% extends 'kaska_base.html' %}
+{% load i18n %}
+
+{% block content %}
+    {% blocktrans %}
+        <h2>There is no player registered with this email.</h2>
+    {% endblocktrans %}
+    <a href="{% url 'players:create' %}">{% trans 'Registration form' %}</a>
+{% endblock %}

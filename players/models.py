@@ -100,7 +100,7 @@ class Player(AbstractBaseUser, PermissionsMixin):
         blank=False,
         default=0,
     )
-    vk_link = models.URLField(
+    vk_link = models.URLField(  # TODO unavailable to change by player
         verbose_name=_('Link to vk profile'),
         unique=True,
         blank=False,

@@ -101,6 +101,13 @@ LOCALE_PATHS = (
 )
 
 
+# Email
+
+KASKA_EMAIL = 'info@kaska.me'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 

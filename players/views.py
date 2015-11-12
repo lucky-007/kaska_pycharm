@@ -4,7 +4,8 @@ from django.contrib.auth import (
     logout as auth_logout, update_session_auth_hash,
 )
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse
 from django.db.models import Q
@@ -179,3 +180,65 @@ def index(request):
         context.update({'player': request.user})
     context.update({'current_url': request.path})
     return render(request, 'players/index.html', context)
+
+
+@csrf_protect
+def password_reset(request):
+    """
+    View for entering email of registered player to change password
+    :param request:
+    """
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+
+    context = {}
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            opts = {
+                'use_https': request.is_secure(),
+                'token_generator': default_token_generator,
+                'from_email': settings.KASKA_EMAIL,
+                'email_template_name': 'players/email/email_template.html',
+                'subject_template_name': 'players/email/email_subject.txt',
+                'request': request,
+            }
+
+            try:
+                Player.objects.get(email__iexact=form.cleaned_data['email'])
+            except Player.DoesNotExist:
+                return HttpResponseRedirect(reverse('players:password_reset_no_email'))
+            else:
+                form.save(**opts)
+                return HttpResponseRedirect(reverse('players:password_reset_check_email'))
+    else:
+        form = PasswordResetForm()
+
+    context.update({'form': form})
+    return render(request, 'players/password_reset/password_reset.html', context)
+
+
+def check_email(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+    context = {}
+    return render(request, 'players/password_reset/check_email.html', context)
+
+
+def no_email(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+    context = {}
+    return render(request,'players/password_reset/no_email.html', context)
+
+
+def password_reset_confirm(request, uidb64, token):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+    return None
+
+
+def password_reset_complete(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+    return None
