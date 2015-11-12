@@ -1,0 +1,15 @@
+{% extends 'kaska_base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+    {% if valid_link %}
+        <form action="{{ request.path }}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value={% trans "Go" %} />
+        </form>
+    {% else %}
+        <a href="{% url 'index' %}">{% trans 'Return to main' %}</a>
+    {% endif %}
+{% endblock %}

@@ -2,9 +2,9 @@ from django.conf import settings
 from django.contrib.auth import (
     REDIRECT_FIELD_NAME, login as auth_login,
     logout as auth_logout, update_session_auth_hash,
-)
+    get_user_model)
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse
@@ -12,9 +12,11 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
 from django.template.response import TemplateResponse
-from django.utils.http import is_safe_url
+from django.utils.encoding import force_text
+from django.utils.http import is_safe_url, urlsafe_base64_decode
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
+from django.utils.translation import ugettext_lazy as _
 
 from players.forms import SearchForm, PlayerSelfChangeForm, PlayerCreationForm, AuthenticationForm
 from players.models import Player
@@ -229,16 +231,51 @@ def no_email(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
     context = {}
-    return render(request,'players/password_reset/no_email.html', context)
+    return render(request, 'players/password_reset/no_email.html', context)
 
 
-def password_reset_confirm(request, uidb64, token):
+@never_cache
+def password_reset_confirm(request, uidb64=None, token=None):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
-    return None
+
+    context = {}
+    UserModel = get_user_model()
+    assert uidb64 is not None and token is not None
+
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = UserModel._default_manager.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        valid_link = True
+        title = _('Enter new password')
+        if request.method == 'POST':
+            form = SetPasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('players:password_reset_complete'))
+        else:
+            form = SetPasswordForm(user)
+    else:
+        valid_link = False
+        title = _('Password reset failed')
+        form = None
+
+    context.update({
+        'form': form,
+        'title': title,
+        'valid_link': valid_link,
+    })
+
+    context.update({'request': request})
+    return render(request, 'players/password_reset/confirm.html', context)
 
 
 def password_reset_complete(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
-    return None
+    context = {}
+    return render(request, 'players/password_reset/complete.html', context)
