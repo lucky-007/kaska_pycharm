@@ -73,9 +73,9 @@ with open('/home/u49036/secret_key/db_password.txt') as f:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'u49036.netangels.ru/mysql/',
-            'HOST': '',  # localhost
+            'NAME': 'u49036',
             'USER': 'u49036',
+            'HOST': '127.0.0.1',
             'PASSWORD': f.read().strip(),
         }
     }
