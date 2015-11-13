@@ -200,7 +200,7 @@ def password_reset(request):
             opts = {
                 'use_https': request.is_secure(),
                 'token_generator': default_token_generator,
-                'from_email': settings.KASKA_EMAIL,
+                'from_email': settings.DEFAULT_FROM_EMAIL,
                 'email_template_name': 'players/email/email_template.html',
                 'subject_template_name': 'players/email/email_subject.txt',
                 'request': request,
