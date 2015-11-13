@@ -17,7 +17,6 @@ from django.utils.http import is_safe_url, urlsafe_base64_decode
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.utils.translation import ugettext_lazy as _
-
 from players.forms import SearchForm, PlayerSelfChangeForm, PlayerCreationForm, AuthenticationForm
 from players.models import Player
 
@@ -111,6 +110,23 @@ def password_change(request):
 def player_create(request):
     if not request.user.is_anonymous():
         return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
+
+    if True:  # fixme valid condition
+        vk_opts = {
+            'client_id': settings.VK_CLIENT_ID,
+            'display': 'popup',
+            'redirect_uri': 'http://kaska.me'+resolve_url('players:create'),  # fixme i.e. request.build_absolute_uri
+            'scope': ','.join(settings.VK_SCOPES),
+            'response_type': 'code',
+            'v': '5.40',
+        }
+        return HttpResponseRedirect('https://oauth.vk.com/authorize?' +
+                                    '&'.join(str(opt[0]) + '=' + str(opt[1]) for opt in vk_opts.items()))
+
+    if request.method == 'GET':
+        if 'error' in request.GET.keys():
+            return HttpResponseRedirect(reverse('index'))
+        vk_code = request.GET['code']
 
     if request.method == 'POST':
         form = PlayerCreationForm(data=request.POST, files=request.FILES)

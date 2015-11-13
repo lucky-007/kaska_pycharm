@@ -100,9 +100,13 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
+# VK.com
+VK_CLIENT_ID = 5145539
+VK_CLIENT_SECRET = 'O44Nl2hmR9AWX5Zg2ALZ'
+VK_SCOPES = ['offline', 'email']
 
 # Email
-
+# TODO have it in global_setting
 KASKA_EMAIL = 'info@kaska.me'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'localhost'
