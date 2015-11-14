@@ -279,3 +279,7 @@ def password_reset_complete(request):
         return HttpResponseRedirect(reverse('index'))
     context = {}
     return render(request, 'players/password_reset/complete.html', context)
+
+
+def logo(request):
+    return render(request, 'logo.html', {})

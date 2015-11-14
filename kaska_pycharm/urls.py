@@ -20,7 +20,8 @@ from django.contrib import admin
 import players.views
 
 urlpatterns = [
-    url(r'^$', players.views.index, name='index'),
+    url(r'^$', players.views.logo),
+    url(r'^index/$', players.views.index, name='index'),
     url(r'^players/', include('players.urls', namespace='players')),
     url(r'^admin/', include(admin.site.urls)),
 ]
