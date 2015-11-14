@@ -3,23 +3,54 @@
 {% load i18n %}
 
 {% block login %}
+    <div id="login" style="
+        min-width: 200px;
+        width: 20%;
+        display: block;
+        float: right;
+        margin-left: -100%;
+        margin-right: 10px;
+        margin-top: -50px;
+    ">
     {% if auth_form %}
         <form action="{{ current_url }}" method="post">
+            {{ auth_form.non_field_errors }}
             {% csrf_token %}
-            {{ auth_form.as_p }}
+            {% for hidden in auth_form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in auth_form.visible_fields %}
+                <div class="login_field_wrapper">
+                    {{ field.errors }}
+                    {{ field.label_tag }} {{ field }}
+                </div>
+            {% endfor %}
             <input type="submit" value={% trans "Go" %} />
         </form>
         <a href="{% url 'players:create' %}">{% trans "Register" %}</a>
         <a href="{% url 'players:password_reset' %}" target="_blank">{% trans "Forgot password?" %}</a>
     {% else %}
-        <div id="player_data">
-            <img src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" />
+        <div id="player_data" style="height: 10em;">
+            <img src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" style="height: inherit;width: auto" />
             <p>{{ player.get_full_name }}</p>
             <p><a href="{% url 'players:logout' %}">{% trans "Logout" %}</a></p>
         </div>
     {% endif %}
+    </div>
 {% endblock %}
 
 {% block content %}
-
+<p>Привет! А ты уже зарегистрировался на одно и самых сенсационных событий этого года - КАСКА 2015?
+Нет? Не знаешь, что это? Тогда давай мы тебя познакомим!
+Итак, по порядку, дамы и господа:
+КАСКА это ежегодный всероссийский шляпный студенческий турнир по алтимат фрисби*. Он называется шляпным, так как все игроки регистрируются на турнир поодиночке, а затем их особым образом распределяют по командам.
+КАСКА это место, где ты полностью сможешь раскрыть свои игровые и спортивные навыки, познакомиться и подружиться с новыми людьми со всей России, научиться работать сообща в новой для себя команде, демонстрируя высокий Дух Игры** по отношению к игре и всем участникам.
+КАСКА это драйв, эмоции и атмосфера, которые будут преследовать тебя весь год, это то, что ты будешь вспоминать с друзьями вне зависимости от победы или поражения, это то, что стоит посещать каждый год!
+Если ты студент, аспирант, работник ВУЗа или учащийся, то смело регистрируйся, ведь места ограничены!
+</p><p>
+*-Алтимат фрисби — это командный неконтактный вид спорта с летающим диском. Цель — передать диск с помощью паса игроку своей команды, находящемуся в зоне противника.
+</p><p>
+**-Отличительной особенностью игры является отсутствие судей и наличие понятия Дух Игры
+(Spirit of the Game), являющегося основным принципом алтимата. Коротко его можно обозначить, как «Уважение к сопернику — первостепенно».
+</p>
 {% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-12 19:42+0300\n"
+"POT-Creation-Date: 2015-11-14 20:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,9 +163,9 @@ msgid "You can load the photo of the student ID later. For admins only"
 msgstr "Можете загрузить фото позже. Оно будет доступно только админам"
 
 #: .\players\templates\players\change_password.html:8
-#: .\players\templates\players\index.html:10
+#: .\players\templates\players\index.html:28
 #: .\players\templates\players\login.html:11
-#: .\players\templates\players\password_reset\confirm.html:9
+#: .\players\templates\players\password_reset\confirm.html:10
 #: .\players\templates\players\password_reset\password_reset.html:10
 #: .\players\templates\players\player_change.html:14
 #: .\players\templates\players\player_create.html:10
@@ -189,17 +189,17 @@ msgstr ""
 "Если вы не знаете, что такое алтимат, и считаете каску только головным "
 "убором, то проигнорируйте это сообщение."
 
-#: .\players\templates\players\index.html:12
+#: .\players\templates\players\index.html:30
 #: .\players\templates\players\login.html:13
 msgid "Register"
 msgstr "Регистрация"
 
-#: .\players\templates\players\index.html:13
+#: .\players\templates\players\index.html:31
 #: .\players\templates\players\login.html:14
 msgid "Forgot password?"
 msgstr "Забыли пароль?"
 
-#: .\players\templates\players\index.html:18
+#: .\players\templates\players\index.html:36
 msgid "Logout"
 msgstr "Выйти"
 
@@ -219,6 +219,11 @@ msgstr ""
 "        Проверьте свою почту.\n"
 "    "
 
+#: .\players\templates\players\password_reset\check_email.html:9
+#: .\players\templates\players\password_reset\confirm.html:13
+msgid "Return to main"
+msgstr "Вернуться на главную"
+
 #: .\players\templates\players\password_reset\complete.html:5
 msgid "Password reset completed successfully"
 msgstr "Восстановление пароля успешно завершено"
@@ -226,10 +231,6 @@ msgstr "Восстановление пароля успешно заверше�
 #: .\players\templates\players\password_reset\complete.html:6
 msgid "Sign in"
 msgstr "Войти"
-
-#: .\players\templates\players\password_reset\confirm.html:12
-msgid "Return to main"
-msgstr "Вернуться на главную"
 
 #: .\players\templates\players\password_reset\no_email.html:5
 msgid ""
@@ -257,11 +258,15 @@ msgstr "используйте эту форму"
 msgid "Registration"
 msgstr "Регистрация"
 
-#: .\players\views.py:253
+#: .\players\templates\players\roster.html:13
+msgid "There is no players for your request"
+msgstr "Игроков по вашему запросу не найдено"
+
+#: .\players\views.py:270
 msgid "Enter new password"
 msgstr "Введите новый пароль"
 
-#: .\players\views.py:263
+#: .\players\views.py:280
 msgid "Password reset failed"
 msgstr "Сброс пароля не удался"
 
@@ -269,31 +274,30 @@ msgstr "Сброс пароля не удался"
 msgid "Kaska"
 msgstr "Каска"
 
-#: .\templates\kaska_base.html:26
+#: .\templates\kaska_base.html:30
 msgid "Main"
 msgstr "Главная"
 
-#: .\templates\kaska_base.html:27
+#: .\templates\kaska_base.html:31
 msgid "Tournament schedule"
 msgstr "Турнирная сетка"
 
-#: .\templates\kaska_base.html:28
+#: .\templates\kaska_base.html:32
 msgid "Players"
 msgstr "Игроки"
 
-#: .\templates\kaska_base.html:29
+#: .\templates\kaska_base.html:33
 msgid "Teams"
 msgstr "Команды"
 
-#: .\templates\kaska_base.html:30
+#: .\templates\kaska_base.html:34
 msgid "Information"
 msgstr "Информация"
 
-#: .\templates\kaska_base.html:31
+#: .\templates\kaska_base.html:35
 msgid "Media"
 msgstr "Медиа"
 
 #: .\templates\kaska_base.html:58
 msgid "Our best site!"
 msgstr "Наш крутой сайт!"
-
