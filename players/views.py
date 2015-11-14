@@ -1,3 +1,5 @@
+import requests
+
 from django.conf import settings
 from django.contrib.auth import (
     REDIRECT_FIELD_NAME, login as auth_login,
@@ -9,7 +11,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, resolve_url
 from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
@@ -17,6 +19,7 @@ from django.utils.http import is_safe_url, urlsafe_base64_decode
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.utils.translation import ugettext_lazy as _
+
 from players.forms import SearchForm, PlayerSelfChangeForm, PlayerCreationForm, AuthenticationForm
 from players.models import Player
 
@@ -111,22 +114,31 @@ def player_create(request):
     if not request.user.is_anonymous():
         return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
 
-    if True:  # fixme valid condition
-        vk_opts = {
-            'client_id': settings.VK_CLIENT_ID,
-            'display': 'popup',
-            'redirect_uri': 'http://kaska.me'+resolve_url('players:create'),  # fixme i.e. request.build_absolute_uri
-            'scope': ','.join(settings.VK_SCOPES),
-            'response_type': 'code',
-            'v': '5.40',
-        }
-        return HttpResponseRedirect('https://oauth.vk.com/authorize?' +
-                                    '&'.join(str(opt[0]) + '=' + str(opt[1]) for opt in vk_opts.items()))
-
     if request.method == 'GET':
-        if 'error' in request.GET.keys():
-            return HttpResponseRedirect(reverse('index'))
-        vk_code = request.GET['code']
+        redirect_uri = request.build_absolute_uri(resolve_url('players:create'))
+        if not request.GET.dict():
+            vk_opts_user = {
+                'client_id': settings.VK_CLIENT_ID,
+                'display': 'popup',
+                'redirect_uri': redirect_uri,
+                'scope': ','.join(settings.VK_SCOPES),
+                'response_type': 'code',
+                'v': '5.40',
+            }
+            return HttpResponseRedirect(requests.get('https://oauth.vk.com/authorize', params=vk_opts_user).url)
+        else:
+            if 'error' in request.GET.keys():
+                return HttpResponseRedirect(reverse('index'))
+            vk_opts_server = {
+                'client_id': settings.VK_CLIENT_ID,
+                'client_secret': settings.VK_CLIENT_SECRET,
+                'redirect_uri': redirect_uri,
+                'code': request.GET['code'],
+            }
+            r = requests.get('https://oauth.vk.com/access_token', params=vk_opts_server)
+            vk_resp = r.json()
+            if 'error' in vk_resp.keys():
+                return HttpResponse('There is an error')
 
     if request.method == 'POST':
         form = PlayerCreationForm(data=request.POST, files=request.FILES)
@@ -147,6 +159,10 @@ def login(request, template_name='players/login.html',
           redirect_field_name=REDIRECT_FIELD_NAME,
           authentication_form=AuthenticationForm,
           current_app=None, extra_context=None):
+
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+
     redirect_to = request.POST.get(redirect_field_name,
                                    request.GET.get(redirect_field_name, ''))
 

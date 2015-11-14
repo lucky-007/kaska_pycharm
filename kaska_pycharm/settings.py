@@ -91,6 +91,11 @@ LOCALE_PATHS = (
 )
 
 
+VK_CLIENT_ID = 5145539
+VK_CLIENT_SECRET = 'O44Nl2hmR9AWX5Zg2ALZ'
+VK_SCOPES = ['offline', 'email']
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'kaska.me'
 EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = SERVER_EMAIL = 'info@kaska.me'
