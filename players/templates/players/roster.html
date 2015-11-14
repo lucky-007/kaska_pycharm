@@ -10,7 +10,7 @@
         </form>
 
         {% if not players_list %}
-            <div class="no_players">There is no players for your request</div>
+            <div class="no_players">{% trans 'There is no players for your request' %}</div>
         {% endif %}
 
         {% for player in players_list %}
