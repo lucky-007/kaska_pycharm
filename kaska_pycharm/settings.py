@@ -100,7 +100,7 @@ EMAIL_PORT = 25  # 1025
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'www/static')
+STATIC_ROOT = '/home/u49036/kaska.me/www/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files', 'media')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'files', 'static'),
