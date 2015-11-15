@@ -138,8 +138,10 @@ def player_create(request):
             r = requests.get('https://oauth.vk.com/access_token', params=vk_opts_server)
             vk_resp = r.json()
             if 'error' in vk_resp.keys():
-                return HttpResponse('There is an error')
-            # vk_data = {i: vk_resp[i] for i in vk_resp if i in ['access_token', 'email', 'id']}
+                return HttpResponse('There is an error:'+vk_resp['error'])
+            vk_data = {i: vk_resp[i] for i in vk_resp if i in ['access_token', 'email', 'id']}
+            vk_data['vk_id'] = vk_data.pop('id')
+            return HttpResponse(vk_data)
 
     if request.method == 'POST':
         form = PlayerCreationForm(data=request.POST, files=request.FILES)
