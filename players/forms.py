@@ -28,10 +28,13 @@ class PlayerCreationForm(forms.ModelForm):
     password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput)
     password2 = forms.CharField(label=_('Password confirmation'), widget=forms.PasswordInput)
 
+    vk_id = forms.CharField(widget=forms.HiddenInput)
+    access_token = forms.CharField(widget=forms.HiddenInput)
+
     class Meta:
         model = Player
         fields = ('email', 'password1', 'password2', 'surname', 'name', 'university', 'stud_photo', 'experience',
-                  'vk_link', 'position', 'fav_throw', 'style', 'size',)
+                  'position', 'fav_throw', 'style', 'size', 'vk_id', 'access_token',)
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -73,8 +76,7 @@ class PlayerChangeForm(forms.ModelForm):
 class PlayerSelfChangeForm(forms.ModelForm):
     class Meta:
         model = Player
-        fields = ('email', 'surname', 'name', 'university', 'stud_photo', 'experience', 'vk_link', 'position',
-                  'fav_throw', 'style', 'size')
+        fields = ('stud_photo',)
 
     def save(self, commit=True):
         user = super(PlayerSelfChangeForm, self).save(commit=False)
