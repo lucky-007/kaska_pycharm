@@ -139,6 +139,7 @@ def player_create(request):
             vk_resp = r.json()
             if 'error' in vk_resp.keys():
                 return HttpResponse('There is an error')
+            # vk_data = {i: vk_resp[i] for i in vk_resp if i in ['access_token', 'email', 'id']}
 
     if request.method == 'POST':
         form = PlayerCreationForm(data=request.POST, files=request.FILES)
@@ -148,7 +149,7 @@ def player_create(request):
             player.save()
             return HttpResponseRedirect(reverse('players:roster'))  # maybe to index?
     else:
-        form = PlayerCreationForm()
+        form = PlayerCreationForm()  # **vk_data)
     context = {'form': form}
     return render(request, 'players/player_create.html', context)
 
