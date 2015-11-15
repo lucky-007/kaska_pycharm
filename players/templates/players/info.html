@@ -10,7 +10,7 @@
     <div class="info_player">
         <img class="player_photo" src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" />
 
-        <p class="name"><a href="{{ player.vk_link }}">{{ player.get_full_name }}</a></p>
+        <p class="name"><a href="https://vk.com/id{{ player.vk_id }}">{{ player.get_full_name }}</a></p>
         {% if this_player %}
             <a class="change_link" href="{% url 'players:change' %}">{% trans "Change profile" %}</a>
         {% endif %}

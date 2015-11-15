@@ -111,7 +111,7 @@ def player_create(request):
     if not request.user.is_anonymous():
         return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
 
-    if True:  # fixme valid condition
+    if False:  # fixme valid condition
         vk_opts = {
             'client_id': settings.VK_CLIENT_ID,
             'display': 'popup',
@@ -123,10 +123,10 @@ def player_create(request):
         return HttpResponseRedirect('https://oauth.vk.com/authorize?' +
                                     '&'.join(str(opt[0]) + '=' + str(opt[1]) for opt in vk_opts.items()))
 
-    if request.method == 'GET':
-        if 'error' in request.GET.keys():
-            return HttpResponseRedirect(reverse('index'))
-        vk_code = request.GET['code']
+    # if request.method == 'GET':
+    #     if 'error' in request.GET.keys():
+    #         return HttpResponseRedirect(reverse('index'))
+    #     vk_code = request.GET['code']
 
     if request.method == 'POST':
         form = PlayerCreationForm(data=request.POST, files=request.FILES)

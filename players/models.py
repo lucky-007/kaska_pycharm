@@ -28,7 +28,7 @@ CHOICES_SIZE = (
 
 
 class PlayerManager(BaseUserManager):
-    def _create_user(self, email, surname, name, university, experience, vk_link, position, fav_throw, style, size,
+    def _create_user(self, email, surname, name, university, experience, vk_id, position, fav_throw, style, size,
                      password, is_admin, is_superuser, **extra_fields):
         """
         Creates and saves user by all required params.
@@ -44,7 +44,7 @@ class PlayerManager(BaseUserManager):
             name=name.capitalize(),
             university=university.upper(),
             experience=experience,
-            vk_link=vk_link.lower(),
+            vk_id=vk_id,
             position=position,
             fav_throw=fav_throw.capitalize(),
             style=style,
@@ -59,14 +59,14 @@ class PlayerManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, surname, name, university, experience, vk_link, position, fav_throw, style, size,
+    def create_user(self, email, surname, name, university, experience, vk_id, position, fav_throw, style, size,
                     password=None, **extra_fields):
-        return self._create_user(email, surname, name, university, experience, vk_link, position, fav_throw, style,
+        return self._create_user(email, surname, name, university, experience, vk_id, position, fav_throw, style,
                                  size, password, False, False, **extra_fields)
 
-    def create_superuser(self, email, password, surname, name, university, experience, vk_link, position, fav_throw,
+    def create_superuser(self, email, password, surname, name, university, experience, vk_id, position, fav_throw,
                          style, size, **extra_fields):
-        return self._create_user(email, surname, name, university, experience, vk_link, position, fav_throw, style,
+        return self._create_user(email, surname, name, university, experience, vk_id, position, fav_throw, style,
                                  size, password, True, True, **extra_fields)
 
 
@@ -100,15 +100,6 @@ class Player(AbstractBaseUser, PermissionsMixin):
         blank=False,
         default=0,
     )
-    vk_link = models.URLField(  # TODO unavailable to change by player
-        verbose_name=_('Link to vk profile'),
-        unique=True,
-        blank=False,
-        default='http://vk.com/',
-        error_messages={
-            'unique': _("We've have already this")
-        }
-    )
     position = models.CharField(
         verbose_name=_('Favourite position'),
         max_length=3,
@@ -140,6 +131,15 @@ class Player(AbstractBaseUser, PermissionsMixin):
     )
 
     # Hidden fields for users:
+    vk_id = models.CharField(
+        max_length=20,
+        unique=True,
+        blank=False,
+    )
+    access_token = models.CharField(
+        max_length=100,
+        blank=False,
+    )
     pool = models.SmallIntegerField(default=0)
     photo = models.URLField(
         null=True,
@@ -161,11 +161,12 @@ class Player(AbstractBaseUser, PermissionsMixin):
         'name',
         'university',
         'experience',
-        'vk_link',
         'position',
         'fav_throw',
         'style',
         'size',
+        'vk_id',
+        'access_token',
     ]
 
     def get_short_name(self):
@@ -183,7 +184,6 @@ class Player(AbstractBaseUser, PermissionsMixin):
         self.name = self.name.capitalize()
         self.fav_throw = self.fav_throw.capitalize()
         self.university = self.university.upper()
-        self.vk_link = self.vk_link.lower()
         return None
 
     @property
