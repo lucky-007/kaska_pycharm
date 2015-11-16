@@ -148,7 +148,7 @@ def player_create(request):
             vk_data = {i: vk_resp[i] for i in vk_resp if i in ['access_token', 'email', 'user_id']}
             vk_data['vk_id'] = str(vk_data.pop('user_id'))
 
-            if Player.objects.filter(id=vk_data['vk_id']):
+            if Player.objects.filter(vk_id=vk_data['vk_id']):
                 error = 'registered'
                 return render(request, 'players/player_create.html', {'error': error})
 
