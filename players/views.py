@@ -1,4 +1,5 @@
 import requests
+import json
 
 from django.conf import settings
 from django.contrib.auth import (
@@ -113,8 +114,9 @@ def password_change(request):
 def player_create(request):
     if not request.user.is_anonymous():
         return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
+    error = None
 
-    if request.method == 'GET':
+    if request.method == 'GET' and 'vk' not in request.session:
         redirect_uri = request.build_absolute_uri(resolve_url('players:create'))
         if not request.GET.dict():
             vk_opts_user = {
@@ -129,6 +131,7 @@ def player_create(request):
         else:
             if 'error' in request.GET.keys():
                 return HttpResponseRedirect(reverse('index'))
+
             vk_opts_server = {
                 'client_id': settings.VK_CLIENT_ID,
                 'client_secret': settings.VK_CLIENT_SECRET,
@@ -137,22 +140,47 @@ def player_create(request):
             }
             r = requests.get('https://oauth.vk.com/access_token', params=vk_opts_server)
             vk_resp = r.json()
+
             if 'error' in vk_resp.keys():
-                return HttpResponse('There is an error:'+vk_resp['error'])
-            vk_data = {i: vk_resp[i] for i in vk_resp if i in ['access_token', 'email', 'id']}
-            vk_data['vk_id'] = vk_data.pop('id')
-            return HttpResponse(vk_data)
+                error = 'bad_oauth'
+                return render(request, 'players/player_create.html', {'error': error})
+
+            vk_data = {i: vk_resp[i] for i in vk_resp if i in ['access_token', 'email', 'user_id']}
+            vk_data['vk_id'] = str(vk_data.pop('user_id'))
+
+            if Player.objects.filter(id=vk_data['vk_id']):
+                error = 'registered'
+                return render(request, 'players/player_create.html', {'error': error})
+
+            vk_opts_server = {
+                'user_id': vk_data['vk_id'],
+                'access_token': vk_data['access_token'],
+                'v': '5.40',
+                'fields': 'photo_200',
+                'name_case': 'nom',
+            }
+            r = requests.get('https://api.vk.com/method/users.get', params=vk_opts_server)
+            vk_data.update(r.json()['response'][0])
+            vk_data.pop('id')
+            vk_data['name'] = vk_data.pop('first_name')
+            vk_data['surname'] = vk_data.pop('last_name')
+            request.session['vk'] = vk_data
 
     if request.method == 'POST':
         form = PlayerCreationForm(data=request.POST, files=request.FILES)
         if form.is_valid():
+            vk_data = request.session['vk']
+            request.session.flush()
             player = form.save(commit=False)
-            # TODO download link to vk photo
+            player.vk_id = vk_data['vk_id']
+            player.access_token = vk_data['access_token']
+            player.photo = vk_data['photo_200']
             player.save()
-            return HttpResponseRedirect(reverse('players:roster'))  # maybe to index?
+            return HttpResponseRedirect(reverse('players:login'))
     else:
-        form = PlayerCreationForm()  # **vk_data)
-    context = {'form': form}
+        form = PlayerCreationForm(request.session['vk'])
+
+    context = {'form': form, 'error': error}
     return render(request, 'players/player_create.html', context)
 
 
@@ -167,7 +195,7 @@ def login(request, template_name='players/login.html',
         return HttpResponseRedirect(reverse('index'))
 
     redirect_to = request.POST.get(redirect_field_name,
-                                   request.GET.get(redirect_field_name, ''))
+                                   request.GET.get(redirect_field_name, resolve_url('index')))
 
     if request.method == "POST":
         form = authentication_form(request, data=request.POST)

@@ -4,9 +4,17 @@
 {% block title %}{% trans "Registration" %}{% endblock %}
 
 {% block content %}
+    {% if error == 'bad_oauth' %}
+        <h2>{% trans 'Request to vk.com failed.' %}</h2>
+        <a href="{% url 'players:create' %}">{% trans 'Try again.' %}</a>
+    {% elif error == 'registered' %}
+        <h2>{% trans 'You have already registered.' %}</h2>
+        <a href="{% url 'players:login' %}">{% trans 'Please login.' %}</a>
+    {% else %}
     <form enctype="multipart/form-data" action="{% url 'players:create' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value={% trans "Go" %} />
     </form>
+    {% endif %}
 {% endblock %}
