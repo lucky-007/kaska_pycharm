@@ -5,16 +5,110 @@
 
 {% block content %}
     {% if error == 'bad_oauth' %}
-        <h2>{% trans 'Request to vk.com failed.' %}</h2>
-        <a href="{% url 'players:create' %}">{% trans 'Try again.' %}</a>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div style="color: red;">{% trans 'Request to vk.com failed.' %}</div>
+                <a href="{% url 'players:create' %}">{% trans 'Try again.' %}</a>
+            </div>
+        </div>
+
     {% elif error == 'registered' %}
-        <h2>{% trans 'You have already registered.' %}</h2>
-        <a href="{% url 'players:login' %}">{% trans 'Please login.' %}</a>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div style="color: red;">{% trans 'You have already registered.' %}</div>
+                <a href="{% url 'players:login' %}">{% trans 'Please login.' %}</a>
+            </div>
+        </div>
+
     {% else %}
-    <form enctype="multipart/form-data" action="{% url 'players:create' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value={% trans "Go" %} />
-    </form>
+
+        <header>
+            <h2 style="text-align: center; margin-bottom: 40px;">Ты новенький? Добро пожаловать на Каску!</h2>
+        </header>
+
+            <!-- Registration form-->
+            {{ form.errors }}
+
+            <div class="registration">
+                <form enctype="multipart/form-data" action="{% url 'players:create' %}" method="post">
+                    {% csrf_token %}
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <h3>Немного о тебе</h3>
+                                </div>
+                                <div class="col-md-6">{{ form.name }}</div>
+                                <div class="col-md-6">{{ form.surname }}</div>
+                                <div class="col-md-12">{{ form.university }}</div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        {{ form.size.label_tag }}
+                                        {{ form.size }}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        {{ form.stud_photo }}
+                                    </div>
+                                    <span class="help-block">
+                                        {{ form.stud_photo.help_text }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <h3>Пара формальностей</h3>
+                                </div>
+                                <div class="col-md-12">{{ form.email }}</div>
+                                <div class="col-md-12"><input type="tel" placeholder="Телефон"/></div>
+                                <div class="col-md-12">{{ form.password1 }}</div>
+                                <div class="col-md-12">{{ form.password2 }}</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                    <h3>Нам необходимо знать твой опыт игры, чтобы турнир получил интересным</h3>
+                                </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form.experience.label_tag }}
+                                    {{ form.experience }}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form.style.label_tag }}
+                                    {{ form.style }}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form.fav_throw.label_tag }}
+                                    {{ form.fav_throw }}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form.style.label_tag }}
+                                    {{ form.style }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="text-align:center;">
+                                <button type="submit">Присоединиться</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
     {% endif %}
 {% endblock %}
