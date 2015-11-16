@@ -1,6 +1,3 @@
-import requests
-import json
-
 from django.conf import settings
 from django.contrib.auth import (
     REDIRECT_FIELD_NAME, login as auth_login,
@@ -12,7 +9,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
 from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
@@ -20,7 +17,6 @@ from django.utils.http import is_safe_url, urlsafe_base64_decode
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.utils.translation import ugettext_lazy as _
-
 from players.forms import SearchForm, PlayerSelfChangeForm, PlayerCreationForm, AuthenticationForm
 from players.models import Player
 
@@ -114,73 +110,34 @@ def password_change(request):
 def player_create(request):
     if not request.user.is_anonymous():
         return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
-    error = None
 
-    if request.method == 'GET' and 'vk' not in request.session:
-        redirect_uri = request.build_absolute_uri(resolve_url('players:create'))
-        if not request.GET.dict():
-            vk_opts_user = {
-                'client_id': settings.VK_CLIENT_ID,
-                'display': 'popup',
-                'redirect_uri': redirect_uri,
-                'scope': ','.join(settings.VK_SCOPES),
-                'response_type': 'code',
-                'v': '5.40',
-            }
-            return HttpResponseRedirect(requests.get('https://oauth.vk.com/authorize', params=vk_opts_user).url)
-        else:
-            if 'error' in request.GET.keys():
-                return HttpResponseRedirect(reverse('index'))
+    if False:  # fixme valid condition
+        vk_opts = {
+            'client_id': settings.VK_CLIENT_ID,
+            'display': 'popup',
+            'redirect_uri': 'http://kaska.me'+resolve_url('players:create'),  # fixme i.e. request.build_absolute_uri
+            'scope': ','.join(settings.VK_SCOPES),
+            'response_type': 'code',
+            'v': '5.40',
+        }
+        return HttpResponseRedirect('https://oauth.vk.com/authorize?' +
+                                    '&'.join(str(opt[0]) + '=' + str(opt[1]) for opt in vk_opts.items()))
 
-            vk_opts_server = {
-                'client_id': settings.VK_CLIENT_ID,
-                'client_secret': settings.VK_CLIENT_SECRET,
-                'redirect_uri': redirect_uri,
-                'code': request.GET['code'],
-            }
-            r = requests.get('https://oauth.vk.com/access_token', params=vk_opts_server)
-            vk_resp = r.json()
-
-            if 'error' in vk_resp.keys():
-                error = 'bad_oauth'
-                return render(request, 'players/player_create.html', {'error': error})
-
-            vk_data = {i: vk_resp[i] for i in vk_resp if i in ['access_token', 'email', 'user_id']}
-            vk_data['vk_id'] = str(vk_data.pop('user_id'))
-
-            if Player.objects.filter(vk_id=vk_data['vk_id']):
-                error = 'registered'
-                return render(request, 'players/player_create.html', {'error': error})
-
-            vk_opts_server = {
-                'user_id': vk_data['vk_id'],
-                'access_token': vk_data['access_token'],
-                'v': '5.40',
-                'fields': 'photo_200',
-                'name_case': 'nom',
-            }
-            r = requests.get('https://api.vk.com/method/users.get', params=vk_opts_server)
-            vk_data.update(r.json()['response'][0])
-            vk_data.pop('id')
-            vk_data['name'] = vk_data.pop('first_name')
-            vk_data['surname'] = vk_data.pop('last_name')
-            request.session['vk'] = vk_data
+    # if request.method == 'GET':
+    #     if 'error' in request.GET.keys():
+    #         return HttpResponseRedirect(reverse('index'))
+    #     vk_code = request.GET['code']
 
     if request.method == 'POST':
         form = PlayerCreationForm(data=request.POST, files=request.FILES)
         if form.is_valid():
-            vk_data = request.session['vk']
-            request.session.flush()
             player = form.save(commit=False)
-            player.vk_id = vk_data['vk_id']
-            player.access_token = vk_data['access_token']
-            player.photo = vk_data['photo_200']
+            # TODO download link to vk photo
             player.save()
-            return HttpResponseRedirect(reverse('players:login'))
+            return HttpResponseRedirect(reverse('players:roster'))  # maybe to index?
     else:
-        form = PlayerCreationForm(request.session['vk'])
-
-    context = {'form': form, 'error': error}
+        form = PlayerCreationForm()
+    context = {'form': form}
     return render(request, 'players/player_create.html', context)
 
 
@@ -190,12 +147,8 @@ def login(request, template_name='players/login.html',
           redirect_field_name=REDIRECT_FIELD_NAME,
           authentication_form=AuthenticationForm,
           current_app=None, extra_context=None):
-
-    if request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('index'))
-
     redirect_to = request.POST.get(redirect_field_name,
-                                   request.GET.get(redirect_field_name, resolve_url('index')))
+                                   request.GET.get(redirect_field_name, ''))
 
     if request.method == "POST":
         form = authentication_form(request, data=request.POST)
@@ -263,7 +216,7 @@ def password_reset(request):
             opts = {
                 'use_https': request.is_secure(),
                 'token_generator': default_token_generator,
-                'from_email': settings.DEFAULT_FROM_EMAIL,
+                'from_email': settings.KASKA_EMAIL,
                 'email_template_name': 'players/email/email_template.html',
                 'subject_template_name': 'players/email/email_subject.txt',
                 'request': request,
@@ -342,7 +295,3 @@ def password_reset_complete(request):
         return HttpResponseRedirect(reverse('index'))
     context = {}
     return render(request, 'players/password_reset/complete.html', context)
-
-
-def logo(request):
-    return render(request, 'logo.html', {})
