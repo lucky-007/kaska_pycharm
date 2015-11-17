@@ -1,3 +1,9 @@
+import mimetypes
+import os
+import posixpath
+import stat
+from django.utils.six.moves.urllib.parse import unquote
+
 import requests
 import json
 
@@ -12,14 +18,16 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden, Http404, HttpResponseNotModified, \
+    FileResponse
 from django.shortcuts import render, resolve_url
 from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
-from django.utils.http import is_safe_url, urlsafe_base64_decode
+from django.utils.http import is_safe_url, urlsafe_base64_decode, http_date
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.utils.translation import ugettext_lazy as _
+from django.views.static import was_modified_since
 
 from players.forms import SearchForm, PlayerSelfChangeForm, PlayerCreationForm, AuthenticationForm
 from players.models import Player
@@ -84,7 +92,6 @@ def player_change(request):
         change_form = PlayerSelfChangeForm(instance=player, data=request.POST, files=request.FILES)
         if change_form.is_valid():
             player = change_form.save(commit=False)
-            # TODO download link to vk photo
             player.save()
             return HttpResponseRedirect(reverse('players:info', args=[player.id]))
     else:
@@ -346,3 +353,43 @@ def password_reset_complete(request):
 
 def logo(request):
     return render(request, 'logo.html', {})
+
+
+def media(request, path, document_root=None):
+    if request.user.is_anonymous() or not request.user.is_admin:
+        return HttpResponseForbidden('Not for you')
+
+    path = posixpath.normpath(unquote(path))
+    path = path.lstrip('/')
+    newpath = ''
+    for part in path.split('/'):
+        if not part:
+            # Strip empty path components.
+            continue
+        drive, part = os.path.splitdrive(part)
+        head, part = os.path.split(part)
+        if part in (os.curdir, os.pardir):
+            # Strip '.' and '..' in path.
+            continue
+        newpath = os.path.join(newpath, part).replace('\\', '/')
+    if newpath and path != newpath:
+        return HttpResponseRedirect(newpath)
+    fullpath = os.path.join(document_root, newpath)
+    if os.path.isdir(fullpath):
+        raise Http404(_("Directory indexes are not allowed here."))
+    if not os.path.exists(fullpath):
+        raise Http404(_('"%(path)s" does not exist') % {'path': fullpath})
+    # Respect the If-Modified-Since header.
+    statobj = os.stat(fullpath)
+    if not was_modified_since(request.META.get('HTTP_IF_MODIFIED_SINCE'),
+                              statobj.st_mtime, statobj.st_size):
+        return HttpResponseNotModified()
+    content_type, encoding = mimetypes.guess_type(fullpath)
+    content_type = content_type or 'application/octet-stream'
+    response = FileResponse(open(fullpath, 'rb'), content_type=content_type)
+    response["Last-Modified"] = http_date(statobj.st_mtime)
+    if stat.S_ISREG(statobj.st_mode):
+        response["Content-Length"] = statobj.st_size
+    if encoding:
+        response["Content-Encoding"] = encoding
+    return response

@@ -90,6 +90,7 @@ class PlayerManager(BaseUserManager):
 
 class Player(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
+        verbose_name=_('Email'),
         max_length=255,
         unique=True,
         blank=False,
@@ -98,18 +99,22 @@ class Player(AbstractBaseUser, PermissionsMixin):
         }
     )
     surname = models.CharField(
+        verbose_name=_('Last name'),
         max_length=25,
         blank=False,
     )
     name = models.CharField(
+        verbose_name=_('First name'),
         max_length=15,
         blank=False,
     )
     university = models.CharField(
+        verbose_name=pgettext_lazy('Model', 'University'),
         max_length=15,
         blank=False,
     )
     phone = models.CharField(
+        verbose_name=_('Phone'),
         max_length=13,
         blank=False,
         null=True,
