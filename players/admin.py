@@ -10,7 +10,7 @@ class PlayerAdmin(UserAdmin):
     form = PlayerChangeForm
     add_form = PlayerCreationForm
 
-    list_display = ('surname', 'name', 'stud_photo', 'is_student', 'is_paid', 'is_admin', 'pool',)
+    list_display = ('surname', 'name', 'phone', 'stud_photo', 'is_student', 'is_paid', 'is_admin', 'pool',)
     list_display_links = ('surname', 'name')
 
     list_editable = ('is_student', 'is_paid', 'pool',)
@@ -21,7 +21,7 @@ class PlayerAdmin(UserAdmin):
 
     fieldsets = [
         (None, {'fields': ('email', 'password')}),
-        ('Player data', {'fields': ('surname', 'name', 'university', 'stud_photo', 'experience', 'position',
+        ('Player data', {'fields': ('surname', 'name', 'university', 'stud_photo', 'phone', 'experience', 'position',
                                     'fav_throw', 'style', 'size',)
                          }
          ),

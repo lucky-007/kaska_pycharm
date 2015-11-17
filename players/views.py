@@ -178,7 +178,7 @@ def player_create(request):
             player.save()
             return HttpResponseRedirect(reverse('players:login'))
     else:
-        form = PlayerCreationForm(request.session['vk'])
+        form = PlayerCreationForm(initial=request.session['vk'])
 
     context = {'form': form, 'error': error}
     return render(request, 'players/player_create.html', context)

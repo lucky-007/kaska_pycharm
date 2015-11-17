@@ -97,7 +97,7 @@ VK_SCOPES = ['offline', 'email']
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'kaska.me'
+EMAIL_HOST = 'mail.kaska.me'
 EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = SERVER_EMAIL = 'info@kaska.me'
 EMAIL_HOST_PASSWORD = 'dolgogern2015'
 EMAIL_PORT = 25  # 1025

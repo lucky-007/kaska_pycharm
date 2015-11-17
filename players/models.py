@@ -3,6 +3,14 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 
+CHOICES_EXPERIENCE = (
+    ('0-1', _('less than 1 year')),
+    ('1-2', _('1-2 years')),
+    ('2-3', _('2-3 years')),
+    ('3-5', _('3-5 years')),
+    ('>5', _('more than 5 years')),
+)
+
 CHOICES_POSITION = (
     ('han', _('Handler')),
     ('mid', _('Middle')),
@@ -10,12 +18,22 @@ CHOICES_POSITION = (
     ('sid', _('On sideline')),
 )
 
+CHOICES_THROW = (
+    ('for', _('Forehand')),
+    ('bac', _('Backhand')),
+    ('bla', _('Blade')),
+    ('ham', _('Hammer')),
+    ('sco', _('Scoober')),
+    ('ove', _('Overhand')),
+    ('pus', _('Push-pass')),
+)
+
 CHOICES_STYLE = (
-    ('slow', _('SlowPock')),
-    ('regul', _('Regular')),
-    ('cheek', _('Cheeky')),
     ('uncon', _('Uncontrollable')),
+    ('slow', _('SlowPock')),
+    ('cheek', _('Cheeky')),
     ('drunk', _('Drunk')),
+    ('banan', _('Banana-cut')),
 )
 
 CHOICES_SIZE = (
@@ -28,7 +46,7 @@ CHOICES_SIZE = (
 
 
 class PlayerManager(BaseUserManager):
-    def _create_user(self, email, surname, name, university, experience, position, fav_throw, style, size,
+    def _create_user(self, email, surname, name, university, experience, position, fav_throw, style, size, phone,
                      password, is_admin, is_superuser, **extra_fields):
         """
         Creates and saves user by all required params.
@@ -48,6 +66,7 @@ class PlayerManager(BaseUserManager):
             fav_throw=fav_throw.capitalize(),
             style=style,
             size=size,
+            phone=phone,
 
             date_joined=now,
             is_admin=is_admin,
@@ -58,20 +77,19 @@ class PlayerManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, surname, name, university, experience, position, fav_throw, style, size,
+    def create_user(self, email, surname, name, university, experience, position, fav_throw, style, size, phone,
                     password=None, **extra_fields):
         return self._create_user(email, surname, name, university, experience, position, fav_throw, style,
-                                 size, password, False, False, **extra_fields)
+                                 size, phone, password, False, False, **extra_fields)
 
     def create_superuser(self, email, password, surname, name, university, experience, position, fav_throw,
-                         style, size, **extra_fields):
+                         style, size, phone, **extra_fields):
         return self._create_user(email, surname, name, university, experience, position, fav_throw, style,
-                                 size, password, True, True, **extra_fields)
+                                 size, phone, password, True, True, **extra_fields)
 
 
 class Player(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
-        verbose_name=_('Email'),
         max_length=255,
         unique=True,
         blank=False,
@@ -80,46 +98,57 @@ class Player(AbstractBaseUser, PermissionsMixin):
         }
     )
     surname = models.CharField(
-        verbose_name=_('Last name'),
         max_length=25,
         blank=False,
     )
     name = models.CharField(
-        verbose_name=_('First name'),
         max_length=15,
         blank=False,
     )
     university = models.CharField(
-        verbose_name=pgettext_lazy('Model', 'University'),
         max_length=15,
         blank=False,
     )
-    experience = models.PositiveSmallIntegerField(
-        verbose_name=_('Experience'),
+    phone = models.CharField(
+        max_length=13,
         blank=False,
-        default=0,
+        null=True,
+    )
+
+    # Choices
+    experience = models.CharField(
+        verbose_name=_('Experience'),
+        max_length=3,
+        choices=CHOICES_EXPERIENCE,
+        default='0-1',
+        blank=False,
     )
     position = models.CharField(
         verbose_name=_('Favourite position'),
         max_length=3,
         choices=CHOICES_POSITION,
+        default='han',
         blank=False,
     )
     fav_throw = models.CharField(
         verbose_name=_('Favourite throw'),
-        max_length=15,
+        max_length=3,
+        choices=CHOICES_THROW,
+        default='for',
         blank=False,
     )
     style = models.CharField(
         verbose_name=_('Play style'),
         max_length=5,
         choices=CHOICES_STYLE,
+        default='uncon',
         blank=False,
     )
     size = models.CharField(
         verbose_name=_('T-shirt size'),
         max_length=2,
         choices=CHOICES_SIZE,
+        default='xs',
         blank=False,
     )
 
@@ -166,6 +195,7 @@ class Player(AbstractBaseUser, PermissionsMixin):
         'fav_throw',
         'style',
         'size',
+        'phone',
     ]
 
     def get_short_name(self):
