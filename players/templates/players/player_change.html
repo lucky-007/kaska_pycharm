@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block title %}Change Info{% endblock %}
+{% block page_name %}{% url 'players:change' %}{% endblock %}
 
 {% block content %}
     <img class="player_photo" src="{% if player_photo %}{{ player_photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" />

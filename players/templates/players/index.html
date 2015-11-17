@@ -2,6 +2,8 @@
 {% load staticfiles %}
 {% load i18n %}
 
+{% block page_name %}{% url 'index' %}{% endblock %}
+
 {% block login %}
     <div id="login" style="
         min-width: 200px;

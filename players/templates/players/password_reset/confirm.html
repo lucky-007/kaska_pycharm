@@ -1,6 +1,8 @@
 {% extends 'kaska_base.html' %}
 {% load i18n %}
 
+{% block page_name %}{% url 'players:password_reset' %}{% endblock %}
+
 {% block content %}
     <h2>{{ title }}</h2>
     {% if valid_link %}

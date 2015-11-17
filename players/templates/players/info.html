@@ -3,10 +3,9 @@
 {% load i18n %}
 
 {% block title %}Player Info{% endblock %}
+{% block page_name %}{% url 'players:roster' %}{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'kaska.css' %}" />
-
     <div class="info_player">
         <img class="player_photo" src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" />
 
