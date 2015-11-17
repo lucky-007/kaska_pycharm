@@ -46,7 +46,7 @@ CHOICES_SIZE = (
 
 
 class PlayerManager(BaseUserManager):
-    def _create_user(self, email, surname, name, university, experience, position, fav_throw, style, size,
+    def _create_user(self, email, surname, name, university, experience, position, fav_throw, style, size, phone,
                      password, is_admin, is_superuser, **extra_fields):
         """
         Creates and saves user by all required params.
@@ -66,6 +66,7 @@ class PlayerManager(BaseUserManager):
             fav_throw=fav_throw.capitalize(),
             style=style,
             size=size,
+            phone=phone,
 
             date_joined=now,
             is_admin=is_admin,
@@ -76,15 +77,15 @@ class PlayerManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, surname, name, university, experience, position, fav_throw, style, size,
+    def create_user(self, email, surname, name, university, experience, position, fav_throw, style, size, phone,
                     password=None, **extra_fields):
         return self._create_user(email, surname, name, university, experience, position, fav_throw, style,
-                                 size, password, False, False, **extra_fields)
+                                 size, phone, password, False, False, **extra_fields)
 
     def create_superuser(self, email, password, surname, name, university, experience, position, fav_throw,
-                         style, size, **extra_fields):
+                         style, size, phone, **extra_fields):
         return self._create_user(email, surname, name, university, experience, position, fav_throw, style,
-                                 size, password, True, True, **extra_fields)
+                                 size, phone, password, True, True, **extra_fields)
 
 
 class Player(AbstractBaseUser, PermissionsMixin):
@@ -111,6 +112,7 @@ class Player(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(
         max_length=13,
         blank=False,
+        null=True,
     )
 
     # Choices
@@ -193,6 +195,7 @@ class Player(AbstractBaseUser, PermissionsMixin):
         'fav_throw',
         'style',
         'size',
+        'phone',
     ]
 
     def get_short_name(self):

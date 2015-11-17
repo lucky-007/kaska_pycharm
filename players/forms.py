@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.core.validators import RegexValidator
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 
@@ -27,6 +28,11 @@ class PlayerCreationForm(forms.ModelForm):
     """
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': _('Password')}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': _('Password confirmation')}))
+    phone = forms.CharField(validators=[RegexValidator(regex='^[+]{0,1}[0-9]{10,12}$',
+                                                       message=_('Use only "+" and numbers'),
+                                                       code='invalid_phone')
+                                        ],
+                            widget=forms.TextInput(attrs={'placeholder': _('Phone')}))
 
     class Meta:
         model = Player
@@ -37,7 +43,6 @@ class PlayerCreationForm(forms.ModelForm):
             'surname': forms.TextInput(attrs={'placeholder': _('Last name')}),
             'name': forms.TextInput(attrs={'placeholder': _('First name')}),
             'university': forms.TextInput(attrs={'placeholder': pgettext_lazy('Model', 'University')}),
-            'phone': forms.TextInput(attrs={'placeholder': _('Phone')}),
         }
 
     def clean_password2(self):

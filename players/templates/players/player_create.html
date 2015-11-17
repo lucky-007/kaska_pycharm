@@ -2,6 +2,7 @@
 {% load i18n %}
 
 {% block title %}{% trans "Registration" %}{% endblock %}
+{% block page_name %}{% url 'players:create' %}{% endblock %}
 
 {% block content %}
     {% if error == 'bad_oauth' %}
@@ -53,7 +54,12 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-group">
-                                        {{ form.stud_photo }}
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-primary btn-file">
+                                                Обзор...{{ form.stud_photo }}
+                                            </span>
+                                        </span>
+                                        <input type="text" class="form-control" readonly>
                                     </div>
                                     <span class="help-block">
                                         {{ form.stud_photo.help_text }}
@@ -66,7 +72,7 @@
                                     <h3>Пара формальностей</h3>
                                 </div>
                                 <div class="col-md-12">{{ form.email }}</div>
-                                <div class="col-md-12"><input type="tel" placeholder="Телефон"/></div>
+                                <div class="col-md-12">{{ form.phone }}</div>
                                 <div class="col-md-12">{{ form.password1 }}</div>
                                 <div class="col-md-12">{{ form.password2 }}</div>
                             </div>
@@ -84,8 +90,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    {{ form.style.label_tag }}
-                                    {{ form.style }}
+                                    {{ form.position.label_tag }}
+                                    {{ form.position }}
                                 </div>
                             </div>
                             <div class="col-md-12">
