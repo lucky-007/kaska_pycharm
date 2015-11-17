@@ -3,6 +3,14 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 
+CHOICES_EXPERIENCE = (
+    ('0-1', _('less than 1 year')),
+    ('1-2', _('1-2 years')),
+    ('2-3', _('2-3 years')),
+    ('3-5', _('3-5 years')),
+    ('>5', _('more than 5 years')),
+)
+
 CHOICES_POSITION = (
     ('han', _('Handler')),
     ('mid', _('Middle')),
@@ -10,12 +18,22 @@ CHOICES_POSITION = (
     ('sid', _('On sideline')),
 )
 
+CHOICES_THROW = (
+    ('for', _('Forehand')),
+    ('bac', _('Backhand')),
+    ('bla', _('Blade')),
+    ('ham', _('Hammer')),
+    ('sco', _('Scoober')),
+    ('ove', _('Overhand')),
+    ('pus', _('Push-pass')),
+)
+
 CHOICES_STYLE = (
-    ('slow', _('SlowPock')),
-    ('regul', _('Regular')),
-    ('cheek', _('Cheeky')),
     ('uncon', _('Uncontrollable')),
+    ('slow', _('SlowPock')),
+    ('cheek', _('Cheeky')),
     ('drunk', _('Drunk')),
+    ('banan', _('Banana-cut')),
 )
 
 CHOICES_SIZE = (
@@ -71,7 +89,6 @@ class PlayerManager(BaseUserManager):
 
 class Player(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
-        verbose_name=_('Email'),
         max_length=255,
         unique=True,
         blank=False,
@@ -80,46 +97,56 @@ class Player(AbstractBaseUser, PermissionsMixin):
         }
     )
     surname = models.CharField(
-        verbose_name=_('Last name'),
         max_length=25,
         blank=False,
     )
     name = models.CharField(
-        verbose_name=_('First name'),
         max_length=15,
         blank=False,
     )
     university = models.CharField(
-        verbose_name=pgettext_lazy('Model', 'University'),
         max_length=15,
         blank=False,
     )
-    experience = models.PositiveSmallIntegerField(
-        verbose_name=_('Experience'),
+    phone = models.CharField(
+        max_length=13,
         blank=False,
-        default=0,
+    )
+
+    # Choices
+    experience = models.CharField(
+        verbose_name=_('Experience'),
+        max_length=3,
+        choices=CHOICES_EXPERIENCE,
+        default='0-1',
+        blank=False,
     )
     position = models.CharField(
         verbose_name=_('Favourite position'),
         max_length=3,
         choices=CHOICES_POSITION,
+        default='han',
         blank=False,
     )
     fav_throw = models.CharField(
         verbose_name=_('Favourite throw'),
-        max_length=15,
+        max_length=3,
+        choices=CHOICES_THROW,
+        default='for',
         blank=False,
     )
     style = models.CharField(
         verbose_name=_('Play style'),
         max_length=5,
         choices=CHOICES_STYLE,
+        default='uncon',
         blank=False,
     )
     size = models.CharField(
         verbose_name=_('T-shirt size'),
         max_length=2,
         choices=CHOICES_SIZE,
+        default='xs',
         blank=False,
     )
 

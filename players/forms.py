@@ -25,13 +25,20 @@ class PlayerCreationForm(forms.ModelForm):
     """
     A form for creating new users with doubled password
     """
-    password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput)
-    password2 = forms.CharField(label=_('Password confirmation'), widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': _('Password')}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': _('Password confirmation')}))
 
     class Meta:
         model = Player
         fields = ('email', 'password1', 'password2', 'surname', 'name', 'university', 'stud_photo', 'experience',
-                  'position', 'fav_throw', 'style', 'size',)
+                  'position', 'fav_throw', 'style', 'size', 'phone',)
+        widgets = {
+            'email': forms.TextInput(attrs={'placeholder': _('Email')}),
+            'surname': forms.TextInput(attrs={'placeholder': _('Last name')}),
+            'name': forms.TextInput(attrs={'placeholder': _('First name')}),
+            'university': forms.TextInput(attrs={'placeholder': pgettext_lazy('Model', 'University')}),
+            'phone': forms.TextInput(attrs={'placeholder': _('Phone')}),
+        }
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
