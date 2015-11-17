@@ -5,7 +5,7 @@
       <paths name="kaska.me">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/kaska.me/kaska_pycharm" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
