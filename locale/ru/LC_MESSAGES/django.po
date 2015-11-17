@@ -209,7 +209,7 @@ msgstr "Студенческий билет (фото)"
 #: .\players\models.py:157
 msgid "You can load the photo of the student ID later. For admins only"
 msgstr ""
-"Приложите читаемое фото студенческого билета или другого документа,"
+"Приложите читаемое фото студенческого билета или другого документа, "
 "подтверждающего ваш статус учащегося. Фото будет доступно только админам."
 
 #: .\players\templates\players\change_password.html:10
