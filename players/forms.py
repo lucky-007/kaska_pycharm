@@ -18,7 +18,8 @@ CHOICES_FILTER = (
 
 
 class SearchForm(forms.Form):
-    s = forms.CharField(label='', max_length=50, required=False)
+    s = forms.CharField(label='', max_length=50, required=False,
+                        widget=forms.TextInput(attrs={'placeholder': _('Search')}))
     o = forms.ChoiceField(label=_('Sorted by:'), choices=CHOICES_FILTER, initial='sur')
 
 

@@ -1,20 +1,56 @@
 @import url("font-awesome.min.css");
 @import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900,300italic");
 
+/* colors */
+/* green logo #79DC23
+*/
+	
 	@font-face {
-		font-family: Resphekt; 
-		src: url('../fonts/Resphekt.ttf'); 
+		font-family: Resphekt;
+		src: url('../fonts/Resphekt.ttf');
 	}
 
 	@font-face {
-		font-family: Bitter; 
-		src: url('../fonts/downloaded/bitter/Bitter-Regular.otf'); 
+		font-family: Bitter;
+		src: url('../fonts/downloaded/bitter/Bitter-Regular.otf');
 	}
 
 	@font-face {
-		font-family: Bitter; 
-		src: url('../fonts/downloaded/bitter/Bitter-Bold.otf'); 
+		font-family: Bitter;
+		src: url('../fonts/downloaded/bitter/Bitter-Bold.otf');
 		font-weight: bold;
+	}
+	
+	div#partners {
+		display: flex;
+		vertical-align: middle;
+	}
+	
+	div#partners div{
+		margin-right: 20px;
+	} 
+	
+	div#partners img {
+		width: 200px;
+		height: auto;
+	}
+	#anons {
+		background-color: #79DC23;
+		margin-bottom: 50px;
+		border-bottom: #79DC23;
+	}
+	
+	article#anons h1, article#anons div {
+		text-align: center;
+	}
+	
+	article#anons h1 {
+		font-size: 3em;
+		margin-bottom: 60px;
+	}
+	
+	#search_form input, #search_form input {
+		width: 100%;
 	}
 /*
 	Dopetrope by HTML5 UP
@@ -155,6 +191,9 @@
 
 	@media screen and (max-width: 736px) {
 
+		article#anons h1 {
+			font-size: 1.5em;
+		}
 		.containerold.\31 25\25 {
 			width: 100%;
 			max-width: 125%;
@@ -442,7 +481,7 @@
 		.rowold > * {
 			padding: 50px 0 0 50px;
 		}
-		
+
 		form .rowold > * {
 			padding: 20px 0 20px 24px;
 		}
@@ -1214,36 +1253,56 @@
 	#fav_throw, #fav_position, #exp_years, #tshirt {
 		width: auto;
 	}
+	
+	#stud_btn {
+		background-color: #607D8B;
+		border-color: #607D8B;
+	}
+	.registration select {
+		border-radius: 0px;
+		border: solid 1px gainsboro;
+		-webkit-transition: box-shadow 0.3s, border 0.3s;
+		-moz-transition: box-shadow 0.3s, border 0.3s;
+		-o-transition: box-shadow 0.3s, border 0.3s;
+		transition: box-shadow 0.3s, border 0.3s;
+	}
+	.registration select:focus {
+		border-color: #8BC34A;
+		border: solid 1px #707070;
+		-webkit-box-shadow: 0 0 5px 1px #607D8B;
+		-moz-box-shadow: 0 0 5px 1px #607D8B;
+		box-shadow: 0 0 5px 1px #607D8B;
+	}
 
 	.btn-file {
-	  position: relative;
-	  overflow: hidden;
-	  border-radius: 0;
+		position: relative;
+		overflow: hidden;
+		border-radius: 0;
 	}
 	.btn-file input[type=file] {
-	  border-radius: 0;
-	  position: absolute;
-	  top: 0;
-	  right: 0;
-	  min-width: 100%;
-	  min-height: 100%;
-	  font-size: 100px;
-	  text-align: right;
-	  filter: alpha(opacity=0);
-	  opacity: 0;
-	  background: red;
-	  cursor: inherit;
-	  display: block;
+		border-radius: 0;
+		position: absolute;
+		top: 0;
+		right: 0;
+		min-width: 100%;
+		min-height: 100%;
+		font-size: 100px;
+		text-align: right;
+		filter: alpha(opacity=0);
+		opacity: 0;
+		background: red;
+		cursor: inherit;
+		display: block;
 	}
-	
+
 	form div {
 		margin-bottom: 10px;
 	}
-	
+
 	form  h3 {
 		margin-bottom: 30px;
 	}
-	
+
 	form select {
 		width: auto;
 	}
@@ -1252,6 +1311,7 @@
 	form  input[type="email"],
 	form  input[type="password"],
 	form  input[type="tel"],
+	form  input[type="search"],
 	form  select,
 	form  textarea {
 		margin-bottom: 10px;
@@ -1263,29 +1323,38 @@
 		-o-transition: box-shadow 0.3s, border 0.3s;
 		transition: box-shadow 0.3s, border 0.3s;
 }
-	
-	form   input[type="text"]:focus, 
+
+	form   input[type="text"]:focus,
 	form  input[type="email"]:focus,
 	form  input[type="password"]:focus,
 	form  input[type="tel"]:focus,
+    form input[type=search]:focus,
 	form  select:focus,
 	form  textarea:focus{
 	   border: solid 1px #707070;
-	   -webkit-box-shadow: 0 0 5px 1px #969696;
-	   -moz-box-shadow: 0 0 5px 1px #969696;
-	   box-shadow: 0 0 5px 1px #969696;
+	   -webkit-box-shadow: 0 0 5px 1px #607D8B;
+	   -moz-box-shadow: 0 0 5px 1px #607D8B;
+	   box-shadow: 0 0 5px 1px #607D8B;
 	   outline: none;
 	}
 	
-	.columnsContainer {
-		position: relative; 
-		margin: .5em; 
+	.error-input {
+		border: solid 1px #707070;
+	   -webkit-box-shadow: 0 0 5px 1px red;
+	   -moz-box-shadow: 0 0 5px 1px red;
+	   box-shadow: 0 0 5px 1px red;
+	   outline: none;
 	}
-	
-	.leftColumn, .rightColumn, .centralColumn { 
-		/* border: 1px solid  #ccc; */
-		padding: 1.25em; 
+
+	#start_reg {
+		border-radius: 0px;
+		border-color: rgb(121,220,35);
+		box-shadow: 0px 0px 20px rgba(121,220,35,0.3),
+				   0px 0px 40px rgba(121,220,35,0.5),
+				   0px 0px 60px rgba(121,220,35,0.2);
 	}
+
+
 	
 	@media screen and (min-width: 47.5em ) {
 		.leftColumn { margin-right: 19.5em; }
@@ -1327,6 +1396,46 @@
 	form ::-moz-focus-inner {
 		border: 0;
 	}
+
+/* Players */
+/* edited by filletofish */
+    @media screen and (max-width: 992px) {
+        #SearchBtn {
+            width: 100%;
+        }
+
+    }
+
+    .std_status_OK {
+        color: #79DC23;
+    }
+    .pay_status_OK {
+        color: #79DC23;
+    }
+    .std_status_BAD {
+        color: tomato;
+    }
+
+    .pay_status_BAD {
+        color: tomato;
+    }
+
+    /* old list */
+    .StripedList ul li:nth-child(odd) {
+        background-color: #cccccc;
+    }
+    .StripedList ul li:nth-child(even) {
+        background-color:white;
+    }
+    .StripedList ul li .row {
+        text-align: center;
+        height: 94px;
+    }
+	.StripedList ul li h6{
+		margin-top: 25px;
+	}
+
+
 
 /* Tables */
 
@@ -1432,7 +1541,7 @@
 		input[type="reset"]:hover,
 		button:hover,
 		.button:hover {
-			background: #8BC34A;
+			background: #265F17;
 		}
 
 		input[type="button"]:active,
@@ -1880,12 +1989,12 @@
 /* Basic color scheme */
 
 	#header h1 {
-		font-family: Resphekt;
+		font-family: Resphekt, Bitter, serif;
 		color: #79DC23;
 		text-shadow: 0px 4px 3px rgba(0,0,0,0.8),
 							 0px 8px 13px rgba(0,0,0,0.6),
 							 0px 18px 23px rgba(0,0,0,0.1);
-							 
+
 	}
 /* Desktop */
 
@@ -2016,7 +2125,7 @@
 			}
 
 			#footer-wrapper {
-				padding: 4em 0 4em 0;
+				padding: 2em 0 2em 0;
 			}
 
 				#footer-wrapper header {
@@ -2074,11 +2183,9 @@
 					}
 
 					#nav > ul > li:hover > a, #nav > ul > li.active > a {
-						background: #8BC34A;
-						color: rgba(69,69,69,1);
-						text-shadow: 0px 0px 0px rgba(0,0,0,0.6),
-									0px 0px 0px rgba(0,0,0,0.2),
-									0px 0px 0px rgba(0,0,0,0.1);
+						background: #79DC23;
+						color: white;
+						
 					}
 
 					#nav > ul > li.current > a {
@@ -2638,7 +2745,7 @@
 					font-weight: 900;
 					font-size: 55px;
 					letter-spacing: 2px;
-					
+
 				}
 
 		/* Nav */
@@ -2748,90 +2855,4 @@ ul#field.input-list li {
     float: none;
     margin-bottom: 10px;
   }
-}
-/* ============================================================
-  STYLE 1
-============================================================ */
-.style-1 input[type="text"] {
-  padding: 10px;
-  border: solid 1px gainsboro;
-  -webkit-transition: box-shadow 0.3s, border 0.3s;
-  -moz-transition: box-shadow 0.3s, border 0.3s;
-  -o-transition: box-shadow 0.3s, border 0.3s;
-  transition: box-shadow 0.3s, border 0.3s;
-}
-.style-1 input[type="text"]:focus, .style-1 input[type="text"].focus {
-  border: solid 1px #707070;
-  -webkit-box-shadow: 0 0 5px 1px #969696;
-  -moz-box-shadow: 0 0 5px 1px #969696;
-  box-shadow: 0 0 5px 1px #969696;
-}
-
-/* ============================================================
-  STYLE 2
-============================================================ */
-.style-2 input[type="text"] {
-  padding: 10px;
-  border: solid 5px #c9c9c9;
-  -webkit-transition: border 0.3s;
-  -moz-transition: border 0.3s;
-  -o-transition: border 0.3s;
-  transition: border 0.3s;
-}
-.style-2 input[type="text"]:focus, .style-2 input[type="text"].focus {
-  border: solid 5px #969696;
-}
-
-/* ============================================================
-  STYLE 3
-============================================================ */
-.style-3 input[type="text"] {
-  padding: 10px;
-  border: solid 5px #c9c9c9;
-  -webkit-box-shadow: inset 0 0 0 1px #707070;
-  -moz-box-shadow: inset 0 0 0 1px #707070;
-  box-shadow: inset 0 0 0 1px #707070;
-  -webkit-transition: box-shadow 0.3s, border 0.3s;
-  -moz-transition: box-shadow 0.3s, border 0.3s;
-  -o-transition: box-shadow 0.3s, border 0.3s;
-  transition: box-shadow 0.3s, border 0.3s;
-}
-.style-3 input[type="text"]:focus, .style-3 input[type="text"].focus {
-  border: solid 5px #969696;
-}
-
-/* ============================================================
-  STYLE 4
-============================================================ */
-.style-4 input[type="text"] {
-  padding: 10px;
-  border: none;
-  border-bottom: solid 2px #c9c9c9;
-  -webkit-transition: border 0.3s;
-  -moz-transition: border 0.3s;
-  -o-transition: border 0.3s;
-  transition: border 0.3s;
-}
-.style-4 input[type="text"]:focus, .style-4 input[type="text"].focus {
-  border-bottom: solid 2px #969696;
-}
-
-/* ============================================================
-  STYLE 5
-============================================================ */
-.style-5 input[type="text"] {
-  padding: 10px;
-  border: solid 1px #fff;
-  -webkit-box-shadow: inset 1px 1px 2px 0 #707070;
-  -moz-box-shadow: inset 1px 1px 2px 0 #707070;
-  box-shadow: inset 1px 1px 2px 0 #707070;
-  -webkit-transition: box-shadow 0.3s;
-  -moz-transition: box-shadow 0.3s;
-  -o-transition: box-shadow 0.3s;
-  transition: box-shadow 0.3s;
-}
-.style-5 input[type="text"]:focus, .style-5 input[type="text"].focus {
-  -webkit-box-shadow: inset 1px 1px 2px 0 #c9c9c9;
-  -moz-box-shadow: inset 1px 1px 2px 0 #c9c9c9;
-  box-shadow: inset 1px 1px 2px 0 #c9c9c9;
 }

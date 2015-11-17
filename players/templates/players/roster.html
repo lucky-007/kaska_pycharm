@@ -5,35 +5,66 @@
 {% block page_name %}{% url 'players:roster' %}{% endblock %}
 
 {% block content %}
-    <div class="players">
-        <form action="{% url 'players:roster' %}" method="get">
-            {{ search_form }}
-            <input type="submit" value={% trans "Go" %} />
-        </form>
 
-        {% if not players_list %}
-            <div class="no_players">{% trans 'There is no players for your request' %}</div>
-        {% endif %}
+    <header>
+        <h2 style="text-align: center;">Игроки</h2>
+    </header>
 
-        {% for player in players_list %}
-            <div class="player{% if user_id == player.id %} highlighted{% endif %}" id="{{ player.id }}">
-                <a href="{% url 'players:info' player.id %}">
-                    <img src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" />
-
-                    {{ player.get_full_name }}
-                </a>
-                <p class="university">{{ player.university }}</p>
-
-                {% if player.is_student %}<div class="student">1</div>
-                {% else %}<div class="non-student">0</div>
-                {% endif %}
-
-                {% if player.is_paid %}<div class="paid">1</div>
-                {% else %}<div class="non-paid">0</div>
-                {% endif %}
-
+    <form action="{% url 'players:roster' %}" method="get" id="search_form">
+        <div class="row">
+            <div class="col-md-5">
+                {{ search_form.s }}
             </div>
-        {% endfor %}
+            <div class="col-md-2">
+                {{ search_form.o.label_tag }}
+            </div>
+            <div class="col-md-3">
+                {{ search_form.o }}
+            </div>
+            <div class="col-md-2">
+                <button type="submit" id="SearchBtn">Поиск</button>
+            </div>
 
+        </div>
+    </form>
+
+    <div class="PlayersTable">
+    <div class="table-responsive">
+        {% if not players_list %}
+            {% trans 'There is no players for your request' %}
+        {% else %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Фото</th>
+                <th>ФИО</th>
+                <th>ВУЗ</th>
+                <th>Оплата</th>
+                <th>Подтвержден</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for player in players_list %}
+                <tr>
+                    <td style="vertical-align: middle"><img src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" height="80"></td>
+                    <td style="vertical-align: middle"><a href="{% url 'players:info' player.id %}">{{ player.get_full_name }}</a></td>
+                    <td style="vertical-align: middle">{{ player.university }}</td>
+                    {% if player.is_paid %}
+                    <td class="pay_status_OK" style="vertical-align: middle">{% trans 'Paid' %}</td>
+                    {% else %}
+                    <td class="pay_status_BAD" style="vertical-align: middle">{% trans 'Non-paid' %}</td>
+                    {% endif %}
+                    {% if player.is_student %}
+                    <td class="std_status_OK" style="vertical-align: middle">{% trans 'Student' %}</td>
+                    {% else %}
+                    <td class="std_status_BAD" style="vertical-align: middle">{% trans 'Non-student' %}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
     </div>
+    </div>
+
 {% endblock %}
