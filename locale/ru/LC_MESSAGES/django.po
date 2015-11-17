@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-14 20:32+0300\n"
+"POT-Creation-Date: 2015-11-17 14:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,157 +19,206 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: .\players\forms.py:11
+#: .\players\forms.py:12
 msgid "Surname"
 msgstr "Фамилии"
 
-#: .\players\forms.py:12
+#: .\players\forms.py:13
 msgctxt "Search by"
 msgid "University"
 msgstr "Университету"
 
-#: .\players\forms.py:13
+#: .\players\forms.py:14
 msgid "Have already paid"
 msgstr "Тем, кто оплатил"
 
-#: .\players\forms.py:14
+#: .\players\forms.py:15
 msgid "Have valid student ID"
 msgstr "Наличию студенческого"
 
-#: .\players\forms.py:15
+#: .\players\forms.py:16
 msgid "Registered as players"
 msgstr "По полностью зарегистрированным игрокам"
 
-#: .\players\forms.py:21
+#: .\players\forms.py:22
 msgid "Sorted by:"
 msgstr "Сортировать по:"
 
-#: .\players\forms.py:28 .\players\forms.py:92
+#: .\players\forms.py:29 .\players\forms.py:103
 msgid "Password"
 msgstr "Пароль"
 
-#: .\players\forms.py:29
+#: .\players\forms.py:30
 msgid "Password confirmation"
 msgstr "Подтверждение пароля"
 
-#: .\players\forms.py:40
+#: .\players\forms.py:32
+msgid "Use only \"+\" and numbers"
+msgstr "Используйте только \"+\" и цифры"
+
+#: .\players\forms.py:35
+msgid "Phone"
+msgstr "Телефон"
+
+#: .\players\forms.py:42
+msgid "Email"
+msgstr "Email"
+
+#: .\players\forms.py:43
+msgid "Last name"
+msgstr "Фамилия"
+
+#: .\players\forms.py:44
+msgid "First name"
+msgstr "Имя"
+
+#: .\players\forms.py:45
+msgctxt "Model"
+msgid "University"
+msgstr "ВУЗ/колледж/школа"
+
+#: .\players\forms.py:52
 msgid "Passwords don't match"
 msgstr "Пароли не совпадают"
 
-#: .\players\forms.py:95
+#: .\players\forms.py:106
 #, python-format
 msgid "Incorrect combination of %(username)s and password"
 msgstr "Неправильная комбинация %(username)s и пароля"
 
-#: .\players\forms.py:96
+#: .\players\forms.py:107
 msgid "This account is inactive"
 msgstr "Этот аккаунт неактивен"
 
 #: .\players\models.py:7
-msgid "Handler"
-msgstr "Хэндлер"
+msgid "less than 1 year"
+msgstr "Меньше года"
 
 #: .\players\models.py:8
-msgid "Middle"
-msgstr "Миддл"
+msgid "1-2 years"
+msgstr "1-2 года"
 
 #: .\players\models.py:9
-msgid "Long"
-msgstr "Лонг"
+msgid "2-3 years"
+msgstr "2-3 года"
 
 #: .\players\models.py:10
-msgid "On sideline"
-msgstr "На бровке"
+msgid "3-5 years"
+msgstr "3-5 лет"
 
-#: .\players\models.py:14
+#: .\players\models.py:11
+msgid "more than 5 years"
+msgstr "Более 5 лет"
+
+#: .\players\models.py:15
+msgid "Handler"
+msgstr "Быть хэндлером"
+
+#: .\players\models.py:16
+msgid "Middle"
+msgstr "Быть миддлом"
+
+#: .\players\models.py:17
+msgid "Long"
+msgstr "Быть лонгом"
+
+#: .\players\models.py:18
+msgid "On sideline"
+msgstr "Стоять на бровке"
+
+#: .\players\models.py:22
+msgid "Forehand"
+msgstr "Форхенд"
+
+#: .\players\models.py:23
+msgid "Backhand"
+msgstr "Бэкхенд"
+
+#: .\players\models.py:24
+msgid "Blade"
+msgstr "Блейд"
+
+#: .\players\models.py:25
+msgid "Hammer"
+msgstr "Хаммер"
+
+#: .\players\models.py:26
+msgid "Scoober"
+msgstr "Скубер"
+
+#: .\players\models.py:27
+msgid "Overhand"
+msgstr "Оверхенд"
+
+#: .\players\models.py:28
+msgid "Push-pass"
+msgstr "Пуш-пасс"
+
+#: .\players\models.py:32
+msgid "Uncontrollable"
+msgstr "Неудержимый"
+
+#: .\players\models.py:33
 msgid "SlowPock"
 msgstr "Слоу-пок"
 
-#: .\players\models.py:15
-msgid "Regular"
-msgstr "Нормальный"
-
-#: .\players\models.py:16
+#: .\players\models.py:34
 msgid "Cheeky"
 msgstr "Дерзкий"
 
-#: .\players\models.py:17
-msgid "Uncontrollable"
-msgstr "Неконтроллируемый"
-
-#: .\players\models.py:18
+#: .\players\models.py:35
 msgid "Drunk"
 msgstr "Пьяный"
 
-#: .\players\models.py:37
+#: .\players\models.py:36
+msgid "Banana-cut"
+msgstr "Банана-кат"
+
+#: .\players\models.py:55
 msgid "Email address is required"
 msgstr "Email обязателен"
 
-#: .\players\models.py:75
-msgid "Email"
-msgstr "Email"
-
-#: .\players\models.py:80
+#: .\players\models.py:97
 msgid "We've have already this email"
 msgstr "Этот email уже зарегистрирован"
 
-#: .\players\models.py:84
-msgid "Last name"
-msgstr "Фамилия"
-
-#: .\players\models.py:89
-msgid "First name"
-msgstr "Имя"
-
-#: .\players\models.py:94
-msgctxt "Model"
-msgid "University"
-msgstr "Университет"
-
-#: .\players\models.py:99
+#: .\players\models.py:120
 msgid "Experience"
-msgstr "Опыт игры"
+msgstr "Я играю в алтимат вот уже"
 
-#: .\players\models.py:104
-msgid "Link to vk profile"
-msgstr "Ссылка на vk-профиль"
-
-#: .\players\models.py:109
-msgid "We've have already this"
-msgstr "Этот vk-профиль уже зарегистрирован"
-
-#: .\players\models.py:113
+#: .\players\models.py:127
 msgid "Favourite position"
-msgstr "Любимая позиция"
+msgstr "Во время игры на поле я предпочитаю"
 
-#: .\players\models.py:119
+#: .\players\models.py:134
 msgid "Favourite throw"
-msgstr "Любимый бросок"
+msgstr "Мой любимый бросок определенно"
 
-#: .\players\models.py:124
+#: .\players\models.py:141
 msgid "Play style"
-msgstr "Стиль игры"
+msgstr "Мой стиль игры можно описать одним словом"
 
-#: .\players\models.py:130
+#: .\players\models.py:148
 msgid "T-shirt size"
 msgstr "Размер футболки"
 
-#: .\players\models.py:137
+#: .\players\models.py:156
 msgid "Student ID (photo)"
 msgstr "Студенческий билет (фото)"
 
-#: .\players\models.py:138
+#: .\players\models.py:157
 msgid "You can load the photo of the student ID later. For admins only"
-msgstr "Можете загрузить фото позже. Оно будет доступно только админам"
+msgstr ""
+"Приложите читаемое фото студенческого билета или другого документа,"
+"подтверждающего ваш статус учащегося. Фото будет доступно только админам."
 
-#: .\players\templates\players\change_password.html:8
-#: .\players\templates\players\index.html:28
-#: .\players\templates\players\login.html:11
-#: .\players\templates\players\password_reset\confirm.html:10
-#: .\players\templates\players\password_reset\password_reset.html:10
-#: .\players\templates\players\player_change.html:14
-#: .\players\templates\players\player_create.html:10
-#: .\players\templates\players\roster.html:9
+#: .\players\templates\players\change_password.html:10
+#: .\players\templates\players\index.html:30
+#: .\players\templates\players\login.html:12
+#: .\players\templates\players\password_reset\confirm.html:12
+#: .\players\templates\players\password_reset\password_reset.html:12
+#: .\players\templates\players\player_change.html:15
+#: .\players\templates\players\roster.html:11
 msgid "Go"
 msgstr "Вперед"
 
@@ -189,25 +238,25 @@ msgstr ""
 "Если вы не знаете, что такое алтимат, и считаете каску только головным "
 "убором, то проигнорируйте это сообщение."
 
-#: .\players\templates\players\index.html:30
-#: .\players\templates\players\login.html:13
+#: .\players\templates\players\index.html:32
+#: .\players\templates\players\login.html:14
 msgid "Register"
 msgstr "Регистрация"
 
-#: .\players\templates\players\index.html:31
-#: .\players\templates\players\login.html:14
+#: .\players\templates\players\index.html:33
+#: .\players\templates\players\login.html:15
 msgid "Forgot password?"
 msgstr "Забыли пароль?"
 
-#: .\players\templates\players\index.html:36
+#: .\players\templates\players\index.html:38
 msgid "Logout"
 msgstr "Выйти"
 
-#: .\players\templates\players\info.html:15
+#: .\players\templates\players\info.html:14
 msgid "Change profile"
 msgstr "Изменить профиль"
 
-#: .\players\templates\players\password_reset\check_email.html:5
+#: .\players\templates\players\password_reset\check_email.html:7
 msgid ""
 "\n"
 "        <h2>The letter was sent for you.</h2>\n"
@@ -219,20 +268,20 @@ msgstr ""
 "        Проверьте свою почту.\n"
 "    "
 
-#: .\players\templates\players\password_reset\check_email.html:9
-#: .\players\templates\players\password_reset\confirm.html:13
+#: .\players\templates\players\password_reset\check_email.html:11
+#: .\players\templates\players\password_reset\confirm.html:15
 msgid "Return to main"
 msgstr "Вернуться на главную"
 
-#: .\players\templates\players\password_reset\complete.html:5
+#: .\players\templates\players\password_reset\complete.html:7
 msgid "Password reset completed successfully"
 msgstr "Восстановление пароля успешно завершено"
 
-#: .\players\templates\players\password_reset\complete.html:6
+#: .\players\templates\players\password_reset\complete.html:8
 msgid "Sign in"
 msgstr "Войти"
 
-#: .\players\templates\players\password_reset\no_email.html:5
+#: .\players\templates\players\password_reset\no_email.html:7
 msgid ""
 "\n"
 "        <h2>There is no player registered with this email.</h2>\n"
@@ -242,15 +291,15 @@ msgstr ""
 "        <h2>Игрок с таким email не зарегистрирован.</h2>\n"
 "    "
 
-#: .\players\templates\players\password_reset\no_email.html:8
+#: .\players\templates\players\password_reset\no_email.html:10
 msgid "Registration form"
 msgstr "Форма регистрации"
 
-#: .\players\templates\players\player_change.html:13
+#: .\players\templates\players\player_change.html:14
 msgid "To change password"
 msgstr "Для изменения пароля"
 
-#: .\players\templates\players\player_change.html:13
+#: .\players\templates\players\player_change.html:14
 msgid "use this form"
 msgstr "используйте эту форму"
 
@@ -258,7 +307,23 @@ msgstr "используйте эту форму"
 msgid "Registration"
 msgstr "Регистрация"
 
-#: .\players\templates\players\roster.html:13
+#: .\players\templates\players\player_create.html:12
+msgid "Request to vk.com failed."
+msgstr "Ошибка при запросе к vk.com."
+
+#: .\players\templates\players\player_create.html:13
+msgid "Try again."
+msgstr "Попробуйте снова."
+
+#: .\players\templates\players\player_create.html:21
+msgid "You have already registered."
+msgstr "Вы уже зарегистрированы."
+
+#: .\players\templates\players\player_create.html:22
+msgid "Please login."
+msgstr "Войдите."
+
+#: .\players\templates\players\roster.html:15
 msgid "There is no players for your request"
 msgstr "Игроков по вашему запросу не найдено"
 
@@ -270,34 +335,31 @@ msgstr "Введите новый пароль"
 msgid "Password reset failed"
 msgstr "Сброс пароля не удался"
 
-#: .\templates\kaska_base.html:6 .\templates\kaska_base.html.py:58
+#: .\templates\kaska_base.html:6 .\templates\kaska_base.html.py:63
+#: .\templates\logo.html:6
 msgid "Kaska"
 msgstr "Каска"
 
-#: .\templates\kaska_base.html:30
+#: .\templates\kaska_base.html:32
 msgid "Main"
 msgstr "Главная"
 
-#: .\templates\kaska_base.html:31
-msgid "Tournament schedule"
-msgstr "Турнирная сетка"
+#: .\templates\kaska_base.html:33
+msgid "Gallery"
+msgstr "Галерея"
 
-#: .\templates\kaska_base.html:32
+#: .\templates\kaska_base.html:34
 msgid "Players"
 msgstr "Игроки"
 
-#: .\templates\kaska_base.html:33
+#: .\templates\kaska_base.html:35
 msgid "Teams"
 msgstr "Команды"
 
-#: .\templates\kaska_base.html:34
+#: .\templates\kaska_base.html:36
+msgid "Tournament schedule"
+msgstr "Турнирная сетка"
+
+#: .\templates\kaska_base.html:37
 msgid "Information"
 msgstr "Информация"
-
-#: .\templates\kaska_base.html:35
-msgid "Media"
-msgstr "Медиа"
-
-#: .\templates\kaska_base.html:58
-msgid "Our best site!"
-msgstr "Наш крутой сайт!"
