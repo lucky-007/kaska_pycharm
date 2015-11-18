@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-18 00:08+0300\n"
+"POT-Creation-Date: 2015-11-18 21:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -346,13 +346,43 @@ msgstr "Студент"
 msgid "Non-student"
 msgstr "Не студент"
 
-#: .\players\views.py:274
+#: .\players\views.py:282
 msgid "Enter new password"
 msgstr "Введите новый пароль"
 
-#: .\players\views.py:284
+#: .\players\views.py:292
 msgid "Password reset failed"
 msgstr "Сброс пароля не удался"
+
+#: .\players\views.py:337
+msgid "Directory indexes are not allowed here."
+msgstr "Индексация папок запрещена."
+
+#: .\players\views.py:339
+#, python-format
+msgid "\"%(path)s\" does not exist"
+msgstr "\"%(path)s\" не существует"
+
+#: .\templates\400.html:10
+msgid "HTTP 400. Bad request."
+msgstr "HTTP 400. Ошибочный запрос."
+
+#: .\templates\400.html:11 .\templates\403.html:11 .\templates\404.html:11
+#: .\templates\500.html:11
+msgid "Go to main page."
+msgstr "Вернуться на главную."
+
+#: .\templates\403.html:10
+msgid "HTTP 403. Forbidden."
+msgstr "HTTP 403. Доступ запрещен."
+
+#: .\templates\404.html:10
+msgid "HTTP 404. Not found."
+msgstr "HTTP 404. Страница не найдена."
+
+#: .\templates\500.html:10
+msgid "HTTP 500. Server error."
+msgstr "HTTP 500. Ошибка сервера."
 
 #: .\templates\kaska_base.html:6 .\templates\kaska_base.html.py:63
 #: .\templates\logo.html:6
