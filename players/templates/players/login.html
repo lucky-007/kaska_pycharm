@@ -3,14 +3,21 @@
 
 {% block title %}Login{% endblock %}
 {% block page_name %}{% url 'players:login' %}{% endblock %}
+{% block login %}{% endblock %}
 
 {% block content %}
-    <form action="{% url 'players:login' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="next" value="{{ next }}" />
-        <input type="submit" value={% trans "Go" %} />
-    </form>
-    <a href="{% url 'players:create' %}">{% trans "Register" %}</a>
-    <a href="{% url 'players:password_reset' %}" target="_blank">{% trans "Forgot password?" %}</a>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{% url 'players:login' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="hidden" name="next" value="{{ next }}" />
+                <input type="submit" value={% trans "Go" %} />
+            </form>
+            <a href="{% url 'players:create' %}">{% trans "Register" %}</a>
+            <a href="{% url 'players:password_reset' %}" target="_blank">{% trans "Forgot password?" %}</a>
+        </div>
+    </div>
+
 {% endblock %}

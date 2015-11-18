@@ -6,12 +6,31 @@
 {% block page_name %}{% url 'players:change' %}{% endblock %}
 
 {% block content %}
-    <img class="player_photo" src="{% if player_photo %}{{ player_photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" />
 
-    <form action="{% url 'players:change' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <p><label for="password_change">{% trans "To change password" %}</label> <a href="{% url 'players:password_change' %}">{% trans "use this form" %}</a></p>
-        <input type="submit" value={% trans "Go" %} />
-    </form>
+    <div class="row">
+        <div class="col-md-5">
+            <img class="player_photo" src="{% if player_photo %}{{ player_photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" />
+        </div>
+
+        <div class="col-md-7">
+            <form action="{% url 'players:change' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    Изменить фото студенческого билета:
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <span class="btn btn-primary btn-file">
+                                Обзор...{{ form.stud_photo }}
+                            </span>
+                        </span>
+                        <input type="text" class="form-control" readonly>
+                    </div>
+                    <span class="help-block">
+                        {{ form.stud_photo.help_text }}
+                    </span>
+                <p>{% trans "To change password" %} <a href="{% url 'players:password_change' %}">{% trans "use this form" %}</a></p>
+                <input type="submit" value="Сохранить" />
+            </form>
+        </div>
+    </div>
+
 {% endblock %}

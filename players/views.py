@@ -65,13 +65,13 @@ def roster(request):
             search_form = SearchForm()
             players_list = players_list.order_by('surname')
 
-    context = {'players_list': players_list, 'user_id': request.user.id, 'search_form': search_form}
+    context = {'players_list': players_list, 'user_id': request.user.id, 'search_form': search_form, 'request': request}
     return render(request, 'players/roster.html', context)
 
 
 @login_required
 def player_info(request, player_id):
-    context = {}
+    context = {'request': request}
     try:
         player = Player.objects.get(pk=player_id)
         if request.user.id == int(player_id):
@@ -86,7 +86,7 @@ def player_info(request, player_id):
 @csrf_protect
 @login_required
 def player_change(request):
-    context = {}
+    context = {'request': request}
     player = request.user
     context.update({'player_photo': player.photo})
 
@@ -115,7 +115,7 @@ def password_change(request):
     else:
         password_form = PasswordChangeForm(user=request.user)
 
-    context = {'password_form': password_form}
+    context = {'password_form': password_form, 'request': request}
     return render(request, 'players/change_password.html', context)
 
 
@@ -124,6 +124,7 @@ def player_create(request):
     if not request.user.is_anonymous():
         return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
     error = None
+    disp_errors = {}
 
     if request.method == 'GET' and 'vk' not in request.session:
         redirect_uri = request.build_absolute_uri(resolve_url('players:create'))
@@ -165,7 +166,7 @@ def player_create(request):
                 'user_id': vk_data['vk_id'],
                 'access_token': vk_data['access_token'],
                 'v': '5.40',
-                'fields': 'photo_200',
+                'fields': 'photo_400_orig',
                 'name_case': 'nom',
             }
             r = requests.get('https://api.vk.com/method/users.get', params=vk_opts_server)
@@ -183,13 +184,20 @@ def player_create(request):
             player = form.save(commit=False)
             player.vk_id = vk_data['vk_id']
             player.access_token = vk_data['access_token']
-            player.photo = vk_data['photo_200']
+            player.photo = vk_data['photo_400_orig']
             player.save()
             return HttpResponseRedirect(reverse('players:login'))
+        else:
+            form_errors = json.loads(form.errors.as_json())
+            for field in form_errors:
+                if form_errors[field][0]['code'] != 'required':
+                    disp_errors.update({
+                        form.fields[field].widget.attrs['placeholder']: form_errors[field][0]['message']
+                    })
     else:
         form = PlayerCreationForm(initial=request.session['vk'])
 
-    context = {'form': form, 'error': error}
+    context = {'form': form, 'error': error, 'request': request, 'form_errors': disp_errors}
     return render(request, 'players/player_create.html', context)
 
 
@@ -224,6 +232,7 @@ def login(request, template_name='players/login.html',
         redirect_field_name: redirect_to,
         'site': current_site,
         'site_name': current_site.name,
+        'request': request,
     }
     if extra_context is not None:
         context.update(extra_context)
@@ -240,19 +249,7 @@ def logout(request):
 
 
 def index(request):
-    context = {}
-    if request.user.is_anonymous():
-        if request.method == 'POST':
-            auth_form = AuthenticationForm(request, data=request.POST)
-            if auth_form.is_valid():
-                auth_login(request, auth_form.get_user())
-                return HttpResponseRedirect(reverse('index'))
-        else:
-            auth_form = AuthenticationForm(request)
-        context.update({'auth_form': auth_form})
-    else:
-        context.update({'player': request.user})
-    context.update({'current_url': request.path})
+    context = {'request': request}
     return render(request, 'players/index.html', context)
 
 
@@ -265,7 +262,7 @@ def password_reset(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
 
-    context = {}
+    context = {'request': request}
     if request.method == 'POST':
         form = PasswordResetForm(request.POST)
         if form.is_valid():
@@ -295,14 +292,14 @@ def password_reset(request):
 def check_email(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
-    context = {}
+    context = {'request': request}
     return render(request, 'players/password_reset/check_email.html', context)
 
 
 def no_email(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
-    context = {}
+    context = {'request': request}
     return render(request, 'players/password_reset/no_email.html', context)
 
 
@@ -311,7 +308,7 @@ def password_reset_confirm(request, uidb64=None, token=None):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
 
-    context = {}
+    context = {'request': request}
     UserModel = get_user_model()
     assert uidb64 is not None and token is not None
 
@@ -341,15 +338,13 @@ def password_reset_confirm(request, uidb64=None, token=None):
         'title': title,
         'valid_link': valid_link,
     })
-
-    context.update({'request': request})
     return render(request, 'players/password_reset/confirm.html', context)
 
 
 def password_reset_complete(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
-    context = {}
+    context = {'request': request}
     return render(request, 'players/password_reset/complete.html', context)
 
 

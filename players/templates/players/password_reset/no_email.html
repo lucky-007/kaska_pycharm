@@ -4,8 +4,12 @@
 {% block page_name %}{% url 'players:password_reset_no_email' %}{% endblock %}
 
 {% block content %}
-    {% blocktrans %}
-        <h2>There is no player registered with this email.</h2>
-    {% endblocktrans %}
-    <a href="{% url 'players:create' %}">{% trans 'Registration form' %}</a>
+
+    <div class="row">
+        <div class="col-md-12">
+                <h2>{% trans 'There is no player registered with this email.' %}</h2>
+            <a href="{% url 'players:create' %}">{% trans 'Registration form' %}</a>
+        </div>
+    </div>
+
 {% endblock %}

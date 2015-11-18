@@ -4,14 +4,20 @@
 {% block page_name %}{% url 'players:password_reset' %}{% endblock %}
 
 {% block content %}
-    <h2>{{ title }}</h2>
-    {% if valid_link %}
-        <form action="{{ request.path }}" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value={% trans "Go" %} />
-        </form>
-    {% else %}
-        <a href="{% url 'index' %}">{% trans 'Return to main' %}</a>
-    {% endif %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ title }}</h2>
+            {% if valid_link %}
+                <form action="{{ request.path }}" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value={% trans "Go" %} />
+                </form>
+            {% else %}
+                <a href="{% url 'index' %}">{% trans 'Return to main' %}</a>
+            {% endif %}
+        </div>
+    </div>
+
 {% endblock %}
