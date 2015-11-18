@@ -2,6 +2,8 @@ import mimetypes
 import os
 import posixpath
 import stat
+
+from django.core.exceptions import PermissionDenied
 from django.utils.six.moves.urllib.parse import unquote
 
 import requests
@@ -357,7 +359,7 @@ def logo(request):
 
 def media(request, path, document_root=None):
     if request.user.is_anonymous() or not request.user.is_admin:
-        return HttpResponseForbidden('Not for you')
+        raise PermissionDenied
 
     path = posixpath.normpath(unquote(path))
     path = path.lstrip('/')

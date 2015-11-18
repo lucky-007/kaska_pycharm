@@ -1,0 +1,14 @@
+{% extends 'kaska_base.html' %}
+{% load i18n %}
+
+{% block title %}Bad request{% endblock %}
+{% block page_name %}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2 id="error_message">{% trans 'HTTP 400. Bad request.' %}</h2><br>
+            <a href="{% url 'index' %}">{% trans 'Go to main page.' %}</a>
+        </div>
+    </div>
+{% endblock %}
