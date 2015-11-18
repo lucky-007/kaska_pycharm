@@ -115,25 +115,49 @@ ADMINS = (
     ('Alex', 'eremen.ai123@gmail.com'),
 )
 
-PLAYERS_LOG_ROOT = '/home/u49036/django_logs/players.log'
-#
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#
-#     'handlers': {
-#         'file': {
-#             'level': 'INFO',
-#             'class': 'logging.FileHandler',
-#             'filename': PLAYERS_LOG_ROOT,
-#         },
-#     },
-#
-#     'loggers': {
-#         'players.db_entries': {
-#             'handlers': ['file'],
-#             'level': 'INFO',
-#             'propagate': True,
-#         },
-#     },
-# }
+PLAYERS_LOG_ROOT = '/home/u49036/kaska.me/django_logs/players.log'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+
+    'formatters': {
+        'simple': {
+            'format': '[%(asctime)s] %(levelname)s %(message)s',
+            'datafmt': '%Y-%m-%d %H:%M:%S',
+        },
+        'verbose': {
+            'format': '[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
+
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+            'filters': ['require_debug_true'],
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': PLAYERS_LOG_ROOT,
+            'formatter': 'simple',
+        },
+    },
+
+    'loggers': {
+        'players_db_entries': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
