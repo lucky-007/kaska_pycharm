@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-17 14:24+0300\n"
+"POT-Creation-Date: 2015-11-18 00:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "Университету"
 
 #: .\players\forms.py:14
 msgid "Have already paid"
-msgstr "Тем, кто оплатил"
+msgstr "Статусу оплаты"
 
 #: .\players\forms.py:15
 msgid "Have valid student ID"
@@ -38,55 +38,59 @@ msgstr "Наличию студенческого"
 
 #: .\players\forms.py:16
 msgid "Registered as players"
-msgstr "По полностью зарегистрированным игрокам"
+msgstr "По зарегистрированным игрокам"
 
 #: .\players\forms.py:22
+msgid "Search"
+msgstr "Поиск"
+
+#: .\players\forms.py:23
 msgid "Sorted by:"
 msgstr "Сортировать по:"
 
-#: .\players\forms.py:29 .\players\forms.py:103
+#: .\players\forms.py:30 .\players\forms.py:104
 msgid "Password"
 msgstr "Пароль"
 
-#: .\players\forms.py:30
+#: .\players\forms.py:31
 msgid "Password confirmation"
 msgstr "Подтверждение пароля"
 
-#: .\players\forms.py:32
+#: .\players\forms.py:33
 msgid "Use only \"+\" and numbers"
 msgstr "Используйте только \"+\" и цифры"
 
-#: .\players\forms.py:35
+#: .\players\forms.py:36 .\players\models.py:117
 msgid "Phone"
 msgstr "Телефон"
 
-#: .\players\forms.py:42
+#: .\players\forms.py:43 .\players\models.py:93
 msgid "Email"
 msgstr "Email"
 
-#: .\players\forms.py:43
+#: .\players\forms.py:44 .\players\models.py:102
 msgid "Last name"
 msgstr "Фамилия"
 
-#: .\players\forms.py:44
+#: .\players\forms.py:45 .\players\models.py:107
 msgid "First name"
 msgstr "Имя"
 
-#: .\players\forms.py:45
+#: .\players\forms.py:46 .\players\models.py:112
 msgctxt "Model"
 msgid "University"
 msgstr "ВУЗ/колледж/школа"
 
-#: .\players\forms.py:52
+#: .\players\forms.py:53
 msgid "Passwords don't match"
 msgstr "Пароли не совпадают"
 
-#: .\players\forms.py:106
+#: .\players\forms.py:107
 #, python-format
 msgid "Incorrect combination of %(username)s and password"
 msgstr "Неправильная комбинация %(username)s и пароля"
 
-#: .\players\forms.py:107
+#: .\players\forms.py:108
 msgid "This account is inactive"
 msgstr "Этот аккаунт неактивен"
 
@@ -178,35 +182,35 @@ msgstr "Банана-кат"
 msgid "Email address is required"
 msgstr "Email обязателен"
 
-#: .\players\models.py:97
+#: .\players\models.py:98
 msgid "We've have already this email"
 msgstr "Этот email уже зарегистрирован"
 
-#: .\players\models.py:120
+#: .\players\models.py:125
 msgid "Experience"
 msgstr "Я играю в алтимат вот уже"
 
-#: .\players\models.py:127
+#: .\players\models.py:132
 msgid "Favourite position"
 msgstr "Во время игры на поле я предпочитаю"
 
-#: .\players\models.py:134
+#: .\players\models.py:139
 msgid "Favourite throw"
 msgstr "Мой любимый бросок определенно"
 
-#: .\players\models.py:141
+#: .\players\models.py:146
 msgid "Play style"
 msgstr "Мой стиль игры можно описать одним словом"
 
-#: .\players\models.py:148
+#: .\players\models.py:153
 msgid "T-shirt size"
 msgstr "Размер футболки"
 
-#: .\players\models.py:156
+#: .\players\models.py:161
 msgid "Student ID (photo)"
 msgstr "Студенческий билет (фото)"
 
-#: .\players\models.py:157
+#: .\players\models.py:162
 msgid "You can load the photo of the student ID later. For admins only"
 msgstr ""
 "Приложите читаемое фото студенческого билета или другого документа, "
@@ -218,7 +222,6 @@ msgstr ""
 #: .\players\templates\players\password_reset\confirm.html:12
 #: .\players\templates\players\password_reset\password_reset.html:12
 #: .\players\templates\players\player_change.html:15
-#: .\players\templates\players\roster.html:11
 msgid "Go"
 msgstr "Вперед"
 
@@ -323,15 +326,31 @@ msgstr "Вы уже зарегистрированы."
 msgid "Please login."
 msgstr "Войдите."
 
-#: .\players\templates\players\roster.html:15
+#: .\players\templates\players\roster.html:34
 msgid "There is no players for your request"
 msgstr "Игроков по вашему запросу не найдено"
 
-#: .\players\views.py:270
+#: .\players\templates\players\roster.html:53
+msgid "Paid"
+msgstr "Оплачено"
+
+#: .\players\templates\players\roster.html:55
+msgid "Non-paid"
+msgstr "Не оплачено"
+
+#: .\players\templates\players\roster.html:58
+msgid "Student"
+msgstr "Студент"
+
+#: .\players\templates\players\roster.html:60
+msgid "Non-student"
+msgstr "Не студент"
+
+#: .\players\views.py:274
 msgid "Enter new password"
 msgstr "Введите новый пароль"
 
-#: .\players\views.py:280
+#: .\players\views.py:284
 msgid "Password reset failed"
 msgstr "Сброс пароля не удался"
 
