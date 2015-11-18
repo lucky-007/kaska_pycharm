@@ -122,3 +122,30 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'files', 'media')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'files', 'static'),
 )
+
+ADMINS = (
+    ('Alex', 'eremen.ai123@gmail.com'),
+)
+
+PLAYERS_LOG_ROOT = '/home/u49036/django_logs/players.log'
+#
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#
+#     'handlers': {
+#         'file': {
+#             'level': 'INFO',
+#             'class': 'logging.FileHandler',
+#             'filename': PLAYERS_LOG_ROOT,
+#         },
+#     },
+#
+#     'loggers': {
+#         'players.db_entries': {
+#             'handlers': ['file'],
+#             'level': 'INFO',
+#             'propagate': True,
+#         },
+#     },
+# }

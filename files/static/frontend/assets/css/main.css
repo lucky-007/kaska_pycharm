@@ -49,8 +49,13 @@
 		margin-bottom: 60px;
 	}
 	
-	#search_form input, #search_form input {
+	#search_form input, #search_form select {
 		width: 100%;
+	}
+
+	#search_form label {
+		margin-top: 10px;
+		margin-right: 0px;
 	}
 /*
 	Dopetrope by HTML5 UP
