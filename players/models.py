@@ -51,7 +51,7 @@ CHOICES_SEX = (
 
 
 class PlayerManager(BaseUserManager):
-    def _create_user(self, email, surname, name, university, experience, position, fav_throw, style, size, phone,
+    def _create_user(self, email, surname, name, sex, university, experience, position, fav_throw, style, size, phone,
                      password, is_admin, is_superuser, **extra_fields):
         """
         Creates and saves user by all required params.
@@ -64,6 +64,7 @@ class PlayerManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),
             surname=surname.capitalize(),
+            sex=sex,
             name=name.capitalize(),
             university=university.upper(),
             experience=experience,
@@ -82,14 +83,14 @@ class PlayerManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, surname, name, university, experience, position, fav_throw, style, size, phone,
+    def create_user(self, email, surname, name, sex, university, experience, position, fav_throw, style, size, phone,
                     password=None, **extra_fields):
-        return self._create_user(email, surname, name, university, experience, position, fav_throw, style,
+        return self._create_user(email, surname, name, sex, university, experience, position, fav_throw, style,
                                  size, phone, password, False, False, **extra_fields)
 
-    def create_superuser(self, email, password, surname, name, university, experience, position, fav_throw,
+    def create_superuser(self, email, password, surname, name, sex, university, experience, position, fav_throw,
                          style, size, phone, **extra_fields):
-        return self._create_user(email, surname, name, university, experience, position, fav_throw, style,
+        return self._create_user(email, surname, name, sex, university, experience, position, fav_throw, style,
                                  size, phone, password, True, True, **extra_fields)
 
 
@@ -116,6 +117,8 @@ class Player(AbstractBaseUser, PermissionsMixin):
     sex = models.CharField(
         verbose_name=_('Sex'),
         max_length=1,
+        choices=CHOICES_SEX,
+        default='m',
         blank=False,
     )
     university = models.CharField(
@@ -204,6 +207,7 @@ class Player(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = [
         'surname',
         'name',
+        'sex',
         'university',
         'experience',
         'position',

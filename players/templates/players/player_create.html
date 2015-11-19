@@ -52,10 +52,16 @@
                                 <div class="col-md-6 {% if form.surname.errors %}error-input{% endif %}">{{ form.surname }}</div>
                                 <div class="col-md-12 {% if form.university.errors %}error-input{% endif %}">{{ form.university }}</div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         {{ form.size.label_tag }}
                                         {{ form.size }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form.sex.label_tag }}
+                                        {{ form.sex }}
                                     </div>
                                 </div>
                                 <div class="col-md-12">
