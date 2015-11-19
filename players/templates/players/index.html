@@ -5,6 +5,7 @@
 {% block page_name %}{% url 'index' %}{% endblock %}
 
 {% block articles %}
+    {% if request.user.is_anonymous %}
     <article class="box post" id="anons">
 
         <div class="container">
@@ -22,6 +23,7 @@
             </div>
         </div>
     </article>
+    {% endif %}
 
 
 <!-- Content -->

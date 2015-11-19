@@ -390,3 +390,19 @@ def media(request, path, document_root=None):
     if encoding:
         response["Content-Encoding"] = encoding
     return response
+
+
+def gallery(request):
+    return render(request, 'gallery.html', {'request': request})
+
+
+def tournament(request):
+    return HttpResponseRedirect(reverse('index'))
+
+
+def teams(request):
+    return HttpResponseRedirect(reverse('index'))
+
+
+def info(request):
+    return HttpResponseRedirect(reverse('index'))

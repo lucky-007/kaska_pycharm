@@ -23,6 +23,10 @@ import players.views
 urlpatterns = [
     url(r'^$', players.views.logo),
     url(r'^index/$', players.views.index, name='index'),
+    url(r'^gallery/$', players.views.gallery, name='gallery'),
+    url(r'^tourn/$', players.views.tournament, name='tournament'),
+    url(r'^teams/$', players.views.teams, name='teams'),
+    url(r'^info/$', players.views.info, name='info'),
     url(r'^players/', include('players.urls', namespace='players')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^%s(?P<path>.*)$' % re.escape(settings.MEDIA_URL.lstrip('/')),
