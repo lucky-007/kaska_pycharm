@@ -13,7 +13,7 @@ from django.conf import settings
 from django.contrib.auth import (
     REDIRECT_FIELD_NAME, login as auth_login,
     logout as auth_logout, update_session_auth_hash,
-    get_user_model)
+    get_user_model, authenticate)
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.tokens import default_token_generator
@@ -186,7 +186,9 @@ def player_create(request):
             player.access_token = vk_data['access_token']
             player.photo = vk_data['photo_400_orig']
             player.save()
-            return HttpResponseRedirect(reverse('players:login'))
+            player = authenticate(email=player.email, password=form.cleaned_data['password2'])
+            auth_login(request, player)
+            return HttpResponseRedirect(reverse('info'))
         else:
             form_errors = json.loads(form.errors.as_json())
             for field in form_errors:
@@ -405,4 +407,4 @@ def teams(request):
 
 
 def info(request):
-    return HttpResponseRedirect(reverse('index'))
+    return render(request, 'info.html', {'request': request})

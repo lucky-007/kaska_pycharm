@@ -63,7 +63,7 @@ class PlayerManager(BaseUserManager):
             university=university.upper(),
             experience=experience,
             position=position,
-            fav_throw=fav_throw.capitalize(),
+            fav_throw=fav_throw,
             style=style,
             size=size,
             phone=phone,
@@ -216,7 +216,6 @@ class Player(AbstractBaseUser, PermissionsMixin):
     def make_nice(self):
         self.surname = self.surname.capitalize()
         self.name = self.name.capitalize()
-        self.fav_throw = self.fav_throw.capitalize()
         self.university = self.university.upper()
         return None
 

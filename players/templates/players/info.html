@@ -16,17 +16,15 @@
                 <div class="col-md-5 student">
                 Студент
                 </div>
-                {% else %}
-
-                {% endif %}
                 <div class="col-md-2">
                 </div>
+                {% else %}
+                {% endif %}
                 {% if player.is_paid %}
                 <div class="col-md-5 oplatil">
                 Оплатил
                 </div>
                 {% else %}
-
                 {% endif %}
             </div>
 
@@ -40,7 +38,7 @@
                 <h4>Позиция на поле: <strong>{{ player.get_position_display }}</strong></h4>
                 <h4>Любимый бросок: <strong>{{ player.get_fav_throw_display }}</strong></h4>
                 <h4>Стиль игры: <strong>{{ player.get_style_display }}</strong></h4> <br/>
-                {% if this_player %}<a href="{% url 'players:change' %}" target="_blank">Изменить профиль</a>{% endif %}
+                {% if this_player %}<a href="{% url 'players:change' %}">Изменить профиль</a>{% endif %}
             </div>
 
         </div>

@@ -21,8 +21,7 @@ from django.contrib import admin
 import players.views
 
 urlpatterns = [
-    url(r'^$', players.views.logo),
-    url(r'^index/$', players.views.index, name='index'),
+    url(r'^$', players.views.index, name='index'),
     url(r'^gallery/$', players.views.gallery, name='gallery'),
     url(r'^tourn/$', players.views.tournament, name='tournament'),
     url(r'^teams/$', players.views.teams, name='teams'),
