@@ -37,7 +37,7 @@ class PlayerCreationForm(forms.ModelForm):
 
     class Meta:
         model = Player
-        fields = ('email', 'password1', 'password2', 'surname', 'name', 'university', 'stud_photo', 'experience',
+        fields = ('email', 'password1', 'password2', 'surname', 'name', 'sex', 'university', 'stud_photo', 'experience',
                   'position', 'fav_throw', 'style', 'size', 'phone',)
         widgets = {
             'email': forms.TextInput(attrs={'placeholder': _('Email')}),

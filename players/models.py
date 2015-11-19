@@ -44,6 +44,11 @@ CHOICES_SIZE = (
     ('xl', 'XL'),
 )
 
+CHOICES_SEX = (
+    ('m', _('Male')),
+    ('f', _('Female')),
+)
+
 
 class PlayerManager(BaseUserManager):
     def _create_user(self, email, surname, name, university, experience, position, fav_throw, style, size, phone,
@@ -63,7 +68,7 @@ class PlayerManager(BaseUserManager):
             university=university.upper(),
             experience=experience,
             position=position,
-            fav_throw=fav_throw.capitalize(),
+            fav_throw=fav_throw,
             style=style,
             size=size,
             phone=phone,
@@ -108,9 +113,14 @@ class Player(AbstractBaseUser, PermissionsMixin):
         max_length=15,
         blank=False,
     )
+    sex = models.CharField(
+        verbose_name=_('Sex'),
+        max_length=1,
+        blank=False,
+    )
     university = models.CharField(
         verbose_name=pgettext_lazy('Model', 'University'),
-        max_length=15,
+        max_length=50,
         blank=False,
     )
     phone = models.CharField(
@@ -216,7 +226,6 @@ class Player(AbstractBaseUser, PermissionsMixin):
     def make_nice(self):
         self.surname = self.surname.capitalize()
         self.name = self.name.capitalize()
-        self.fav_throw = self.fav_throw.capitalize()
         self.university = self.university.upper()
         return None
 

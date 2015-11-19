@@ -46,7 +46,7 @@
             <tbody>
                 {% for player in players_list %}
                 <tr>
-                    <td style="vertical-align: middle"><img src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" height="80"></td>
+                    <td style="vertical-align: middle"><a href="{% url 'players:info' player.id %}"><img src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" height="80"></a></td>
                     <td style="vertical-align: middle"><a href="{% url 'players:info' player.id %}">{{ player.get_full_name }}</a></td>
                     <td style="vertical-align: middle">{{ player.university }}</td>
                     {% if player.is_paid %}

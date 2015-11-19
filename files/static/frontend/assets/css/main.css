@@ -27,8 +27,15 @@
 	}
 	
 	#login_string {
-		
+		text-align: right;
 	}
+	
+	
+	#login_string a{
+		color: white;
+			
+	}
+	
 	#player_prop select, #player_prop label {
 		display: inline; 
 	}
@@ -1533,6 +1540,7 @@
 /* Box */
 
 	.box {
+		background-image: url("images/Bez_Nazvania.png");
 		background: #ffffff;
 		border-bottom: solid 1px #ccc;
 	}
@@ -2780,7 +2788,11 @@
 					font-weight: 900;
 					font-size: 55px;
 					letter-spacing: 2px;
-
+				}
+				
+				#login_string {
+					text-align: right;
+					margin-bottom: 30px;
 				}
 
 		/* Nav */
@@ -2890,4 +2902,28 @@ ul#field.input-list li {
     float: none;
     margin-bottom: 10px;
   }
+}
+.student {
+	color: white;
+	background-color: tomato;
+	border-radius: none;
+	text-align: center;
+}
+.nestudent {
+	color: white;
+	background-color: red;
+	border-radius: none;
+	text-align: center;
+}
+.oplatil {
+	color: white;
+	background-color: #73AD21;
+	border-radius: none;
+	text-align: center;
+}
+.neoplatil {
+	color: white;
+	background-color: red;
+	border-radius: none;
+	text-align: center;
 }

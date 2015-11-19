@@ -6,24 +6,48 @@
 {% block page_name %}{% url 'players:roster' %}{% endblock %}
 
 {% block content %}
-    <div class="info_player">
-        <img class="player_photo" src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" />
 
-        <p class="name"><a href="https://vk.com/id{{ player.vk_id }}">{{ player.get_full_name }}</a></p>
-        {% if this_player %}
-            <a class="change_link" href="{% url 'players:change' %}">{% trans "Change profile" %}</a>
-        {% endif %}
+    <div class="container">
+        <div class="row">
 
-        <p class="feature">University: <span class="f_value">{{ player.university }}</span></p>
-        <p class="feature">Experience: <span class="f_value">{{ player.experience }}</span></p>
-        <p class="feature">Favourite position: <span class="f_value">{{ player.get_position_display }}</span></p>
-        <p class="feature">Favourite throw: <span class="f_value">{{ player.fav_throw }}</span></p>
-        <p class="feature">Style of play: <span class="f_value">{{ player.get_style_display }}</span></p>
+            <div class="col-md-3">
+                <img src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" alt="" class="img-responsive" style="width:300px; height: auto;"> </br>
+                {% if player.is_student %}
+                <div class="col-md-5 student">
+                Студент
+                </div>
+                {% else %}
+                <div class="col-md-5 nestudent">
+                НЕ студент
+                </div>
+                {% endif %}
+                <div class="col-md-2">
+                </div>
+                {% if player.is_paid %}
+                <div class="col-md-5 oplatil">
+                Оплатил
+                </div>
+                {% else %}
+                <div class="col-md-5 neoplatil">
+                НЕ оплатил
+                </div>
+                {% endif %}
+            </div>
 
-        <p class="feature">Team: <span class="f_value">No team right now</span></p>
-        <p class="feature">Paid: <span class="f_value">{% if player.is_paid %}Yes{% else %}No{% endif %}</span></p>
-        <p class="feature">Student: <span class="f_value">{% if player.is_student %}Yes{% else %}No{% endif %}</span></p>
+            <div class="col-md-8">
+                <h2>{{ player.get_full_name }} <a href="https://vk.com/id{{ player.vk_id }}">
+                <img src="{% static 'frontend/images/vk.png' %}" alt="Профиль ВК" width="40" height="40" border="0">
+                </a></h2>
+                <h3>{{ player.university }}</h3>
+                <br/>
+                <h4>Опыт игры: <strong>{{ player.get_experience_display }}</strong></h4>
+                <h4>Позиция на поле: <strong>{{ player.get_position_display }}</strong></h4>
+                <h4>Любимый бросок: <strong>{{ player.get_fav_throw_display }}</strong></h4>
+                <h4>Стиль игры: <strong>{{ player.get_style_display }}</strong></h4> <br/>
+                {% if this_player %}<a href="{% url 'players:change' %}">Изменить профиль</a>{% endif %}
+            </div>
 
+        </div>
     </div>
 
 {% endblock %}
