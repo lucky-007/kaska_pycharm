@@ -399,11 +399,11 @@ def gallery(request):
 
 
 def tournament(request):
-    return HttpResponseRedirect(reverse('index'))
+    return render(request, 'tournament.html', {'request': request})
 
 
 def teams(request):
-    return HttpResponseRedirect(reverse('index'))
+    return render(request, 'teams.html', {'request': request})
 
 
 def info(request):

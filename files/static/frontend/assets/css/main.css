@@ -27,8 +27,15 @@
 	}
 	
 	#login_string {
+		text-align: right;
+	}
+	
+	
+	#login_string a{
+		color: white;
 			
 	}
+	
 	#player_prop select, #player_prop label {
 		display: inline; 
 	}
@@ -2781,7 +2788,11 @@
 					font-weight: 900;
 					font-size: 55px;
 					letter-spacing: 2px;
-
+				}
+				
+				#login_string {
+					text-align: right;
+					margin-bottom: 30px;
 				}
 
 		/* Nav */
