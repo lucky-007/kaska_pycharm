@@ -166,7 +166,7 @@ def player_create(request):
                 'user_id': vk_data['vk_id'],
                 'access_token': vk_data['access_token'],
                 'v': '5.40',
-                'fields': 'photo_400_orig',
+                'fields': 'photo_400_orig,sex',
                 'name_case': 'nom',
             }
             r = requests.get('https://api.vk.com/method/users.get', params=vk_opts_server)
@@ -174,6 +174,10 @@ def player_create(request):
             vk_data.pop('id')
             vk_data['name'] = vk_data.pop('first_name')
             vk_data['surname'] = vk_data.pop('last_name')
+            if vk_data['sex'] == 1:
+                vk_data['sex'] = 'f'
+            else:
+                vk_data['sex'] = 'm'
             request.session['vk'] = vk_data
 
     if request.method == 'POST':
