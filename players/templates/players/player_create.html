@@ -67,11 +67,13 @@
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <span class="input-group-btn">
-                                            <span class="btn btn-primary btn-file">
-                                                Обзор...{{ form.stud_photo }}
+                                            <span class="btn btn-primary btn-file" id="stud_btn" style="width:250px;">
+                                                Прикрепить фото студенческого:{{ form.stud_photo }}
+                                                <br/>
+                                                <br/>
+                                                <img src="" height="100" alt="">
                                             </span>
                                         </span>
-                                        <input type="text" class="form-control" readonly>
                                     </div>
                                     <span class="help-block">
                                         {{ form.stud_photo.help_text }}
@@ -129,4 +131,27 @@
             </div>
 
     {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function previewFile() {
+        var preview = document.querySelector('img'); //selects the query named img
+        var file = document.querySelector('input[type=file]').files[0]; //sames as here
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file); //reads the data as a URL
+        } else {
+            preview.src = "";
+        }
+    }
+
+    previewFile();  //calls the function named previewFile()
+</script>
+
 {% endblock %}

@@ -104,7 +104,7 @@
 			<!--[if lte IE 8]><script src="{% static 'frontend/assets/js/ie/respond.min.js' %}"></script><![endif]-->
 			<script src="{% static 'frontend/assets/js/main.js' %}"></script>
 			<script src="{% static 'frontend/assets/js/menu_selector.js' %}"></script>
-			<script>
+<!--			<script>
 				$(document).on('change', '.btn-file :file', function() {
 					var input = $(this),
 					  numFiles = input.get(0).files ? input.get(0).files.length : 1,
@@ -126,7 +126,8 @@
 
 					});
 				});
-			</script>
+			</script> -->
+            {% block scripts %}{% endblock %}
 
             <!-- Yandex.Metrika counter -->
             <script type="text/javascript">

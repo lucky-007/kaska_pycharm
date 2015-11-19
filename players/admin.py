@@ -21,7 +21,7 @@ class PlayerAdmin(UserAdmin):
 
     fieldsets = [
         (None, {'fields': ('email', 'password')}),
-        ('Player data', {'fields': ('surname', 'name', 'university', 'stud_photo', 'phone', 'experience', 'position',
+        ('Player data', {'fields': ('surname', 'name', 'sex', 'university', 'stud_photo', 'phone', 'experience', 'position',
                                     'fav_throw', 'style', 'size',)
                          }
          ),

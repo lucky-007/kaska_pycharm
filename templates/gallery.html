@@ -1,7 +1,20 @@
 {% extends 'kaska_base.html' %}
+{% load i18n %}
 
 {% block page_name %}{% url 'gallery' %}{% endblock %}
 
 {% block content %}
-    <iframe id="youtube_video" width="560" height="315" src="https://www.youtube.com/embed/o8WhKPWLf1I" frameborder="0" allowfullscreen></iframe>
+    <header>
+        <h2 style="text-align: center">
+            {% trans 'Gallery' %}
+        </h2>
+    </header>
+    <div class="row">
+        <div class="col-md-6">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/o8WhKPWLf1I" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/sfSibYhPVRU" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
 {% endblock %}

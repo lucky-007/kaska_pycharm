@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-md-5">
-            <img class="player_photo" src="{% if player_photo %}{{ player_photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" />
+            <img src="{% if player_photo %}{{ player_photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" />
         </div>
 
         <div class="col-md-7">
@@ -18,11 +18,13 @@
                     Изменить фото студенческого билета:
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <span class="btn btn-primary btn-file">
-                                Обзор...{{ form.stud_photo }}
+                            <span class="btn btn-primary btn-file" id="stud_btn" style="width:250px;">
+                                Прикрепить фото:{{ form.stud_photo }}
+                                <br/>
+                                <br/>
+                                <img id="new_stud_photo" src="" height="100" alt="">
                             </span>
                         </span>
-                        <input type="text" class="form-control" readonly>
                     </div>
                     <span class="help-block">
                         {{ form.stud_photo.help_text }}
@@ -32,5 +34,28 @@
             </form>
         </div>
     </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function previewFile() {
+        var preview = document.querySelector('#new_stud_photo'); //selects the query named img
+        var file = document.querySelector('input[type=file]').files[0]; //sames as here
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file); //reads the data as a URL
+        } else {
+            preview.src = "";
+        }
+    }
+
+    previewFile();  //calls the function named previewFile()
+</script>
 
 {% endblock %}
