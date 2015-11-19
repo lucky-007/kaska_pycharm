@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-18 21:26+0300\n"
+"POT-Creation-Date: 2015-11-19 13:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,7 +48,7 @@ msgstr "Поиск"
 msgid "Sorted by:"
 msgstr "Сортировать по:"
 
-#: .\players\forms.py:30 .\players\forms.py:104
+#: .\players\forms.py:30 .\players\forms.py:106
 msgid "Password"
 msgstr "Пароль"
 
@@ -85,12 +85,12 @@ msgstr "ВУЗ/колледж/школа"
 msgid "Passwords don't match"
 msgstr "Пароли не совпадают"
 
-#: .\players\forms.py:107
+#: .\players\forms.py:109
 #, python-format
 msgid "Incorrect combination of %(username)s and password"
 msgstr "Неправильная комбинация %(username)s и пароля"
 
-#: .\players\forms.py:108
+#: .\players\forms.py:110
 msgid "This account is inactive"
 msgstr "Этот аккаунт неактивен"
 
@@ -216,12 +216,10 @@ msgstr ""
 "Приложите читаемое фото студенческого билета или другого документа, "
 "подтверждающего ваш статус учащегося. Фото будет доступно только админам."
 
-#: .\players\templates\players\change_password.html:10
-#: .\players\templates\players\index.html:30
-#: .\players\templates\players\login.html:12
-#: .\players\templates\players\password_reset\confirm.html:12
-#: .\players\templates\players\password_reset\password_reset.html:12
-#: .\players\templates\players\player_change.html:15
+#: .\players\templates\players\change_password.html:13
+#: .\players\templates\players\login.html:16
+#: .\players\templates\players\password_reset\confirm.html:15
+#: .\players\templates\players\password_reset\password_reset.html:15
 msgid "Go"
 msgstr "Вперед"
 
@@ -241,68 +239,52 @@ msgstr ""
 "Если вы не знаете, что такое алтимат, и считаете каску только головным "
 "убором, то проигнорируйте это сообщение."
 
-#: .\players\templates\players\index.html:32
-#: .\players\templates\players\login.html:14
-msgid "Register"
-msgstr "Регистрация"
-
-#: .\players\templates\players\index.html:33
-#: .\players\templates\players\login.html:15
-msgid "Forgot password?"
-msgstr "Забыли пароль?"
-
-#: .\players\templates\players\index.html:38
-msgid "Logout"
-msgstr "Выйти"
-
 #: .\players\templates\players\info.html:14
 msgid "Change profile"
 msgstr "Изменить профиль"
 
-#: .\players\templates\players\password_reset\check_email.html:7
-msgid ""
-"\n"
-"        <h2>The letter was sent for you.</h2>\n"
-"        Check your email.\n"
-"    "
-msgstr ""
-"\n"
-"        <h2>Вам отправлено письмо.</h2>\n"
-"        Проверьте свою почту.\n"
-"    "
+#: .\players\templates\players\login.html:18
+msgid "Register"
+msgstr "Регистрация"
+
+#: .\players\templates\players\login.html:19
+msgid "Forgot password?"
+msgstr "Забыли пароль?"
+
+#: .\players\templates\players\password_reset\check_email.html:10
+msgid "The letter was sent for you."
+msgstr "Вам отправлено письмо."
 
 #: .\players\templates\players\password_reset\check_email.html:11
-#: .\players\templates\players\password_reset\confirm.html:15
+msgid "Check your email."
+msgstr "Проверьте свою почту."
+
+#: .\players\templates\players\password_reset\check_email.html:12
+#: .\players\templates\players\password_reset\confirm.html:18
 msgid "Return to main"
 msgstr "Вернуться на главную"
 
-#: .\players\templates\players\password_reset\complete.html:7
+#: .\players\templates\players\password_reset\complete.html:10
 msgid "Password reset completed successfully"
 msgstr "Восстановление пароля успешно завершено"
 
-#: .\players\templates\players\password_reset\complete.html:8
+#: .\players\templates\players\password_reset\complete.html:11
 msgid "Sign in"
 msgstr "Войти"
 
-#: .\players\templates\players\password_reset\no_email.html:7
-msgid ""
-"\n"
-"        <h2>There is no player registered with this email.</h2>\n"
-"    "
-msgstr ""
-"\n"
-"        <h2>Игрок с таким email не зарегистрирован.</h2>\n"
-"    "
-
 #: .\players\templates\players\password_reset\no_email.html:10
+msgid "There is no player registered with this email."
+msgstr "Игрок с таким email не зарегистрирован."
+
+#: .\players\templates\players\password_reset\no_email.html:11
 msgid "Registration form"
 msgstr "Форма регистрации"
 
-#: .\players\templates\players\player_change.html:14
+#: .\players\templates\players\player_change.html:30
 msgid "To change password"
 msgstr "Для изменения пароля"
 
-#: .\players\templates\players\player_change.html:14
+#: .\players\templates\players\player_change.html:30
 msgid "use this form"
 msgstr "используйте эту форму"
 
@@ -384,31 +366,31 @@ msgstr "HTTP 404. Страница не найдена."
 msgid "HTTP 500. Server error."
 msgstr "HTTP 500. Ошибка сервера."
 
-#: .\templates\kaska_base.html:6 .\templates\kaska_base.html.py:63
+#: .\templates\kaska_base.html:6 .\templates\kaska_base.html.py:78
 #: .\templates\logo.html:6
 msgid "Kaska"
 msgstr "Каска"
 
-#: .\templates\kaska_base.html:32
+#: .\templates\kaska_base.html:45
 msgid "Main"
 msgstr "Главная"
 
-#: .\templates\kaska_base.html:33
+#: .\templates\kaska_base.html:46
 msgid "Gallery"
 msgstr "Галерея"
 
-#: .\templates\kaska_base.html:34
+#: .\templates\kaska_base.html:47
 msgid "Players"
 msgstr "Игроки"
 
-#: .\templates\kaska_base.html:35
+#: .\templates\kaska_base.html:48
 msgid "Teams"
 msgstr "Команды"
 
-#: .\templates\kaska_base.html:36
+#: .\templates\kaska_base.html:49
 msgid "Tournament schedule"
 msgstr "Турнирная сетка"
 
-#: .\templates\kaska_base.html:37
+#: .\templates\kaska_base.html:50
 msgid "Information"
 msgstr "Информация"
