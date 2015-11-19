@@ -44,6 +44,11 @@ CHOICES_SIZE = (
     ('xl', 'XL'),
 )
 
+CHOICES_SEX = (
+    ('m', _('Male')),
+    ('f', _('Female')),
+)
+
 
 class PlayerManager(BaseUserManager):
     def _create_user(self, email, surname, name, university, experience, position, fav_throw, style, size, phone,
@@ -106,6 +111,11 @@ class Player(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(
         verbose_name=_('First name'),
         max_length=15,
+        blank=False,
+    )
+    sex = models.CharField(
+        verbose_name=_('Sex'),
+        max_length=1,
         blank=False,
     )
     university = models.CharField(
