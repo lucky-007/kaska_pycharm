@@ -4,55 +4,90 @@
 
 {% block page_name %}{% url 'index' %}{% endblock %}
 
-{% block login %}
-    <div id="login" style="
-        min-width: 200px;
-        width: 20%;
-        display: block;
-        float: right;
-        margin-left: -100%;
-        margin-right: 10px;
-        margin-top: -50px;
-    ">
-    {% if auth_form %}
-        <form action="{{ current_url }}" method="post">
-            {{ auth_form.non_field_errors }}
-            {% csrf_token %}
-            {% for hidden in auth_form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
-            {% for field in auth_form.visible_fields %}
-                <div class="login_field_wrapper">
-                    {{ field.errors }}
-                    {{ field.label_tag }} {{ field }}
-                </div>
-            {% endfor %}
-            <input type="submit" value={% trans "Go" %} />
-        </form>
-        <a href="{% url 'players:create' %}">{% trans "Register" %}</a>
-        <a href="{% url 'players:password_reset' %}" target="_blank">{% trans "Forgot password?" %}</a>
-    {% else %}
-        <div id="player_data" style="height: 10em;">
-            <img src="{% if player.photo %}{{ player.photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" style="height: inherit;width: auto" />
-            <p>{{ player.get_full_name }}</p>
-            <p><a href="{% url 'players:logout' %}">{% trans "Logout" %}</a></p>
-        </div>
-    {% endif %}
-    </div>
-{% endblock %}
+{% block articles %}
+    <article class="box post" id="anons">
 
-{% block content %}
-<p>Привет! А ты уже зарегистрировался на одно и самых сенсационных событий этого года - КАСКА 2015?
-Нет? Не знаешь, что это? Тогда давай мы тебя познакомим!
-Итак, по порядку, дамы и господа:
-КАСКА это ежегодный всероссийский шляпный студенческий турнир по алтимат фрисби*. Он называется шляпным, так как все игроки регистрируются на турнир поодиночке, а затем их особым образом распределяют по командам.
-КАСКА это место, где ты полностью сможешь раскрыть свои игровые и спортивные навыки, познакомиться и подружиться с новыми людьми со всей России, научиться работать сообща в новой для себя команде, демонстрируя высокий Дух Игры** по отношению к игре и всем участникам.
-КАСКА это драйв, эмоции и атмосфера, которые будут преследовать тебя весь год, это то, что ты будешь вспоминать с друзьями вне зависимости от победы или поражения, это то, что стоит посещать каждый год!
-Если ты студент, аспирант, работник ВУЗа или учащийся, то смело регистрируйся, ведь места ограничены!
-</p><p>
-*-Алтимат фрисби — это командный неконтактный вид спорта с летающим диском. Цель — передать диск с помощью паса игроку своей команды, находящемуся в зоне противника.
-</p><p>
-**-Отличительной особенностью игры является отсутствие судей и наличие понятия Дух Игры
-(Spirit of the Game), являющегося основным принципом алтимата. Коротко его можно обозначить, как «Уважение к сопернику — первостепенно».
-</p>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <header>
+                        <h1>Регистрация открыта!</h1>
+                    </header>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                        <a href="{% url 'players:create' %}" class="button big">Присоединиться к турниру</a>
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+<!-- Content -->
+    <article class="box post">
+        <header>
+            <h2 style="text-align: center;">О турнире</h2>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p style="padding: 0 0 5px 60px; text-align: justify;">
+                    &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; Итак, по порядку, дамы и господа: КАСКА это... бла-бла-бла, здесь мог быть длинный и скучный текст*, смысл которого в одном - это самый крутой шляпный турнир, на котором с удовольствием можно поиграть в любимый алтимат!
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <img src="{% static 'frontend/images/2.jpg' %}" style="width: 100%; height: auto; padding: 10px 20px 0 0;"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p style="padding: 20px 0 5px 60px; text-align: justify;">
+                        * подробнее о турнире все-таки можно узнать в разделе <a href="#">«Информация»</a>
+                    <p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="box post" id="partners">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12" style="text-align:center;">
+                    <h3 style="margin-bottom:30px; margin-top: 0px;">Партнеры турнира</h3>
+                </div>
+            </div>
+
+            <div class="row" id="partners">
+                <div class="col-md-3" style="padding: 52px 0 50px 0;">
+
+                    <a href="http://ultimate.bmstu.ru/" target="_blank"><img src="{% static 'frontend/images/logo-ultimate-bmstu.jpg' %}" /></a>
+                </div>
+                <div class="col-md-3">
+                    <a href="http://bmstu.ru/" target="_blank"><img src="{% static 'frontend/images/logo-bmstu.png' %}" /></a>
+                </div>
+                <div class="col-md-3">
+                    <a href="https://vk.com/profkom_bmstu" target="_blank"><img src="{% static 'frontend/images/logo-prof.png' %}" style="padding-top: 63px;"/></a>
+                </div>
+                <div class="col-md-3">
+                    <a href="http://www.studentsport.ru/" target="_blank"><img src="{% static 'frontend/images/logo-student-sport.png' %}" style="padding-top: 90px;"/></a>
+                </div>
+            </div>
+
+            <div class="row" id="partners">
+                <div class="col-md-4">
+                    <a href="http://www.ossur.com/" target="_blank"><img src="{% static 'frontend/images/logo-ossur.jpg' %}" style="padding-top: 60px;"/></a>
+                </div>
+                <div class="col-md-4">
+                    <a href="http://www.orliman.com/" target="_blank"><img src="{% static 'frontend/images/logo-orliman.png' %}" style="padding-top: 20px;"/></a>
+                </div>
+                <div class="col-md-4">
+                    <a href="http://tommybrown.ru/" target="_blank"><img src="{% static 'frontend/images/logo-tommy-brown.png' %}" style="padding-top: 20px;"/></a>
+                </div>
+            </div>
+
+        </div>
+    </article>
+
 {% endblock %}

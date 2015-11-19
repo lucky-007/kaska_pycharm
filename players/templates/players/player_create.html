@@ -30,7 +30,13 @@
         </header>
 
             <!-- Registration form-->
-            {{ form.errors }}
+            <div class="row">
+            {% for field, value in form_errors.items %}
+                <div class="col-md-12" id="error_list">
+                    {{ field }}: {{ value }}
+                </div>
+            {% endfor %}
+            </div>
 
             <div class="registration">
                 <form enctype="multipart/form-data" action="{% url 'players:create' %}" method="post">
@@ -42,9 +48,9 @@
                                 <div class="col-md-12">
                                     <h3>Немного о тебе</h3>
                                 </div>
-                                <div class="col-md-6">{{ form.name }}</div>
-                                <div class="col-md-6">{{ form.surname }}</div>
-                                <div class="col-md-12">{{ form.university }}</div>
+                                <div class="col-md-6 {% if form.name.errors %}error-input{% endif %}">{{ form.name }}</div>
+                                <div class="col-md-6 {% if form.surname.errors %}error-input{% endif %}">{{ form.surname }}</div>
+                                <div class="col-md-12 {% if form.university.errors %}error-input{% endif %}">{{ form.university }}</div>
 
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -71,14 +77,14 @@
                                 <div class="col-md-12">
                                     <h3>Пара формальностей</h3>
                                 </div>
-                                <div class="col-md-12">{{ form.email }}</div>
-                                <div class="col-md-12">{{ form.phone }}</div>
-                                <div class="col-md-12">{{ form.password1 }}</div>
-                                <div class="col-md-12">{{ form.password2 }}</div>
+                                <div class="col-md-12 {% if form.email.errors %}error-input{% endif %}">{{ form.email }}</div>
+                                <div class="col-md-12 {% if form.phone.errors %}error-input{% endif %}">{{ form.phone }}</div>
+                                <div class="col-md-12 {% if form.password1.errors %}error-input{% endif %}">{{ form.password1 }}</div>
+                                <div class="col-md-12 {% if form.password2.errors %}error-input{% endif %}">{{ form.password2 }}</div>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" id="player_prop">
                             <div class="col-md-12">
                                     <h3>Нам необходимо знать твой опыт игры, чтобы турнир получил интересным</h3>
                                 </div>

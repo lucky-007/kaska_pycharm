@@ -84,6 +84,8 @@ class PlayerChangeForm(forms.ModelForm):
 
 
 class PlayerSelfChangeForm(forms.ModelForm):
+    stud_photo = forms.ImageField(widget=forms.FileInput())
+
     class Meta:
         model = Player
         fields = ('stud_photo',)
