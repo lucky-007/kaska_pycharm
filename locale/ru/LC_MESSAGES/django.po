@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-19 13:16+0300\n"
+"POT-Creation-Date: 2015-11-19 21:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,23 +60,23 @@ msgstr "Подтверждение пароля"
 msgid "Use only \"+\" and numbers"
 msgstr "Используйте только \"+\" и цифры"
 
-#: .\players\forms.py:36 .\players\models.py:117
+#: .\players\forms.py:36 .\players\models.py:127
 msgid "Phone"
 msgstr "Телефон"
 
-#: .\players\forms.py:43 .\players\models.py:93
+#: .\players\forms.py:43 .\players\models.py:98
 msgid "Email"
 msgstr "Email"
 
-#: .\players\forms.py:44 .\players\models.py:102
+#: .\players\forms.py:44 .\players\models.py:107
 msgid "Last name"
 msgstr "Фамилия"
 
-#: .\players\forms.py:45 .\players\models.py:107
+#: .\players\forms.py:45 .\players\models.py:112
 msgid "First name"
 msgstr "Имя"
 
-#: .\players\forms.py:46 .\players\models.py:112
+#: .\players\forms.py:46 .\players\models.py:122
 msgctxt "Model"
 msgid "University"
 msgstr "ВУЗ/колледж/школа"
@@ -178,39 +178,51 @@ msgstr "Пьяный"
 msgid "Banana-cut"
 msgstr "Банана-кат"
 
-#: .\players\models.py:55
+#: .\players\models.py:48
+msgid "Male"
+msgstr "М"
+
+#: .\players\models.py:49
+msgid "Female"
+msgstr "Ж"
+
+#: .\players\models.py:60
 msgid "Email address is required"
 msgstr "Email обязателен"
 
-#: .\players\models.py:98
+#: .\players\models.py:103
 msgid "We've have already this email"
 msgstr "Этот email уже зарегистрирован"
 
-#: .\players\models.py:125
+#: .\players\models.py:117
+msgid "Sex"
+msgstr "Пол"
+
+#: .\players\models.py:135
 msgid "Experience"
 msgstr "Я играю в алтимат вот уже"
 
-#: .\players\models.py:132
+#: .\players\models.py:142
 msgid "Favourite position"
 msgstr "Во время игры на поле я предпочитаю"
 
-#: .\players\models.py:139
+#: .\players\models.py:149
 msgid "Favourite throw"
 msgstr "Мой любимый бросок определенно"
 
-#: .\players\models.py:146
+#: .\players\models.py:156
 msgid "Play style"
 msgstr "Мой стиль игры можно описать одним словом"
 
-#: .\players\models.py:153
+#: .\players\models.py:163
 msgid "T-shirt size"
 msgstr "Размер футболки"
 
-#: .\players\models.py:161
+#: .\players\models.py:171
 msgid "Student ID (photo)"
 msgstr "Студенческий билет (фото)"
 
-#: .\players\models.py:162
+#: .\players\models.py:172
 msgid "You can load the photo of the student ID later. For admins only"
 msgstr ""
 "Приложите читаемое фото студенческого билета или другого документа, "
@@ -238,10 +250,6 @@ msgid ""
 msgstr ""
 "Если вы не знаете, что такое алтимат, и считаете каску только головным "
 "убором, то проигнорируйте это сообщение."
-
-#: .\players\templates\players\info.html:14
-msgid "Change profile"
-msgstr "Изменить профиль"
 
 #: .\players\templates\players\login.html:18
 msgid "Register"
@@ -366,31 +374,32 @@ msgstr "HTTP 404. Страница не найдена."
 msgid "HTTP 500. Server error."
 msgstr "HTTP 500. Ошибка сервера."
 
-#: .\templates\kaska_base.html:6 .\templates\kaska_base.html.py:78
+#: .\templates\kaska_base.html:6 .\templates\kaska_base.html.py:86
 #: .\templates\logo.html:6
 msgid "Kaska"
 msgstr "Каска"
 
-#: .\templates\kaska_base.html:45
+#: .\templates\kaska_base.html:53
 msgid "Main"
 msgstr "Главная"
 
-#: .\templates\kaska_base.html:46
+#: .\templates\kaska_base.html:54
 msgid "Gallery"
 msgstr "Галерея"
 
-#: .\templates\kaska_base.html:47
+#: .\templates\kaska_base.html:55
 msgid "Players"
 msgstr "Игроки"
 
-#: .\templates\kaska_base.html:48
+#: .\templates\kaska_base.html:56
 msgid "Teams"
 msgstr "Команды"
 
-#: .\templates\kaska_base.html:49
+#: .\templates\kaska_base.html:57
 msgid "Tournament schedule"
 msgstr "Турнирная сетка"
 
-#: .\templates\kaska_base.html:50
+#: .\templates\kaska_base.html:58
 msgid "Information"
 msgstr "Информация"
+
