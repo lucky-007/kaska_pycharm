@@ -16,15 +16,21 @@
                 <div class="col-md-5 student">
                 Студент
                 </div>
+                {% else %}
+                <div class="col-md-5 nestudent">
+                НЕ студент
+                </div>
+                {% endif %}
                 <div class="col-md-2">
                 </div>
-                {% else %}
-                {% endif %}
                 {% if player.is_paid %}
                 <div class="col-md-5 oplatil">
                 Оплатил
                 </div>
                 {% else %}
+                <div class="col-md-5 neoplatil">
+                НЕ оплатил
+                </div>
                 {% endif %}
             </div>
 

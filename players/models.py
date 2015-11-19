@@ -110,7 +110,7 @@ class Player(AbstractBaseUser, PermissionsMixin):
     )
     university = models.CharField(
         verbose_name=pgettext_lazy('Model', 'University'),
-        max_length=15,
+        max_length=50,
         blank=False,
     )
     phone = models.CharField(

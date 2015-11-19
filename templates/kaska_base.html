@@ -5,10 +5,15 @@
 	<head>
 		<title>{% block title %}{% trans "Kaska" %} 2015{% endblock %}</title>
 		<meta charset="utf-8" />
-        <meta http-equiv="imagetoolbar" content="no"/>
         <meta name="author" content="kaska.me"/>
-        <link rel="icon" href="{% static 'frontend/images/favicon.png' %}" type="image/png" sizes="any"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="shortcut icon" href="{% static 'frontend/images/kaskalogo-60.png' %}" type="image/png" sizes="any"/>
+        <link rel="apple-touch-icon" href="{% static 'frontend/images/kaskalogo-60.png' %}">
+        <link rel="apple-touch-icon" sizes="76x76" href="{% static 'frontend/images/kaskalogo-76.png' %}">
+        <link rel="apple-touch-icon" sizes="120x120" href="{% static 'frontend/images/kaskalogo-120.png' %}">
+        <link rel="apple-touch-icon" sizes="152x152" href="{% static 'frontend/images/kaskalogo-152.png' %}">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
