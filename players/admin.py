@@ -10,7 +10,8 @@ class PlayerAdmin(UserAdmin):
     form = PlayerChangeForm
     add_form = PlayerCreationForm
 
-    list_display = ('surname', 'name', 'phone', 'stud_photo', 'is_student', 'is_paid', 'is_admin', 'pool',)
+    list_display = ('surname', 'name', 'phone', 'vk_id', 'stud_photo', 'is_student', 'is_paid', 'is_admin', 'pool',
+                    'sex', 'experience',)
     list_display_links = ('surname', 'name')
 
     list_editable = ('is_student', 'is_paid', 'pool',)

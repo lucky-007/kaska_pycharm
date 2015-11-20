@@ -166,7 +166,7 @@ def player_create(request):
                 'user_id': vk_data['vk_id'],
                 'access_token': vk_data['access_token'],
                 'v': '5.40',
-                'fields': 'photo_400_orig,sex',
+                'fields': 'photo_400_orig,sex,photo_max',
                 'name_case': 'nom',
             }
             r = requests.get('https://api.vk.com/method/users.get', params=vk_opts_server)
@@ -188,7 +188,10 @@ def player_create(request):
             player = form.save(commit=False)
             player.vk_id = vk_data['vk_id']
             player.access_token = vk_data['access_token']
-            player.photo = vk_data['photo_400_orig']
+            if 'photo_400_orig' in vk_data:
+                player.photo = vk_data['photo_400_orig']
+            else:
+                player.photo = vk_data['photo_max']
             player.save()
             player = authenticate(email=player.email, password=form.cleaned_data['password2'])
             auth_login(request, player)
