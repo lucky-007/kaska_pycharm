@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.validators import RegexValidator
+from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 
@@ -34,6 +35,7 @@ class PlayerCreationForm(forms.ModelForm):
                                                        code='invalid_phone')
                                         ],
                             widget=forms.TextInput(attrs={'placeholder': _('Phone')}))
+    stud_photo = forms.ImageField(widget=forms.FileInput(attrs={'onchange': mark_safe('previewFile()')}))
 
     class Meta:
         model = Player
@@ -84,7 +86,7 @@ class PlayerChangeForm(forms.ModelForm):
 
 
 class PlayerSelfChangeForm(forms.ModelForm):
-    stud_photo = forms.ImageField(widget=forms.FileInput())
+    stud_photo = forms.ImageField(widget=forms.FileInput(attrs={'onchange': mark_safe('previewFile()')}))
 
     class Meta:
         model = Player

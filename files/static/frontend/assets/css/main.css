@@ -21,11 +21,68 @@
 		font-weight: bold;
 	}
 	
+	article#maps {
+		padding: 0;
+	
+	}
+	.two-col {
+		width: auto;
+		margin: 0;
+		padding: 0;
+	}
+	
+	#login_form {
+		padding-top: 70px;
+	}
+	
+	#about_tour {
+			
+		background-image: url("/static/frontend/images/post_back.png");
+		text-shadow: 0px 0px 3px rgba(0,0,0,0.6),
+		 0px 0px 6px rgba(0,0,0,0.2),
+		 0px 0px 10px rgba(0,0,0,0.1);
+		 -webkit-box-shadow: inset 0px 0px 212px 90px rgba(0,0,0,0.75);
+		-moz-box-shadow: inset 0px 0px 212px 90px rgba(0,0,0,0.75);
+		box-shadow: inset 0px 0px 212px 90px rgba(0,0,0,0.75), 0px 0px 5px rgba(0,0,0,0.3),0px 0px 10px rgba(0,0,0,0.5),0px 0px 15px rgba(0,0,0,0.2);;
+	}
+	
+	/* background-image: url("/static/frontend/images/back-article.png"); */
+
+	
+	#about_tour a {
+		color: white;
+	}
+	
+	#about_tour img {
+		display: block; 
+		margin-left: auto; 
+		margin-right: auto;
+		width: 300px;
+	}
+	
+	.avatar {
+		display: block;
+		border-radius: 50%;
+		width: 280px;
+		height: auto;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 10px;
+	}
+	
+	.justify {
+		text-align: justify;
+		text-justify: inter-word;
+	}
+	
 	#error_list {
 		margin-left: 16px;
 		color: red;
 	}
 	
+	#support {
+		padding: 0;
+	}
 	#login_string {
 		text-align: right;
 	}
@@ -33,7 +90,7 @@
 	
 	#login_string a{
 		color: white;
-			
+		text-shadow: 0px 0px 6px rgba(0,0,0,0.9)
 	}
 	
 	#player_prop select, #player_prop label {
@@ -63,23 +120,25 @@
 		text-align: center;
 	} 
 	
-	div#partners img {
-		width: 200px;
-		height: auto;
-	}
 	#anons {
 		background-color: #79DC23;
 		margin-bottom: 50px;
-		border-bottom: #79DC23;
+		/* border-bottom: #79DC23; */
 	}
 	
-	article#anons h1, article#anons div {
+	article#anons h1, article#anons div, article#counter h1, article#counter div {
 		text-align: center;
 	}
 	
-	article#anons h1 {
-		font-size: 3em;
-		margin-bottom: 60px;
+	article#anons h1, article#counter h1 {
+		font-size: 37px;
+		line-height: 110%;
+	}
+	
+	#counter p {
+		margin: 0 0 20px 0;
+		font-size: 20px;
+		font-weight: 600;
 	}
 	
 	#search_form input, #search_form select {
@@ -170,7 +229,7 @@
 		width: 960px;
 	}
 
-	@media screen and (min-width: 737px) {
+	@media screen and (min-width: 768px) {
 
 		.containerold.\31 25\25 {
 			width: 100%;
@@ -196,7 +255,7 @@
 
 	}
 
-	@media screen and (min-width: 737px) and (max-width: 1200px) {
+	@media screen and (min-width: 768px) and (max-width: 1200px) {
 
 		.containerold.\31 25\25 {
 			width: 100%;
@@ -222,7 +281,7 @@
 
 	}
 
-	@media screen and (max-width: 736px) {
+	@media screen and (max-width: 769px) {
 
 		article#anons h1 {
 			font-size: 1.5em;
@@ -512,7 +571,7 @@
 		margin-left: 8.33333%;
 	}
 
-	@media screen and (min-width: 737px) {
+	@media screen and (min-width: 768px) {
 
 		.rowold > * {
 			padding: 50px 0 0 50px;
@@ -731,7 +790,7 @@
 
 	}
 
-	@media screen and (min-width: 737px) and (max-width: 1200px) {
+	@media screen and (min-width: 768px) and (max-width: 1200px) {
 
 		.rowold > * {
 			padding: 25px 0 0 25px;
@@ -946,7 +1005,7 @@
 
 	}
 
-	@media screen and (max-width: 736px) {
+	@media screen and (max-width: 769px) {
 
 		.rowold > * {
 			padding: 20px 0 0 20px;
@@ -1192,7 +1251,7 @@
 
 	strong, b {
 		color: #252122;
-		font-weight: 400;
+		font-weight: 600;
 	}
 
 	i, em {
@@ -1258,7 +1317,7 @@
 		color: #252122;
 		font-weight: 400;
 		margin: 0 0 0.5em 0;
-		margin-right: 20px;
+		margin-right: 10px;
 	}
 
 	form input[type=text],
@@ -1511,6 +1570,14 @@
 	section, article {
 		margin-bottom: 2.5em;
 	}
+	
+	article {
+		padding: 30px 30px 30px 30px; 
+	}
+	
+	article#message {
+		padding: 10px 30px 10px 30px;
+	}
 
 		section > :last-child, section:last-child, article > :last-child, article:last-child {
 			margin-bottom: 0;
@@ -1542,7 +1609,6 @@
 	.box {
 		background-image: url("images/Bez_Nazvania.png");
 		background: #ffffff;
-		border-bottom: solid 1px #ccc;
 	}
 
 		.box .image.featured {
@@ -1944,16 +2010,16 @@
 /* Wrappers */
 
 	#header-wrapper {
-		background-image: url("images/color_back.jpg");
-		background-color: #575757;
+		background-image: url("/static/frontend/images/menu_background.png");
+		background-color: #f7f7f7;
 		position: relative;
 		background-repeat: no-repeat;
-		border-bottom: solid 1px #ccc;
+	
 		background-position: center; 
 	}
 	#main-wrapper {
 		position: relative;
-		background: #f7f7f7 url("images/bg02.png");
+		background: #f7f7f7;
 	}
 
 		#main-wrapper:before {
@@ -2038,7 +2104,7 @@
 	}
 /* Desktop */
 
-	@media screen and (min-width: 737px) {
+	@media screen and (min-width: 768px) {
 
 		/* Basic */
 
@@ -2046,6 +2112,35 @@
 				font-size: 13pt;
 				line-height: 1.75em;
 			}
+			
+			div#partners img {
+				width: 200px;
+				height: auto;
+			}
+			
+			article div.container {
+				width: auto;
+			}
+			
+			article div.container {
+				padding: 0 40px 0 40px;
+				
+			}
+			
+			#about_tour p {
+				font-size: 150%; 
+				text-align: justify;
+				color: white;
+				font-weight: 500;
+				margin-top: 20px;
+				padding-left: 80px;
+				padding-right: 80px;
+				
+			}
+			
+			#about_tour p#footnote {
+				font-size: 125%;
+			} 
 
 			h2 {
 				font-size: 1.5em;
@@ -2077,8 +2172,8 @@
 		/* Box */
 
 			.box {
-				padding: 2.75em 1.75em 2.75em 1.75em;
-				box-shadow: 0px 0px 20px rgba(0,0,0,0.3),0px 0px 40px rgba(0,0,0,0.5),0px 0px 60px rgba(0,0,0,0.2);
+				/* padding: 2.75em 1.75em 2.75em 1.75em; */
+				box-shadow: 0px 0px 5px rgba(0,0,0,0.3),0px 0px 10px rgba(0,0,0,0.5),0px 0px 15px rgba(0,0,0,0.2);
 				
 			}
 
@@ -2090,12 +2185,13 @@
 
 				.box.post header {
 					padding-top: 1em;
-					margin: 0 0 2em 0;
+					/* margin: 0 0 2em 0; */
 				}
 
 				.box.post h2 {
 					font-size: 2em;
 					letter-spacing: -0.015em;
+					line-height: 40px;
 				}
 
 				.box.post header > p {
@@ -2166,7 +2262,7 @@
 			}
 
 			#footer-wrapper {
-				padding: 2em 0 2em 0;
+				/* padding: 2em 0 2em 0; */
 			}
 
 				#footer-wrapper header {
@@ -2375,7 +2471,7 @@
 
 /* Tablet */
 
-	@media screen and (min-width: 737px) and (max-width: 1200px) {
+	@media screen and (min-width: 768px) and (max-width: 1200px) {
 
 		/* Basic */
 
@@ -2390,6 +2486,7 @@
 
 		/* Section/Article */
 
+			article 
 			header.major {
 				margin: 0.75em 0 2.5em 0;
 			}
@@ -2475,15 +2572,39 @@
 		display: none;
 	}
 
-	@media screen and (max-width: 736px) {
+	@media screen and (max-width: 769px) {
 
 		/* Basic */
+		
+			#about_tour {
+				background-size: 600px auto;
+			}
 			
 
 			html, body {
 				overflow-x: hidden;
 			}
+			
+			div#partners img {
+				width: 180px;
+				height: auto;
+			}
 
+			#about_tour p {
+				font-size: 150%; 
+				text-align: justify;
+				color: white;
+				font-weight: 500;
+				margin-top: 20px;
+				padding-left: 10px;
+				padding-right: 10px;
+				
+			}
+			
+			#about_tour p#footnote {
+				font-size: 125%;
+			} 
+			
 			body, input, textarea, select {
 				line-height: 1.75em;
 				font-size: 11pt;
@@ -2491,7 +2612,8 @@
 			}
 
 			h2, h3, h4, h5, h6 {
-				font-size: 1.25em;
+				font-size: 1.3em;
+				margin-top: 20px;
 			}
 
 		/* Section/Article */
@@ -2512,7 +2634,7 @@
 
 			.box {
 				padding: 25px 15px 20px 15px;
-				box-shadow: 0px 0px 20px rgba(0,0,0,0.3),0px 0px 40px rgba(0,0,0,0.5),0px 0px 60px rgba(0,0,0,0.2);
+				box-shadow: 0px 0px 5px rgba(0,0,0,0.3),0px 0px 10px rgba(0,0,0,0.5),0px 0px 15px rgba(0,0,0,0.2);
 			}
 
 				.box .image.featured {
@@ -2682,7 +2804,7 @@
 					line-height: 44px;
 					border-top: solid 1px rgba(255, 255, 255, 0.05);
 					padding: 0 1em 0 1em;
-					font-style: italic;
+					font-style: normal;
 				}
 
 					#navPanel .link:first-child {
@@ -2751,7 +2873,7 @@
 			}
 
 			#footer-wrapper {
-				padding: 2em 25px;
+				/* padding: 2em 25px; */
 				overflow: hidden;
 				-webkit-transform: translateZ(0);
 			}
@@ -2831,7 +2953,34 @@
 				#copyright .links {
 					padding: 0.75em 1.25em 0.75em 1.25em;
 				}
+		
+		#login_string {
+			text-align: center;
+		}
 
+	}
+	
+	@media screen and (max-width: 420px) {
+		.avatar, #about_tour img {
+			width: 150px;
+			height: auto;
+		}
+		
+		#about_tour p {
+			font-size: 100%;
+		}
+		
+		#about_tour p#footnote {
+			font-size: 75%;
+		}
+		
+		div#partners img {
+			width: 150px;
+			height: auto;
+		}
+		#about_tour {
+			background-size: 300px auto;
+		}
 	}
 	
 /* ============================================================
@@ -2892,7 +3041,7 @@ ul#field.input-list li {
   float: left;
 }
 
-@media all and (max-width: 800px) {
+@media all and (max-width: 768px) {
   ul#field.input-list {
     margin: 0;
   }
@@ -2903,27 +3052,54 @@ ul#field.input-list li {
     margin-bottom: 10px;
   }
 }
+
+.student, .nestudent, .oplatil, .neoplatil {
+	color: white;
+	border-radius: none;
+	text-align: center;
+}
+
 .student {
-	color: white;
-	background-color: tomato;
-	border-radius: none;
-	text-align: center;
+	background-color: tomato;	
 }
+
 .nestudent {
-	color: white;
 	background-color: red;
-	border-radius: none;
-	text-align: center;
 }
+
 .oplatil {
-	color: white;
 	background-color: #73AD21;
-	border-radius: none;
+	
+}
+
+.neoplatil {	
+	background-color: red;	
+}
+
+article header {
 	text-align: center;
 }
-.neoplatil {
-	color: white;
-	background-color: red;
-	border-radius: none;
-	text-align: center;
+
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+.col-fixed {
+    /* custom width */
+    width:320px;
+}
+.col-min {
+    /* custom min width */
+    min-width:320px;
+}
+.col-max {
+    /* custom max width */
+    max-width:320px;
 }

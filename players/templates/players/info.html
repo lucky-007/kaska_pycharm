@@ -18,7 +18,7 @@
                 </div>
                 {% else %}
                 <div class="col-md-5 nestudent">
-                НЕ студент
+                не студент
                 </div>
                 {% endif %}
                 <div class="col-md-2">
@@ -29,14 +29,14 @@
                 </div>
                 {% else %}
                 <div class="col-md-5 neoplatil">
-                НЕ оплатил
+                не оплатил
                 </div>
                 {% endif %}
             </div>
 
             <div class="col-md-8">
-                <h2>{{ player.get_full_name }} <a href="https://vk.com/id{{ player.vk_id }}">
-                <img src="{% static 'frontend/images/vk.png' %}" alt="Профиль ВК" width="40" height="40" border="0">
+                <h2>{{ player.get_full_name }} <a href="https://vk.com/id{{ player.vk_id }}" target="_blank">
+                <img src="{% static 'frontend/images/vk.jpg' %}" alt="Профиль ВК" width="40" height="40" border="0">
                 </a></h2>
                 <h3>{{ player.university }}</h3>
                 <br/>
