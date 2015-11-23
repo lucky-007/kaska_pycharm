@@ -3,6 +3,7 @@ import os
 import posixpath
 import stat
 
+import datetime
 from django.core.exceptions import PermissionDenied
 from django.utils.six.moves.urllib.parse import unquote
 
@@ -258,7 +259,12 @@ def logout(request):
 
 
 def index(request):
-    context = {'request': request}
+    pl_registered = Player.objects.all().count()
+    now = datetime.datetime.now()
+    end = datetime.datetime(2015, 12, 8, 0, 0)
+    til_end = end - now
+    til_end = til_end.days
+    context = {'request': request, 'registered_players': pl_registered, 'til_end': til_end}
     return render(request, 'players/index.html', context)
 
 
