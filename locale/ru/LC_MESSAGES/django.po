@@ -261,11 +261,11 @@ msgstr "Забыли пароль?"
 
 #: .\players\templates\players\password_reset\check_email.html:10
 msgid "The letter was sent for you."
-msgstr "Вам отправлено письмо."
+msgstr "Вам отправлено письмо"
 
 #: .\players\templates\players\password_reset\check_email.html:11
 msgid "Check your email."
-msgstr "Проверьте свою почту."
+msgstr "Проверьте свою почту"
 
 #: .\players\templates\players\password_reset\check_email.html:12
 #: .\players\templates\players\password_reset\confirm.html:18
@@ -282,7 +282,7 @@ msgstr "Войти"
 
 #: .\players\templates\players\password_reset\no_email.html:10
 msgid "There is no player registered with this email."
-msgstr "Игрок с таким email не зарегистрирован."
+msgstr "Игрок с таким email не зарегистрирован"
 
 #: .\players\templates\players\password_reset\no_email.html:11
 msgid "Registration form"
@@ -302,19 +302,19 @@ msgstr "Регистрация"
 
 #: .\players\templates\players\player_create.html:12
 msgid "Request to vk.com failed."
-msgstr "Ошибка при запросе к vk.com."
+msgstr "Ошибка при запросе к vk.com"
 
 #: .\players\templates\players\player_create.html:13
 msgid "Try again."
-msgstr "Попробуйте снова."
+msgstr "Попробуйте снова"
 
 #: .\players\templates\players\player_create.html:21
 msgid "You have already registered."
-msgstr "Вы уже зарегистрированы."
+msgstr "Вы уже зарегистрированы"
 
 #: .\players\templates\players\player_create.html:22
 msgid "Please login."
-msgstr "Войдите."
+msgstr "Войдите"
 
 #: .\players\templates\players\roster.html:34
 msgid "There is no players for your request"
@@ -355,24 +355,24 @@ msgstr "\"%(path)s\" не существует"
 
 #: .\templates\400.html:10
 msgid "HTTP 400. Bad request."
-msgstr "HTTP 400. Ошибочный запрос."
+msgstr "HTTP 400. Ошибочный запрос"
 
 #: .\templates\400.html:11 .\templates\403.html:11 .\templates\404.html:11
 #: .\templates\500.html:11
 msgid "Go to main page."
-msgstr "Вернуться на главную."
+msgstr "Вернуться на главную"
 
 #: .\templates\403.html:10
 msgid "HTTP 403. Forbidden."
-msgstr "HTTP 403. Доступ запрещен."
+msgstr "HTTP 403. Доступ запрещен"
 
 #: .\templates\404.html:10
 msgid "HTTP 404. Not found."
-msgstr "HTTP 404. Страница не найдена."
+msgstr "HTTP 404. Страница не найдена"
 
 #: .\templates\500.html:10
 msgid "HTTP 500. Server error."
-msgstr "HTTP 500. Ошибка сервера."
+msgstr "HTTP 500. Ошибка сервера"
 
 #: .\templates\kaska_base.html:6 .\templates\kaska_base.html.py:86
 #: .\templates\logo.html:6

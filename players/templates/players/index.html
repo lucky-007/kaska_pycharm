@@ -6,30 +6,28 @@
 
 {% block articles %}
     {% if request.user.is_anonymous %}
+    <article class="box post" id="anons">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <header>
+                        <h1>До конца регистрации осталось {{ til_end }} дней</h1>
+                    </header>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                        <a href="{% url 'players:create' %}" class="button big">Присоединиться к турниру</a>
+                </div>
+            </div>
+        </div>
+    </article>
+    {% endif %}
+
     <div class="container two-col">
         <div class="row">
-            <div class="col-md-7">
-                <article class="box post" id="anons">
 
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <header>
-                                    <h1>До конца регистрации осталось {{ til_end }} дней</h1>
-                                </header>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                    <a href="{% url 'players:create' %}" class="button big">Присоединиться к турниру</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <article class="box post" id="counter">
 
                     <div class="container">
@@ -38,7 +36,24 @@
                                 <header>
                                     <h1>— {{ registered_players }} —</h1>
                                 </header>
-                                <p>человек уже зарегистрировались</p>
+                                <p>человек подали заявки на участие</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </article>
+            </div>
+
+            <div class="col-md-6">
+                <article class="box post" id="counter">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <header>
+                                    <h1>— {{ pos_remaining }} —</h1>
+                                </header>
+                                <p>мест осталось на турнире</p>
                             </div>
                         </div>
 
@@ -47,22 +62,6 @@
             </div>
         </div>
     </div>
-    {% else %}
-    <article class="box post" id="counter">
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <header>
-                        <h1>— {{ registered_players }} —</h1>
-                    </header>
-                    <p>человек уже зарегистрировались</p>
-                </div>
-            </div>
-
-        </div>
-    </article>
-    {% endif %}
 
 
 <!-- Content -->
@@ -124,6 +123,15 @@
                 </div>
                 <div class="col-md-4">
                     <a href="http://tommybrown.ru/" target="_blank"><img src="{% static 'frontend/images/logo-tommy-brown.png' %}" style="padding-top: 20px;"/></a>
+                </div>
+            </div>
+
+            <div class="row" id="partners">
+                <div class="col-md-6">
+                    <a href="http://bouncekitchen.ru/" target="_blank"><img src="{% static 'frontend/images/logo_bounce.png' %}" style="padding-top: 20px;"/></a>
+                </div>
+                <div class="col-md-6">
+                    <a href="http://discspace.ru/" target="_blank"><img src="{% static 'frontend/images/logo_diskspace.png' %}" style="padding-top: 30px;"/></a>
                 </div>
             </div>
 

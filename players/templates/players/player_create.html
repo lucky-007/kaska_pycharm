@@ -9,7 +9,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h2 id="error_message">{% trans 'Request to vk.com failed.' %}</h2><br>
+                <h2>{% trans 'Request to vk.com failed.' %}</h2><br>
                 <a href="{% url 'players:create' %}">{% trans 'Try again.' %}</a>
             </div>
         </div>
@@ -18,7 +18,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h2 id="error_message">{% trans 'You have already registered.' %}</h2><br>
+                <h2>{% trans 'You have already registered.' %}</h2><br>
                 <a href="{% url 'players:login' %}">{% trans 'Please login.' %}</a>
             </div>
         </div>

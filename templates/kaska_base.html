@@ -36,7 +36,7 @@
                                 <strong>
                                 {% block login %}
                                     {% if request.user.is_authenticated %}
-                                        <a href="{% url 'players:info' request.user.id %}">{{ request.user.get_full_name }}</a> <a href="{% url 'players:logout' %}">Выход</a>
+                                        <a href="{% url 'players:info' request.user.id %}">{{ request.user.get_full_name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'players:logout' %}">Выход</a>
                                     {% else %}
                                         <a href="{% url 'players:login' %}">Войти</a>
                                     {% endif %}
@@ -106,29 +106,7 @@
 			<!--[if lte IE 8]><script src="{% static 'frontend/assets/js/ie/respond.min.js' %}"></script><![endif]-->
 			<script src="{% static 'frontend/assets/js/main.js' %}"></script>
 			<script src="{% static 'frontend/assets/js/menu_selector.js' %}"></script>
-<!--			<script>
-				$(document).on('change', '.btn-file :file', function() {
-					var input = $(this),
-					  numFiles = input.get(0).files ? input.get(0).files.length : 1,
-					  label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-					input.trigger('fileselect', [numFiles, label]);
-				});
 
-				$(document).ready( function() {
-					$('.btn-file :file').on('fileselect', function(event, numFiles, label) {
-
-						var input = $(this).parents('.input-group').find(':text'),
-							log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-						if( input.length ) {
-							input.val(log);
-						} else {
-							if( log ) alert(log);
-						}
-
-					});
-				});
-			</script> -->
             {% block scripts %}{% endblock %}
 
             <!-- Yandex.Metrika counter -->
