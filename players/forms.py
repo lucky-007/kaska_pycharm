@@ -1,41 +1,58 @@
 from django import forms
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.core.validators import RegexValidator
+from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
+from django.utils.translation import ugettext_lazy as _, pgettext_lazy
+
 from players.models import Player
 
 
 CHOICES_FILTER = (
-    ('sur', 'Surname'),
-    ('univer', 'University'),
-    ('paid', 'Who paid'),
-    ('stud', 'Have stud photos'),
-    ('play', 'Already players')
+    ('sur', _('Surname')),
+    ('univer', pgettext_lazy('Search by', 'University')),
+    ('paid', _('Have already paid')),
+    ('stud', _('Have valid student ID')),
+    ('play', _('Registered as players'))
 )
 
 
 class SearchForm(forms.Form):
-    s = forms.CharField(label='', max_length=50, required=False)
-    o = forms.ChoiceField(label='Sorted by:', choices=CHOICES_FILTER, initial='sur')
+    s = forms.CharField(label='', max_length=50, required=False,
+                        widget=forms.TextInput(attrs={'placeholder': _('Search')}))
+    o = forms.ChoiceField(label=_('Sorted by:'), choices=CHOICES_FILTER, initial='sur')
 
 
 class PlayerCreationForm(forms.ModelForm):
     """
     A form for creating new users with doubled password
     """
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': _('Password')}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': _('Password confirmation')}))
+    phone = forms.CharField(validators=[RegexValidator(regex='^[+]{0,1}[0-9]{10,12}$',
+                                                       message=_('Use only "+" and numbers'),
+                                                       code='invalid_phone')
+                                        ],
+                            widget=forms.TextInput(attrs={'placeholder': _('Phone')}))
+    stud_photo = forms.ImageField(widget=forms.FileInput(attrs={'onchange': mark_safe('previewFile()')}))
 
     class Meta:
         model = Player
-        fields = ('email', 'password1', 'password2', 'surname', 'name', 'university', 'stud_photo', 'experience',
-                  'vk_link', 'position', 'fav_throw', 'style', 'size',)
+        fields = ('email', 'password1', 'password2', 'surname', 'name', 'sex', 'university', 'stud_photo', 'experience',
+                  'position', 'fav_throw', 'style', 'size', 'phone',)
+        widgets = {
+            'email': forms.TextInput(attrs={'placeholder': _('Email')}),
+            'surname': forms.TextInput(attrs={'placeholder': _('Last name')}),
+            'name': forms.TextInput(attrs={'placeholder': _('First name')}),
+            'university': forms.TextInput(attrs={'placeholder': pgettext_lazy('Model', 'University')}),
+        }
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
         if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords don't match")
+            raise forms.ValidationError(_("Passwords don't match"))
         return password2
 
     def save(self, commit=True):
@@ -69,10 +86,11 @@ class PlayerChangeForm(forms.ModelForm):
 
 
 class PlayerSelfChangeForm(forms.ModelForm):
+    stud_photo = forms.ImageField(widget=forms.FileInput(attrs={'onchange': mark_safe('previewFile()')}))
+
     class Meta:
         model = Player
-        fields = ('email', 'surname', 'name', 'university', 'stud_photo', 'experience', 'vk_link', 'position',
-                  'fav_throw', 'style', 'size')
+        fields = ('stud_photo',)
 
     def save(self, commit=True):
         user = super(PlayerSelfChangeForm, self).save(commit=False)
@@ -87,11 +105,11 @@ class AuthenticationForm(forms.Form):
     Authentication players
     """
     email = forms.EmailField(max_length=255)
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password = forms.CharField(label=_('Password'), widget=forms.PasswordInput)
 
     error_messages = {
-        'invalid_login': 'Incorrect combination of %(username)s and password',
-        'inactive': 'This account is inactive'
+        'invalid_login': _('Incorrect combination of %(username)s and password'),
+        'inactive': _('This account is inactive'),
     }
 
     def __init__(self, request=None, *args, **kwargs):

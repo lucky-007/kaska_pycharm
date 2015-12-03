@@ -5,8 +5,7 @@
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db.sqlite3</jdbc-url>
-      <libraries />
+      <jdbc-url>jdbc:sqlite:D:\python\kaska\kaska_pycharm\db.sqlite3</jdbc-url>
     </data-source>
   </component>
 </project>

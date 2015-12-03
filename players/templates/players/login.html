@@ -1,8 +1,35 @@
+{% extends 'kaska_base.html' %}
+{% load i18n %}
 
+{% block title %}Войти{% endblock %}
+{% block page_name %}{% url 'players:login' %}{% endblock %}
+{% block login %}{% endblock %}
 
-<form action="{% url 'players:login' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="hidden" name="next" value="{{ next }}" />
-    <input type="submit" value="Go" />
-</form>
+{% block articles %}
+<article class="box_post" id="login_form">
+    <div class="registration">
+        <form action="{% url 'players:login' %}" method="post">
+            <div class="container">
+                <div class="row row-centered">
+                    <div class="col-md-6 col-centered">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ next }}" />
+                        <div class="col-md-12">{{ form.email.label_tag }}{{ form.email }}</div>
+                        <div class="col-md-12">{{ form.password.label_tag }}{{ form.password }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center;">
+                            <button type="submit">Войти</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center;">
+                            <a href="{% url 'players:password_reset' %}" target="_blank">{% trans "Forgot password?" %}</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="{% url 'players:create' %}">{% trans "Register" %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</article>
+{% endblock %}

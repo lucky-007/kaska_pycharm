@@ -1,11 +1,61 @@
+{% extends 'kaska_base.html' %}
 {% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'kaska.css' %}" />
+{% load i18n %}
 
-<img class="player_photo" src="{% if player_photo %}{{ player_photo }}{% else %}http://www.exaclair.com/images/placeholders/team-placeholder.jpg{% endif %}" />
+{% block title %}Change Info{% endblock %}
+{% block page_name %}{% url 'players:change' %}{% endblock %}
 
-<form action="{% url 'players:change' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <p><label for="password_change">To change password</label> <a href="{% url 'players:password_change' %}">use this form</a></p>
-    <input type="submit" value="Go" />
-</form>
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-5">
+            <img src="{% if player_photo %}{{ player_photo }}{% else %}{% static 'frontend/images/photo_placeholder.jpg' %}{% endif %}" alt="" class="img-responsive" style="width:300px; height: auto;" />
+        </div>
+
+        <div class="col-md-7">
+            <form action="{% url 'players:change' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    Изменить фото студенческого билета:
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <span class="btn btn-primary btn-file" id="stud_btn" style="width:250px;">
+                                Прикрепить фото:{{ form.stud_photo }}
+                                <br/>
+                                <br/>
+                                <img id="new_stud_photo" src="" height="100" alt="">
+                            </span>
+                        </span>
+                    </div>
+                    <span class="help-block">
+                        {{ form.stud_photo.help_text }}
+                    </span>
+                <p>{% trans "To change password" %} <a href="{% url 'players:password_change' %}">{% trans "use this form" %}</a></p>
+                <input type="submit" value="Сохранить" />
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function previewFile() {
+        var preview = document.querySelector('#new_stud_photo'); //selects the query named img
+        var file = document.querySelector('input[type=file]').files[0]; //sames as here
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file); //reads the data as a URL
+        } else {
+            preview.src = "";
+        }
+    }
+
+    previewFile();  //calls the function named previewFile()
+</script>
+
+{% endblock %}

@@ -3,14 +3,14 @@ from django.test import TestCase
 from players.models import Player
 
 
-def create_player(email, vk_link, surname='aaa', name='bbb', university='BMSTU'):
+def create_player(email, vk_id, surname='aaa', name='bbb', university='BMSTU'):
     return Player.objects.create(
         email=email,
         surname=surname,
         name=name,
         university=university,
         experience=5,
-        vk_link=vk_link,
+        vk_id=vk_id,
         position='han',
         fav_throw='scoober',
         style='slow',
@@ -22,7 +22,7 @@ def create_players_db(amount=3):
     for i in range(amount):
         create_player(
             email='gogo%s@foo.com' % i,
-            vk_link='vk.com/%s' % i,
+            vk_id='%s' % i,
             surname='Surname%s' % i,
             name='Name%s' % i,
             university='Uni%s' % i

@@ -1,0 +1,15 @@
+{% extends 'kaska_base.html' %}
+{% load i18n %}
+
+{% block page_name %}{% url 'players:password_reset_complete' %}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{% trans 'Password reset completed successfully' %}</h2>
+            <br><a href="{% url 'players:login' %}">{% trans 'Sign in' %}</a>
+        </div>
+    </div>
+
+{% endblock %}

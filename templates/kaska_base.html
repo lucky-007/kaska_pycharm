@@ -1,0 +1,168 @@
+{% load staticfiles %}
+{% load i18n %}
+<!DOCTYPE HTML>
+<html lang="ru">
+	<head>
+		<title>{% block title %}{% trans "Kaska" %} 2015{% endblock %}</title>
+		<meta charset="utf-8" />
+        <meta name="author" content="kaska.me"/>
+
+        <link rel="shortcut icon" href="{% static 'frontend/images/kaskalogo-60.png' %}" type="image/png" sizes="any"/>
+        <link rel="apple-touch-icon" href="{% static 'frontend/images/kaskalogo-60.png' %}">
+        <link rel="apple-touch-icon" sizes="76x76" href="{% static 'frontend/images/kaskalogo-76.png' %}">
+        <link rel="apple-touch-icon" sizes="120x120" href="{% static 'frontend/images/kaskalogo-120.png' %}">
+        <link rel="apple-touch-icon" sizes="152x152" href="{% static 'frontend/images/kaskalogo-152.png' %}">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<!--[if lte IE 8]><script src="{% static 'frontend/assets/js/ie/html5shiv.js' %}"></script><![endif]-->
+		<link rel="stylesheet" href="{%  static 'frontend/assets/css/main.css' %}" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="{% static 'frontend/assets/css/ie8.css' %}" /><![endif]-->
+
+	</head>
+	<body class="no-sidebar">
+
+	<p hidden>{% block page_name %}{% url 'index' %}{% endblock %}</p>
+
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+                    <div class="container" id="login_string">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>
+                                {% block login %}
+                                    {% if request.user.is_authenticated %}
+                                        <a href="{% url 'players:info' request.user.id %}">{{ request.user.get_full_name }}</a> <a href="{% url 'players:logout' %}">Выход</a>
+                                    {% else %}
+                                        <a href="{% url 'players:login' %}">Войти</a>
+                                    {% endif %}
+                                {% endblock %}
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+					<div id="header">
+
+						<!-- Logo -->
+						<h1 class="text-logo">Каска 2015</h1>
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li><a href="{% url 'index' %}">{% trans "Main" %}</a></li>
+									<li><a href="{% url 'gallery' %}">{% trans "Gallery" %}</a></li>
+									<li><a href="{% url 'players:roster' %}">{% trans "Players" %}</a></li>
+									<li><a href="{% url 'teams' %}">{% trans "Teams" %}</a></li>
+									<li><a href="{% url 'tournament' %}">{% trans "Tournament schedule" %}</a></li>
+									<li><a href="{% url 'info' %}">{% trans "Information" %}</a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div id="main-wrapper">
+					<div class="containerold">
+					<!-- Content -->
+                    {% block articles %}
+						<article class="box post">
+							{% block content %}{% endblock %}
+						</article>
+                    {% endblock %}
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<div id="footer-wrapper">
+					<section id="footer" class="container">
+						<div class="row">
+							<div class="12u">
+
+								<!-- Copyright -->
+									<div id="copyright">
+										<ul class="links">
+											<li>&copy; {% trans "Kaska" %} 2015</li>
+										</ul>
+									</div>
+
+							</div>
+						</div>
+					</section>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+
+			<script src="{% static 'frontend/assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'frontend/assets/js/jquery.dropotron.min.js' %}"></script>
+			<script src="{% static 'frontend/assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'frontend/assets/js/skel-viewport.min.js' %}"></script>
+			<script src="{% static 'frontend/assets/js/util.js' %}"></script>
+			<!--[if lte IE 8]><script src="{% static 'frontend/assets/js/ie/respond.min.js' %}"></script><![endif]-->
+			<script src="{% static 'frontend/assets/js/main.js' %}"></script>
+			<script src="{% static 'frontend/assets/js/menu_selector.js' %}"></script>
+<!--			<script>
+				$(document).on('change', '.btn-file :file', function() {
+					var input = $(this),
+					  numFiles = input.get(0).files ? input.get(0).files.length : 1,
+					  label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+					input.trigger('fileselect', [numFiles, label]);
+				});
+
+				$(document).ready( function() {
+					$('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+
+						var input = $(this).parents('.input-group').find(':text'),
+							log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+						if( input.length ) {
+							input.val(log);
+						} else {
+							if( log ) alert(log);
+						}
+
+					});
+				});
+			</script> -->
+            {% block scripts %}{% endblock %}
+
+            <!-- Yandex.Metrika counter -->
+            <script type="text/javascript">
+                (function (d, w, c) {
+                    (w[c] = w[c] || []).push(function() {
+                        try {
+                            w.yaCounter33648169 = new Ya.Metrika({
+                                id:33648169,
+                                clickmap:true,
+                                trackLinks:true,
+                                accurateTrackBounce:true
+                            });
+                        } catch(e) { }
+                    });
+
+                    var n = d.getElementsByTagName("script")[0],
+                        s = d.createElement("script"),
+                        f = function () { n.parentNode.insertBefore(s, n); };
+                    s.type = "text/javascript";
+                    s.async = true;
+                    s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+                    if (w.opera == "[object Opera]") {
+                        d.addEventListener("DOMContentLoaded", f, false);
+                    } else { f(); }
+                    })(document, window, "yandex_metrika_callbacks");
+            </script>
+            <noscript>
+                <div>
+                    <img src="https://mc.yandex.ru/watch/33648169" style="position:absolute; left:-9999px;" alt="" />
+                </div>
+            </noscript>
+            <!-- /Yandex.Metrika counter -->
+
+	</body>
+</html>

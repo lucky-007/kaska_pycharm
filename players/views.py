@@ -1,20 +1,31 @@
+import mimetypes
+import os
+import posixpath
+import stat
+from django.utils.six.moves.urllib.parse import unquote
+
+import requests
+import json
+
 from django.conf import settings
 from django.contrib.auth import (
     REDIRECT_FIELD_NAME, login as auth_login,
     logout as auth_logout, update_session_auth_hash,
-)
+    get_user_model)
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, SetPasswordForm
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, resolve_url
 from django.template.response import TemplateResponse
-from django.utils.http import is_safe_url
+from django.utils.encoding import force_text
+from django.utils.http import is_safe_url, urlsafe_base64_decode
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-
+from django.utils.translation import ugettext_lazy as _
 from players.forms import SearchForm, PlayerSelfChangeForm, PlayerCreationForm, AuthenticationForm
 from players.models import Player
 
@@ -53,10 +64,6 @@ def roster(request):
     return render(request, 'players/roster.html', context)
 
 
-def admin(request):
-    return HttpResponseRedirect('/admin')
-
-
 @login_required
 def player_info(request, player_id):
     context = {}
@@ -82,7 +89,6 @@ def player_change(request):
         change_form = PlayerSelfChangeForm(instance=player, data=request.POST, files=request.FILES)
         if change_form.is_valid():
             player = change_form.save(commit=False)
-            # TODO download link to vk photo
             player.save()
             return HttpResponseRedirect(reverse('players:info', args=[player.id]))
     else:
@@ -93,9 +99,42 @@ def player_change(request):
 
 
 @csrf_protect
+@login_required
+def password_change(request):
+    if request.method == 'POST':
+        password_form = PasswordChangeForm(user=request.user, data=request.POST)
+        if password_form.is_valid():
+            password_form.save()
+            update_session_auth_hash(request, password_form.user)
+            return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
+    else:
+        password_form = PasswordChangeForm(user=request.user)
+
+    context = {'password_form': password_form}
+    return render(request, 'players/change_password.html', context)
+
+
+@csrf_protect
 def player_create(request):
     if not request.user.is_anonymous():
         return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
+
+    if False:  # fixme valid condition
+        vk_opts = {
+            'client_id': settings.VK_CLIENT_ID,
+            'display': 'popup',
+            'redirect_uri': 'http://kaska.me'+resolve_url('players:create'),  # fixme i.e. request.build_absolute_uri
+            'scope': ','.join(settings.VK_SCOPES),
+            'response_type': 'code',
+            'v': '5.40',
+        }
+        return HttpResponseRedirect('https://oauth.vk.com/authorize?' +
+                                    '&'.join(str(opt[0]) + '=' + str(opt[1]) for opt in vk_opts.items()))
+
+    # if request.method == 'GET':
+    #     if 'error' in request.GET.keys():
+    #         return HttpResponseRedirect(reverse('index'))
+    #     vk_code = request.GET['code']
 
     if request.method == 'POST':
         form = PlayerCreationForm(data=request.POST, files=request.FILES)
@@ -116,8 +155,12 @@ def login(request, template_name='players/login.html',
           redirect_field_name=REDIRECT_FIELD_NAME,
           authentication_form=AuthenticationForm,
           current_app=None, extra_context=None):
+
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+
     redirect_to = request.POST.get(redirect_field_name,
-                                   request.GET.get(redirect_field_name, ''))
+                                   request.GET.get(redirect_field_name, resolve_url('index')))
 
     if request.method == "POST":
         form = authentication_form(request, data=request.POST)
@@ -152,22 +195,6 @@ def logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 
-@csrf_protect
-@login_required
-def password_change(request):
-    if request.method == 'POST':
-        password_form = PasswordChangeForm(user=request.user, data=request.POST)
-        if password_form.is_valid():
-            password_form.save()
-            update_session_auth_hash(request, password_form.user)
-            return HttpResponseRedirect(reverse('players:info', args=[request.user.id]))
-    else:
-        password_form = PasswordChangeForm(user=request.user)
-
-    context = {'password_form': password_form}
-    return render(request, 'players/change_password.html', context)
-
-
 def index(request):
     context = {}
     if request.user.is_anonymous():
@@ -183,3 +210,144 @@ def index(request):
         context.update({'player': request.user})
     context.update({'current_url': request.path})
     return render(request, 'players/index.html', context)
+
+
+@csrf_protect
+def password_reset(request):
+    """
+    View for entering email of registered player to change password
+    :param request:
+    """
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+
+    context = {}
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            opts = {
+                'use_https': request.is_secure(),
+                'token_generator': default_token_generator,
+                'from_email': settings.KASKA_EMAIL,
+                'email_template_name': 'players/email/email_template.html',
+                'subject_template_name': 'players/email/email_subject.txt',
+                'request': request,
+            }
+
+            try:
+                Player.objects.get(email__iexact=form.cleaned_data['email'])
+            except Player.DoesNotExist:
+                return HttpResponseRedirect(reverse('players:password_reset_no_email'))
+            else:
+                form.save(**opts)
+                return HttpResponseRedirect(reverse('players:password_reset_check_email'))
+    else:
+        form = PasswordResetForm()
+
+    context.update({'form': form})
+    return render(request, 'players/password_reset/password_reset.html', context)
+
+
+def check_email(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+    context = {}
+    return render(request, 'players/password_reset/check_email.html', context)
+
+
+def no_email(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+    context = {}
+    return render(request, 'players/password_reset/no_email.html', context)
+
+
+@never_cache
+def password_reset_confirm(request, uidb64=None, token=None):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+
+    context = {}
+    UserModel = get_user_model()
+    assert uidb64 is not None and token is not None
+
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = UserModel._default_manager.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        valid_link = True
+        title = _('Enter new password')
+        if request.method == 'POST':
+            form = SetPasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('players:password_reset_complete'))
+        else:
+            form = SetPasswordForm(user)
+    else:
+        valid_link = False
+        title = _('Password reset failed')
+        form = None
+
+    context.update({
+        'form': form,
+        'title': title,
+        'valid_link': valid_link,
+    })
+
+    context.update({'request': request})
+    return render(request, 'players/password_reset/confirm.html', context)
+
+
+def password_reset_complete(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+    context = {}
+    return render(request, 'players/password_reset/complete.html', context)
+
+
+def logo(request):
+    return render(request, 'logo.html', {})
+
+
+def media(request, path, document_root=None):
+    if request.user.is_anonymous() or not request.user.is_admin:
+        return HttpResponseForbidden('Not for you')
+
+    path = posixpath.normpath(unquote(path))
+    path = path.lstrip('/')
+    newpath = ''
+    for part in path.split('/'):
+        if not part:
+            # Strip empty path components.
+            continue
+        drive, part = os.path.splitdrive(part)
+        head, part = os.path.split(part)
+        if part in (os.curdir, os.pardir):
+            # Strip '.' and '..' in path.
+            continue
+        newpath = os.path.join(newpath, part).replace('\\', '/')
+    if newpath and path != newpath:
+        return HttpResponseRedirect(newpath)
+    fullpath = os.path.join(document_root, newpath)
+    if os.path.isdir(fullpath):
+        raise Http404(_("Directory indexes are not allowed here."))
+    if not os.path.exists(fullpath):
+        raise Http404(_('"%(path)s" does not exist') % {'path': fullpath})
+    # Respect the If-Modified-Since header.
+    statobj = os.stat(fullpath)
+    if not was_modified_since(request.META.get('HTTP_IF_MODIFIED_SINCE'),
+                              statobj.st_mtime, statobj.st_size):
+        return HttpResponseNotModified()
+    content_type, encoding = mimetypes.guess_type(fullpath)
+    content_type = content_type or 'application/octet-stream'
+    response = FileResponse(open(fullpath, 'rb'), content_type=content_type)
+    response["Last-Modified"] = http_date(statobj.st_mtime)
+    if stat.S_ISREG(statobj.st_mode):
+        response["Content-Length"] = statobj.st_size
+    if encoding:
+        response["Content-Encoding"] = encoding
+    return response

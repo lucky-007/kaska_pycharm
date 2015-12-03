@@ -1,17 +1,133 @@
-
+{% extends 'kaska_base.html' %}
 {% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'kaska.css' %}" />
+{% load i18n %}
 
-{% if auth_form %}
-    <form action="{{ current_url }}" method="post">
-        {% csrf_token %}
-        {{ auth_form.as_p }}
-        <input type="submit" value="Go" />
-    </form>
-{% else %}
-    <div id="player_data">
-        <img src="{% if player.photo %}{{ player.photo }}{% else %}http://www.exaclair.com/images/placeholders/team-placeholder.jpg{% endif %}" />
-        <p>{{ player.get_full_name }}</p>
-        <p><a href="{% url 'players:logout' %}">Logout</a></p>
+{% block page_name %}{% url 'index' %}{% endblock %}
+
+{% block articles %}
+    {% if request.user.is_anonymous %}
+    <div class="container two-col">
+        <div class="row">
+            <div class="col-md-7">
+                <article class="box post" id="anons">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <header>
+                                    <h1>До конца регистрации осталось {{ til_end }} дней</h1>
+                                </header>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                    <a href="{% url 'players:create' %}" class="button big">Присоединиться к турниру</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+
+            <div class="col-md-5">
+                <article class="box post" id="counter">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <header>
+                                    <h1>— {{ registered_players }} —</h1>
+                                </header>
+                                <p>человек уже зарегистрировались</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </article>
+            </div>
+        </div>
     </div>
-{% endif %}
+    {% else %}
+    <article class="box post" id="counter">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <header>
+                        <h1>— {{ registered_players }} —</h1>
+                    </header>
+                    <p>человек уже зарегистрировались</p>
+                </div>
+            </div>
+
+        </div>
+    </article>
+    {% endif %}
+
+
+<!-- Content -->
+    <article class="box post" id="about_tour">
+        <header>
+            <h2 style="text-align: center; color: white">О турнире</h2>
+        </header>
+        <div class = "container">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="{% static 'frontend/images/kaska-logo-15-clear.png' %}" width="300" style="display:block; margin-left: auto; margin-right: auto"/>
+                </div>
+                <div class="col-md-12">
+                    <p class="justify">
+                    Итак, по порядку, дамы и господа: КАСКА это... Здесь мог быть длинный и скучный текст*, смысл которого в одном - это самый крутой шляпный турнир, на котором с удовольствием можно поиграть в любимый алтимат!
+
+
+                    </p>
+
+                    <p style="float:right; font-size: 125%;">
+                    * подробнее о турнире все-таки можно узнать в разделе <a href="{% url 'info' %}">«Информация»</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="box post" id="partners">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12" style="text-align:center;">
+                    <h3 style="margin-bottom:30px; margin-top: 0px;">Партнеры турнира</h3>
+                </div>
+            </div>
+
+            <div class="row" id="partners">
+                <div class="col-md-3" style="padding: 52px 0 50px 0;">
+
+                    <a href="http://ultimate.bmstu.ru/" target="_blank"><img src="{% static 'frontend/images/logo-ultimate-bmstu.jpg' %}" /></a>
+                </div>
+                <div class="col-md-3">
+                    <a href="http://bmstu.ru/" target="_blank"><img src="{% static 'frontend/images/logo-bmstu.png' %}" /></a>
+                </div>
+                <div class="col-md-3">
+                    <a href="https://vk.com/profkom_bmstu" target="_blank"><img src="{% static 'frontend/images/logo-prof.png' %}" style="padding-top: 63px;"/></a>
+                </div>
+                <div class="col-md-3">
+                    <a href="http://www.studentsport.ru/" target="_blank"><img src="{% static 'frontend/images/logo-student-sport.png' %}" style="padding-top: 90px;"/></a>
+                </div>
+            </div>
+
+            <div class="row" id="partners">
+                <div class="col-md-4">
+                    <a href="http://www.ossur.com/" target="_blank"><img src="{% static 'frontend/images/logo-ossur.jpg' %}" style="padding-top: 60px;"/></a>
+                </div>
+                <div class="col-md-4">
+                    <a href="http://www.orliman.com/" target="_blank"><img src="{% static 'frontend/images/logo-orliman.png' %}" style="padding-top: 20px;"/></a>
+                </div>
+                <div class="col-md-4">
+                    <a href="http://tommybrown.ru/" target="_blank"><img src="{% static 'frontend/images/logo-tommy-brown.png' %}" style="padding-top: 20px;"/></a>
+                </div>
+            </div>
+
+        </div>
+    </article>
+
+{% endblock %}

@@ -54,7 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',  # do we really need it?
 )
 
 ROOT_URLCONF = 'kaska_pycharm.urls'
@@ -92,16 +92,27 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Europe/Moscow'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
+# VK.com
+VK_CLIENT_ID = 5145539
+VK_CLIENT_SECRET = 'O44Nl2hmR9AWX5Zg2ALZ'
+VK_SCOPES = ['offline', 'email']
+
+# Email
+# TODO have it in global_setting
+KASKA_EMAIL = 'info@kaska.me'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
@@ -113,3 +124,55 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'files', 'media')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'files', 'static'),
 )
+
+ADMINS = (
+    ('Alex', 'eremen.ai123@gmail.com'),
+)
+
+# PLAYERS_LOG_ROOT = '/home/u49036/django_logs/players.log'
+PLAYERS_LOG_ROOT = 'D:/temp/players.log'
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#
+#     'filters': {
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         },
+#     },
+#
+#     'formatters': {
+#         'simple': {
+#             'format': '[%(asctime)s] %(levelname)s %(message)s',
+#             'datafmt': '%Y-%m-%d %H:%M:%S',
+#         },
+#         'verbose': {
+#             'format': '[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s',
+#             'datefmt': '%Y-%m-%d %H:%M:%S',
+#         },
+#     },
+#
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'simple',
+#             'filters': ['require_debug_true'],
+#         },
+#         'file': {
+#             'level': 'INFO',
+#             'class': 'logging.FileHandler',
+#             'filename': PLAYERS_LOG_ROOT,
+#             'formatter': 'simple',
+#         },
+#     },
+#
+#     'loggers': {
+#         'players_db_entries': {
+#             'handlers': ['file', 'console'],
+#             'level': 'INFO',
+#             'propagate': True,
+#         },
+#     },
+# }

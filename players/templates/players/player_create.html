@@ -1,8 +1,157 @@
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'kaska.css' %}" />
+{% extends 'kaska_base.html' %}
+{% load i18n %}
 
-<form enctype="multipart/form-data" action="{% url 'players:create' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Go" />
-</form>
+{% block title %}{% trans "Registration" %}{% endblock %}
+{% block page_name %}{% url 'players:create' %}{% endblock %}
+
+{% block content %}
+    {% if error == 'bad_oauth' %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2 id="error_message">{% trans 'Request to vk.com failed.' %}</h2><br>
+                <a href="{% url 'players:create' %}">{% trans 'Try again.' %}</a>
+            </div>
+        </div>
+
+    {% elif error == 'registered' %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2 id="error_message">{% trans 'You have already registered.' %}</h2><br>
+                <a href="{% url 'players:login' %}">{% trans 'Please login.' %}</a>
+            </div>
+        </div>
+
+    {% else %}
+
+        <header>
+            <h2 style="text-align: center; margin-bottom: 40px;">Ты новенький? Добро пожаловать на Каску!</h2>
+        </header>
+
+            <!-- Registration form-->
+            <div class="row">
+            {% for field, value in form_errors.items %}
+                <div class="col-md-12" id="error_list">
+                    {{ field }}: {{ value }}
+                </div>
+            {% endfor %}
+            </div>
+
+            <div class="registration">
+                <form enctype="multipart/form-data" action="{% url 'players:create' %}" method="post">
+                    {% csrf_token %}
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <h3>Немного о тебе</h3>
+                                </div>
+                                <div class="col-md-6 {% if form.name.errors %}error-input{% endif %}">{{ form.name }}</div>
+                                <div class="col-md-6 {% if form.surname.errors %}error-input{% endif %}">{{ form.surname }}</div>
+                                <div class="col-md-12 {% if form.university.errors %}error-input{% endif %}">{{ form.university }}</div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form.size.label_tag }}
+                                        {{ form.size }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form.sex.label_tag }}
+                                        {{ form.sex }}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-primary btn-file" id="stud_btn" style="width:250px;">
+                                                Прикрепить фото студенческого:{{ form.stud_photo }}
+                                                <br/>
+                                                <br/>
+                                                <img src="" height="100" alt="">
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <span class="help-block">
+                                        {{ form.stud_photo.help_text }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <h3>Пара формальностей</h3>
+                                </div>
+                                <div class="col-md-12 {% if form.email.errors %}error-input{% endif %}">{{ form.email }}</div>
+                                <div class="col-md-12 {% if form.phone.errors %}error-input{% endif %}">{{ form.phone }}</div>
+                                <div class="col-md-12 {% if form.password1.errors %}error-input{% endif %}">{{ form.password1 }}</div>
+                                <div class="col-md-12 {% if form.password2.errors %}error-input{% endif %}">{{ form.password2 }}</div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="player_prop">
+                            <div class="col-md-12">
+                                    <h3>Нам необходимо знать твой опыт игры, чтобы турнир получился интересным</h3>
+                                </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form.experience.label_tag }}
+                                    {{ form.experience }}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form.position.label_tag }}
+                                    {{ form.position }}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form.fav_throw.label_tag }}
+                                    {{ form.fav_throw }}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form.style.label_tag }}
+                                    {{ form.style }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="text-align:center;">
+                                <button type="submit">Присоединиться</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function previewFile() {
+        var preview = document.querySelector('img'); //selects the query named img
+        var file = document.querySelector('input[type=file]').files[0]; //sames as here
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file); //reads the data as a URL
+        } else {
+            preview.src = "";
+        }
+    }
+
+    previewFile();  //calls the function named previewFile()
+</script>
+
+{% endblock %}

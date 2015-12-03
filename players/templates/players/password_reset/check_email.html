@@ -1,0 +1,16 @@
+{% extends 'kaska_base.html' %}
+{% load i18n %}
+
+{% block page_name %}{% url 'players:password_reset_check_email' %}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+                <h2>{% trans 'The letter was sent for you.' %}</h2>
+                {% trans 'Check your email.' %}
+            <br><a href="{% url 'index' %}">{% trans 'Return to main' %}</a>
+        </div>
+    </div>
+
+{% endblock %}

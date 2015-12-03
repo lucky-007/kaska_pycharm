@@ -1,0 +1,15 @@
+{% extends 'kaska_base.html' %}
+{% load i18n %}
+
+{% block page_name %}{% url 'players:password_reset_no_email' %}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+                <h2>{% trans 'There is no player registered with this email.' %}</h2>
+            <br><a href="{% url 'players:create' %}">{% trans 'Registration form' %}</a>
+        </div>
+    </div>
+
+{% endblock %}
