@@ -351,3 +351,18 @@ def media(request, path, document_root=None):
     if encoding:
         response["Content-Encoding"] = encoding
     return response
+
+
+def gallery(request):
+    return None
+
+def tournament(request):
+    return None
+
+
+def teams(request):
+    return None
+
+
+def info(request):
+    return None
