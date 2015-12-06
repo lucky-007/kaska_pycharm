@@ -264,7 +264,7 @@ def index(request):
     end = datetime.datetime(2015, 12, 8, 0, 0)
     til_end = end - now
     til_end = til_end.days
-    positions = 96
+    positions = 98
     pos_remaining = positions - Player.objects.filter(is_paid=True, is_active=True, is_student=True).count()
     context = {'request': request, 'registered_players': pl_registered,
                'til_end': til_end, 'pos_remaining': pos_remaining}
