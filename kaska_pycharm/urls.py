@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^gallery/$', players.views.gallery, name='gallery'),
     url(r'^tourn/$', players.views.tournament, name='tournament'),
     url(r'^teams/$', players.views.teams, name='teams'),
+    url(r'^teams/available/$', players.views.teams_available, name='teams_available'),
     url(r'^info/$', players.views.info, name='info'),
     url(r'^players/', include('players.urls', namespace='players')),
     url(r'^admin/', include(admin.site.urls)),

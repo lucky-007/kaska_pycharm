@@ -1,0 +1,13 @@
+{% load staticfiles %}
+
+{% for i in teams %}
+    <button class="team_button" id="but{{ i.0 }}">{{ i.1 }}</button><br/>
+{% endfor %}
+<p hidden>{{ request.user.pool }}</p>
+<form action="{% url 'teams' %}" method="post">
+    {% csrf_token %}
+    <input id="team_submit" name="selected" type="hidden" value="" />
+    <input type="submit" value="GO" disabled />
+</form>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="{% static 'frontend/assets/js/team_selection.js' %}"></script>

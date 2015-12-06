@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from players.forms import PlayerChangeForm, PlayerCreationForm
 
-from players.models import Player
+from players.models import Player, Team
 
 
 class PlayerAdmin(UserAdmin):
@@ -11,7 +11,7 @@ class PlayerAdmin(UserAdmin):
     add_form = PlayerCreationForm
 
     list_display = ('surname', 'name', 'phone', 'vk_id', 'stud_photo', 'is_student', 'is_paid', 'is_admin', 'pool',
-                    'sex', 'experience',)
+                    'sex', 'experience', 'team')
     list_display_links = ('surname', 'name')
 
     list_editable = ('is_student', 'is_paid', 'pool',)
@@ -26,7 +26,7 @@ class PlayerAdmin(UserAdmin):
                                     'fav_throw', 'style', 'size',)
                          }
          ),
-        ('Hidden data', {'fields': ('vk_id', 'access_token', 'pool', 'is_active', 'is_admin', 'is_superuser',
+        ('Hidden data', {'fields': ('team', 'vk_id', 'access_token', 'pool', 'is_active', 'is_admin', 'is_superuser',
                                     'is_student', 'is_paid', 'date_joined', 'photo',)
                          }
          ),
@@ -42,3 +42,4 @@ class PlayerAdmin(UserAdmin):
 
 admin.site.register(Player, PlayerAdmin)
 admin.site.unregister(Group)
+admin.site.register(Team)

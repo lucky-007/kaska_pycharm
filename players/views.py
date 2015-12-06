@@ -1,6 +1,7 @@
 import mimetypes
 import os
 import posixpath
+import random
 import stat
 
 import datetime
@@ -21,7 +22,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, resolve_url
 from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
@@ -32,7 +33,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.static import was_modified_since
 
 from players.forms import SearchForm, PlayerSelfChangeForm, PlayerCreationForm, AuthenticationForm
-from players.models import Player
+from players.models import Player, Team
 
 
 def roster(request):
@@ -207,7 +208,7 @@ def index(request):
     end = datetime.datetime(2015, 12, 8, 0, 0)
     til_end = end - now
     til_end = til_end.days
-    positions = 128
+    positions = 96
     pos_remaining = positions - Player.objects.filter(is_paid=True, is_active=True, is_student=True).count()
     context = {'request': request, 'registered_players': pl_registered,
                'til_end': til_end, 'pos_remaining': pos_remaining}
@@ -364,8 +365,34 @@ def tournament(request):
 
 
 def teams(request):
-    return render(request, 'teams.html', {'request': request})
+    # if not request.user.is_admin:
+    #     return render(request, 'teams.html', {'request': request})
+    context = {'request': request}
+    if request.method == 'POST':
+        if 'selected' in request.POST:
+            team = Team.objects.get(pk=request.POST['selected'])
+            player = Player.objects.get(pk=request.user.id)
+            player.team = team
+            player.save()
+
+            chosen = team.chosen
+            pos = request.user.pool - 1
+            chosen = chosen[:pos]+'1'+chosen[pos+1:]
+            team.chosen = chosen
+            team.save()
+
+    intimations = [(t.id, t.get_intimation(request.user.pool)) for t in Team.objects.all()]
+    random.shuffle(intimations)
+    context.update({'teams': intimations})
+    return render(request, 'teams_intimations.html', context)
 
 
 def info(request):
     return render(request, 'info.html', {'request': request})
+
+
+def teams_available(request):
+    pool = int(request.GET['pool'])
+    available = {t.id: t.is_available(pool) for t in Team.objects.all()}
+    available = json.dumps(available)
+    return HttpResponse(available)
