@@ -2,6 +2,9 @@ import mimetypes
 import os
 import posixpath
 import stat
+
+import datetime
+from django.core.exceptions import PermissionDenied
 from django.utils.six.moves.urllib.parse import unquote
 
 import requests
@@ -26,6 +29,8 @@ from django.utils.http import is_safe_url, urlsafe_base64_decode
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.utils.translation import ugettext_lazy as _
+from django.views.static import was_modified_since
+
 from players.forms import SearchForm, PlayerSelfChangeForm, PlayerCreationForm, AuthenticationForm
 from players.models import Player
 
@@ -60,13 +65,13 @@ def roster(request):
             search_form = SearchForm()
             players_list = players_list.order_by('surname')
 
-    context = {'players_list': players_list, 'user_id': request.user.id, 'search_form': search_form}
+    context = {'players_list': players_list, 'user_id': request.user.id, 'search_form': search_form, 'request': request}
     return render(request, 'players/roster.html', context)
 
 
 @login_required
 def player_info(request, player_id):
-    context = {}
+    context = {'request': request}
     try:
         player = Player.objects.get(pk=player_id)
         if request.user.id == int(player_id):
@@ -81,7 +86,7 @@ def player_info(request, player_id):
 @csrf_protect
 @login_required
 def player_change(request):
-    context = {}
+    context = {'request': request}
     player = request.user
     context.update({'player_photo': player.photo})
 
@@ -110,7 +115,7 @@ def password_change(request):
     else:
         password_form = PasswordChangeForm(user=request.user)
 
-    context = {'password_form': password_form}
+    context = {'password_form': password_form, 'request': request}
     return render(request, 'players/change_password.html', context)
 
 
@@ -145,7 +150,7 @@ def player_create(request):
             return HttpResponseRedirect(reverse('players:roster'))  # maybe to index?
     else:
         form = PlayerCreationForm()
-    context = {'form': form}
+    context = {'form': form, 'request': request}
     return render(request, 'players/player_create.html', context)
 
 
@@ -180,6 +185,7 @@ def login(request, template_name='players/login.html',
         redirect_field_name: redirect_to,
         'site': current_site,
         'site_name': current_site.name,
+        'request': request,
     }
     if extra_context is not None:
         context.update(extra_context)
@@ -196,19 +202,15 @@ def logout(request):
 
 
 def index(request):
-    context = {}
-    if request.user.is_anonymous():
-        if request.method == 'POST':
-            auth_form = AuthenticationForm(request, data=request.POST)
-            if auth_form.is_valid():
-                auth_login(request, auth_form.get_user())
-                return HttpResponseRedirect(reverse('index'))
-        else:
-            auth_form = AuthenticationForm(request)
-        context.update({'auth_form': auth_form})
-    else:
-        context.update({'player': request.user})
-    context.update({'current_url': request.path})
+    pl_registered = Player.objects.all().count()
+    now = datetime.datetime.now()
+    end = datetime.datetime(2015, 12, 8, 0, 0)
+    til_end = end - now
+    til_end = til_end.days
+    positions = 128
+    pos_remaining = positions - Player.objects.filter(is_paid=True, is_active=True, is_student=True).count()
+    context = {'request': request, 'registered_players': pl_registered,
+               'til_end': til_end, 'pos_remaining': pos_remaining}
     return render(request, 'players/index.html', context)
 
 
@@ -221,14 +223,14 @@ def password_reset(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
 
-    context = {}
+    context = {'request': request}
     if request.method == 'POST':
         form = PasswordResetForm(request.POST)
         if form.is_valid():
             opts = {
                 'use_https': request.is_secure(),
                 'token_generator': default_token_generator,
-                'from_email': settings.KASKA_EMAIL,
+                'from_email': settings.DEFAULT_FROM_EMAIL,
                 'email_template_name': 'players/email/email_template.html',
                 'subject_template_name': 'players/email/email_subject.txt',
                 'request': request,
@@ -251,14 +253,14 @@ def password_reset(request):
 def check_email(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
-    context = {}
+    context = {'request': request}
     return render(request, 'players/password_reset/check_email.html', context)
 
 
 def no_email(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
-    context = {}
+    context = {'request': request}
     return render(request, 'players/password_reset/no_email.html', context)
 
 
@@ -267,7 +269,7 @@ def password_reset_confirm(request, uidb64=None, token=None):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
 
-    context = {}
+    context = {'request': request}
     UserModel = get_user_model()
     assert uidb64 is not None and token is not None
 
@@ -305,7 +307,7 @@ def password_reset_confirm(request, uidb64=None, token=None):
 def password_reset_complete(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
-    context = {}
+    context = {'request': request}
     return render(request, 'players/password_reset/complete.html', context)
 
 
@@ -315,7 +317,7 @@ def logo(request):
 
 def media(request, path, document_root=None):
     if request.user.is_anonymous() or not request.user.is_admin:
-        return HttpResponseForbidden('Not for you')
+        raise PermissionDenied
 
     path = posixpath.normpath(unquote(path))
     path = path.lstrip('/')
@@ -351,3 +353,19 @@ def media(request, path, document_root=None):
     if encoding:
         response["Content-Encoding"] = encoding
     return response
+
+
+def gallery(request):
+    return render(request, 'gallery.html', {'request': request})
+
+
+def tournament(request):
+    return render(request, 'tournament.html', {'request': request})
+
+
+def teams(request):
+    return render(request, 'teams.html', {'request': request})
+
+
+def info(request):
+    return render(request, 'info.html', {'request': request})

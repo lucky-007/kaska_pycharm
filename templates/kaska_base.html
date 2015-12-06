@@ -18,11 +18,11 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<!--[if lte IE 8]><script src="{% static 'frontend/assets/js/ie/html5shiv.js' %}"></script><![endif]-->
-		<link rel="stylesheet" href="{%  static 'frontend/assets/css/main.css' %}" />
+		<link rel="stylesheet" href="{%  static 'frontend/assets/css/main.css' %}?ver=1.1" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="{% static 'frontend/assets/css/ie8.css' %}" /><![endif]-->
 
 	</head>
-	<body class="no-sidebar">
+	<body data-spy="scroll" data-target=".navbar" data-offset="50">
 
 	<p hidden>{% block page_name %}{% url 'index' %}{% endblock %}</p>
 
@@ -36,7 +36,7 @@
                                 <strong>
                                 {% block login %}
                                     {% if request.user.is_authenticated %}
-                                        <a href="{% url 'players:info' request.user.id %}">{{ request.user.get_full_name }}</a> <a href="{% url 'players:logout' %}">Выход</a>
+                                        <a href="{% url 'players:info' request.user.id %}">{{ request.user.get_full_name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'players:logout' %}">Выход</a>
                                     {% else %}
                                         <a href="{% url 'players:login' %}">Войти</a>
                                     {% endif %}
@@ -57,7 +57,15 @@
 									<li><a href="{% url 'players:roster' %}">{% trans "Players" %}</a></li>
 									<li><a href="{% url 'teams' %}">{% trans "Teams" %}</a></li>
 									<li><a href="{% url 'tournament' %}">{% trans "Tournament schedule" %}</a></li>
-									<li><a href="{% url 'info' %}">{% trans "Information" %}</a></li>
+                                    <li class="dropdown">
+									  <a href="{% url 'info' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{% trans "Information" %}<span class="caret"></span></a>
+									  <ul class="dropdown-menu">
+										<li><a href="{% url 'info' %}#pay">Оплата участия</a></li>
+
+										<li><a href="{% url 'info' %}#maps">Место проведения</a></li>
+										<li><a href="{% url 'info' %}#rules">Регламент</a></li>
+									  </ul>
+									</li>
 								</ul>
 							</nav>
 
@@ -106,29 +114,7 @@
 			<!--[if lte IE 8]><script src="{% static 'frontend/assets/js/ie/respond.min.js' %}"></script><![endif]-->
 			<script src="{% static 'frontend/assets/js/main.js' %}"></script>
 			<script src="{% static 'frontend/assets/js/menu_selector.js' %}"></script>
-<!--			<script>
-				$(document).on('change', '.btn-file :file', function() {
-					var input = $(this),
-					  numFiles = input.get(0).files ? input.get(0).files.length : 1,
-					  label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-					input.trigger('fileselect', [numFiles, label]);
-				});
 
-				$(document).ready( function() {
-					$('.btn-file :file').on('fileselect', function(event, numFiles, label) {
-
-						var input = $(this).parents('.input-group').find(':text'),
-							log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-						if( input.length ) {
-							input.val(log);
-						} else {
-							if( log ) alert(log);
-						}
-
-					});
-				});
-			</script> -->
             {% block scripts %}{% endblock %}
 
             <!-- Yandex.Metrika counter -->
