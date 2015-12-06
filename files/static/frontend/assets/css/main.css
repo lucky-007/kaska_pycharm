@@ -31,6 +31,44 @@
 		src: url('../fonts/downloaded/bitter/Bitter-Bold.otf');
 		font-weight: bold;
 	}
+
+	div.panel-body .alert.alert-danger, div.panel-body .alert.alert-info,  div.panel-body .alert.alert-warning {
+		margin-bottom: 0;
+	}
+	
+	div.panel-body .alert.alert-warning {
+		padding-left: 30px;
+	}
+	
+	div.panel-body#lpad {
+		padding-left: 40px;
+	}
+	
+	ul.hyphen{ 
+		list-style-type: none;
+		list-style-image: none;
+		list-style-position: outside;
+		margin-left: 0;
+		margin-bottom: 0;
+		padding-left: 1em;
+		text-indent: -1em;
+		
+	} 
+	
+	ul.hyphen li:before { 
+		content: "— "; 
+		display: inline-block;
+	}
+	
+	.nav-tabs {
+		margin-bottom: 20px;
+	}
+	
+	#ymap {
+			width: 100%; 
+			height: 650px; 
+			margin-bottom: 40px;
+		}
 	
 	.sel {
 		    background: #cf9b00;
@@ -211,6 +249,10 @@
 		list-style: none;
 	}
 
+	ul.b {
+		list-style-type: square;
+	}
+	
 	blockquote, q {
 		quotes: none;
 	}
@@ -1259,8 +1301,9 @@
 
 /* Basic */
 	head {
-			font-family: 'Open Sans';
+		font-family: Bitter;
 	}
+	
 	body {
 		background: #252122;
 		background-image: url("images/bg02.png");
@@ -1287,7 +1330,7 @@
 	}
 
 	strong, b {
-		color: #252122;
+		/*color: #252122;*/
 		font-weight: 600;
 	}
 
@@ -1308,9 +1351,9 @@
 	}
 
 	blockquote {
-		border-left: solid 0.75em #dddddd;
+		/* border-left: solid 0.75em #dddddd; */
 		padding: 1em 0 1em 1.5em;
-		font-style: italic;
+		/* font-style: italic; */
 	}
 
 	h1, h2, h3, h4, h5, h6 {
@@ -1324,7 +1367,7 @@
 	}
 
 	a {
-		color: #212121;
+		color: #d52349;
 		text-decoration: underline;
 	}
 
@@ -1412,6 +1455,7 @@
 		border-radius: 0;
 	}
 	.btn-file input[type=file] {
+		
 		border-radius: 0;
 		position: absolute;
 		top: 0;
@@ -1463,11 +1507,12 @@
     form input[type=search]:focus,
 	form  select:focus,
 	form  textarea:focus{
-	   border: solid 1px #707070;
-	   -webkit-box-shadow: 0 0 5px 1px #607D8B;
-	   -moz-box-shadow: 0 0 5px 1px #607D8B;
-	   box-shadow: 0 0 5px 1px #607D8B;
-	   outline: none;
+		background-color: rgba(255, 193, 7, 0.79);
+		border: solid 1px #707070;
+		-webkit-box-shadow: 0 0 5px 1px #607D8B;
+		-moz-box-shadow: 0 0 5px 1px #607D8B;
+		box-shadow: 0 0 5px 1px #607D8B;
+		outline: none;
 	}
 	
 	.error-input input{
@@ -2392,9 +2437,9 @@
 					}
 
 			.dropotron {
-				border-radius: 5px;
-				background-color: #252122;
-				background-color: rgba(34, 30, 31, 0.98);
+				border-radius: 0px;
+				background-color: #ffc107;
+				/*background-color: rgba(34, 30, 31, 0.98);*/
 				padding: 1.25em 1.5em 1.25em 1.5em;
 				font-style: italic;
 				min-width: 13em;
@@ -2405,7 +2450,7 @@
 			}
 
 				.dropotron a, .dropotron span {
-					color: #aaa;
+					color: #727272;
 					text-decoration: none;
 					-moz-transition: color .25s ease-in-out;
 					-webkit-transition: color .25s ease-in-out;
@@ -2418,7 +2463,7 @@
 				}
 
 					.dropotron li:hover > a, .dropotron li:hover > span {
-						color: #fff;
+						color: #727272;
 					}
 
 				.dropotron.level-0 {
@@ -2536,6 +2581,7 @@
 		/* Basic */
 
 			body {
+				font-size: 100%;
 				min-width: 960px;
 				font-size: 11pt;
 			}
@@ -3021,6 +3067,24 @@
 	}
 	
 	@media screen and (max-width: 420px) {
+		
+		blockquote {
+			padding-left: 5px;
+		}
+		
+		#main-wrapper {
+			padding: 2em 0px;
+			overflow: hidden;
+		}
+		
+		div#lidia:after {
+			1
+		}
+		
+		div.container, div.container-fluid {
+			padding-left: 0;
+			padding-right: 0;
+		}
 		.avatar, #about_tour img {
 			width: 100%;
 			height: auto;
@@ -3041,6 +3105,12 @@
 		}
 		#about_tour {
 			background-size: 300px auto;
+		}
+		
+		#ymap {
+			width: 100%; 
+			height: 300px; 
+			margin-bottom: 40px;
 		}
 	}
 	
@@ -3071,7 +3141,7 @@ input#field[type="text"] {
   display: block;
   margin: 0;
   width: 100%;
-  font-family: "Open Sans", sans-serif;
+  font-family: Bitter, sans-serif;
   font-size: 18px;
   -webkit-appearance: none;
   -moz-appearance: none;

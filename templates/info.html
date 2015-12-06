@@ -19,12 +19,12 @@
         </div>
     </article>
 
-    <article class="box post">
-        <div class="container" style="padding-right: 40px; padding-left: 40px;">
+    <article id="pay" class="box post">
+        <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <header>
-                        <h2 style="text-align: center;">
+                        <h2>
                             Оплата участия
                         </h2>
                     </header>
@@ -32,16 +32,21 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="justify">
-                    Дружище, участие в турнире платное. Взнос составляет всего <strong>600 рублей</strong> при оплате <strong>до 27 ноября</strong> и 700 рублей при оплате с 28 ноября до 6 декабря. Мы очень просим тебя оплатить участие как можно скорее. Это позволит нам уже сейчас активно заниматься организацией турнира и сделать все как можно лучше и интереснее. Перевести взнос на карту или отдать лично в руки ты можешь одному из наших организаторов. Пожалуйста, укажи свои ФИО и телефон, если делаешь перевод на карту. Это позволит очень быстро подвердить твое участие.
-                    </p>
+                    <p>
+                    Дружище, участие в турнире платное. Взнос составляет всего <strong>600 рублей</strong> при оплате <strong>до 27 ноября</strong> и 700 рублей при оплате с 28 ноября по 6 декабря.
+
+                    <div class="alert alert-info" role="alert">
+                            Мы очень просим тебя оплатить участие как можно скорее. Это позволит уже сейчас активно заниматься организацией турнира и сделать все как можно лучше и интереснее.
+                    </div>
+
+                    Перевести взнос на карту или отдать лично в руки ты можешь одному из наших организаторов. Пожалуйста, <strong>укажи свои ФИО и телефон,</strong> если делаешь перевод на карту. Это позволит быстрее подтвердить твое участие.</p>
                 </div>
                 <div class="col-md-12" style="text-align:center;">
                     <h3 style="margin-top: 20px; margin-bottom: 20px;">Реквизиты оплаты </h3>
                 </div>
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="lidia">
                             <div class="col-md-12">
                             <img src="{% static 'frontend/images/lida-ava.png' %}" class="avatar" />
                             </div>
@@ -63,8 +68,8 @@
                             <div class="col-md-12">
                                 <p class="justify" style="text-align: center;">
                                     <strong>Полина Губанова, организатор</strong> <br><br>
-                                    <strong>28-29 ноября будет здесь: </strong> турнир <a href="http://forum.rfdf.ru/index.php?s=e844a50a004e8161aa0211984d8ad1a7&showtopic=9823" target="_blank">«Запуск»</a>, Пущино, команда SorryBro <br>
-                                    <strong>5-6 декабря будет здесь: </strong> турнир <a href="https://vk.com/stud_bel" target="_blank">«Best2015»</a>, Белгород, команда МГТУ-гамма <br>
+                                    <strong>28-29 ноября будет здесь: </strong> турнир <a href="http://forum.rfdf.ru/index.php?s=e844a50a004e8161aa0211984d8ad1a7&showtopic=9823">«Запуск»</a>, Пущино, команда SorryBro <br>
+                                    <strong>5-6 декабря будет здесь: </strong> турнир <a href="https://vk.com/stud_bel">«Best2015»</a>, Белгород, команда МГТУ-гамма <br>
                                     <strong>Телефон:</strong> +7 916 114-40-24  <br>
                                     <strong>Вконтакте: </strong> <a href="https://vk.com/id52384189">vk.com/id52384189</a>
                                 </p>
@@ -77,6 +82,7 @@
     </article>
 
     <article class="box post" id="maps">
+
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -89,7 +95,9 @@
 
                 <div class="col-md-12">
                     <p>
-                        Москва, Госпитальная набережная, дом 4, строение 2
+                        <strong>Спортивный комплекс МГТУ им.Баумана:</strong> Москва, Госпитальная набережная, дом 4, строение 2 <br>
+
+                        Добраться до комплекса можно пешком от станций метро <strong>Бауманская</strong> и <strong>Электрозаводская</strong>
                         <div class="alert alert-info" role="alert">
                             Станция Бауманская закрыта. До нее можно добраться от станции Курская на бесплатном автобусе.
                         </div>
@@ -97,7 +105,7 @@
                     </p>
                 </div>
                 <div class="col-md-12">
-                    <div id="ymap" style="width: 100%; height: 650px; margin-bottom: 40px; "></div>
+                    <div id="ymap"></div>
                     <script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=RpxhmpoEJ-VXXKRzHLMvoMfG2C-HPWbw&id=ymap"></script>
                 </div>
             </div>
@@ -110,243 +118,368 @@
                 <div class="col-md-12">
                     <header>
                         <h2>
-                            Регламент
+                            Регламент турнира
                         </h2>
                     </header>
                 </div>
             </div>
 
-            <div class="row">
-            На нашем турнире всегда приятная атмосфера, организаторы делают для этого все возможное. Но кое-что потребуется и от тебя, как от участника. В этих правилах только здравый смысл и уважение к участникам, спортивном залу, инвентарю и любовь к алтимат!
-            </div>
-
-
-
-
-            <div class="row row-centered">
-                <div class="col-md-12 col-centered">
-                    <nav class="navbar">
-                        <ul class="nav navbar-nav" style="text-align: center;">
-                            <li><button type="button" id="menubtn1">Групповые игры</button></li>
-                            <li><button type="button" id="menubtn2">Плей-офф</button></li>
-                            <li><button type="button" id="menubtn3">Финал</button></li>
-                            <li><button type="button" id="menubtn4">Правила поведения</button></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+        <div class="navbar-collapse">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">1 Общие правила</a></li>
+                <li><a data-toggle="tab" href="#menu1">2 Групповая игра</a></li>
+                <li><a data-toggle="tab" href="#menu2">3 Плей-офф</a></li>
+                <li><a data-toggle="tab" href="#menu3">4 Финал</a></li>
+                <li><a data-toggle="tab" href="#menu4">5 Правила поведения</a></li>
+            </ul>
         </div>
-<!-- Start of Button 1 Group plays -->
-        <div id="btn1" class="container-fluid">
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Время</strong></div>
-                    <div class="panel-body">
-                        <p>Продолжительность игр - <strong>18 минут</strong></p>
-                        <p>Перерыв между играми - <strong>2 минут</strong></p>
+
+
+            <div class="tab-content">
+<!-- Common rules-->				<div id="home" class="tab-pane fade in active">
+                    <div class="container-fluid">
+
+                            <div class="alert alert-success" role="alert">
+                                <strong>1.1</strong> Турнир проводится по правилам, утвержденным всемирной федерацией
+летающих дисков (WFDF), если иное не предусмотрено регламентом турнира.
+                            </div>
+
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading"><strong>1.2 Время и счет блокирующего</strong></div>
+
+                            <div class="panel-body">
+
+                                    <blockquote>
+                                        <strong>1.2.1</strong> Во время тайм-аута время игры не останавливается. <br>
+                                        <strong>1.2.2</strong> Счет блокирующего игрока до восьми. <br>
+                                        <strong>1.2.3</strong> В случае неоспоренного нарушения со стороны защиты, счет сбрасывается до нуля. <br>
+                                        <strong>1.2.4</strong> В случае неоспоренного нарушения со стороны атаки, счет не более чем с шести. <br>
+                                        <strong>1.2.5</strong> Возобновление счета после опротестованного фола, объявленного защитой, максимум с шести. <br>
+                                        <strong>1.2.6</strong> В случае оспоренного &laquo;стол аут&raquo; счет начинается не более чем с шести. <br>
+                                        <strong>1.2.7</strong> В случае всех остальных объявлений, возобновление счета производится не более чем с четырех.
+                                    </blockquote>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading"><strong>1.3 Ввод диска</strong></div>
+
+                            <div class="panel-body">
+                                <blockquote><strong>1.3.1</strong> Если игрок атакующей команды касается диска до его касания земли, после
+                                чего атакующая команда не может его поймать, это не считается потерей. В
+                                этом случае диск необходимо начинать разыгрывать с точки игрового поля,
+                                ближайшей к месту касания атакующим игроком диска. Если диск касается
+                                игрового поля, затем игрок атаки не может его поймать или остановить, то диск
+                                вводится в игру с точки игрового поля, ближайшей к месту касания атакующим
+                                игроком диска. игрок, коснувшийся диска, не обязан начинать розыгрыш.</blockquote>
+                                <blockquote><strong>1.3.2</strong> Если диск сначала касается игрового поля, а затем выходит в аут без контакта
+                                с игроком атакующей команды, то бросающий устанавливает точку опоры в
+                                точке центральной зоны, ближайшей к месту, где диск вышел в аут.</blockquote>
+                                <blockquote><strong>1.3.3</strong> Атакующая команда вправе объявить &laquo;брик&raquo; (5 метров от передней линии
+                                зоны атакующей команды) в следующих случаях: <br>
+                                <blockquote><i>
+                                <ul class="hyphen">
+                                    <li>в случае, когда диск коснулся центральной части поля и вышел (вылетел
+                                    или выкатился) в аут; </li>
+
+                                    <li>в случае, когда диск пролетел над линией центральной части поля ниже
+                                    0.5 метра; </li>
+
+                                    <li>в случае, когда диск пролетел над линией игрового поля (не &laquo;центральной
+                                    части&raquo;) выше чем 2 метра и затем не вернулся (по воздуху) в пределы
+                                    игрового поля.</li>
+                                </ul>
+                                </i></blockquote>
+                                Если выполняется один из предыдущих пунктов, то игрок атаки имеет
+                                право объявить &laquo;брик&raquo; или начать игру с ближайшей точки от места
+                                выхода диска за пределы игрового поля. Во всех остальных случаях игра
+                                начинается с точки игрового поля (не &laquo;центральной части&raquo;), ближайшей к
+                                точки выхода диска в аут.
+                                Если диск вышел в аут (вылетел или выкатился) после &laquo;пула&raquo;, то игрок,
+                                начинающий розыгрыш, должен установить опорную точку в ближайшем
+                                месте игрового поля.</blockquote>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+
                         <div class="alert alert-info" role="alert">
-                            <strong>Внимание!</strong> Если игры задерживаются, то перерыв между ними может быть сокращен. Тогда каждая следующая игра начинается по готовности команд.
+                            <strong>1.4</strong> В случае одинакового количества очков у двух и более команд, места команд
+                            распределяются по:
+                            <blockquote>
+                                <ul class="hyphen">
+                                    <li>результатам личных встреч; </li>
+                                    <li>разнице голов между этими командами;</li>
+                                    <li>разнице голов во всех встречах; </li>
+                                    <li>посеву команды перед турниром.</li>
+                                </ul>
+                            </blockquote>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Счет</strong></div>
-                    <div class="panel-body">
-                        <p>Победный счет: <strong>11 очков</strong></p>
-                        <p>Доигрывание: <strong>+1</strong></p>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>ПАГА-кап</strong></div>
-                    <div class="panel-body">
-                        <p>Действует правило <strong>ПАГА-кап</strong>:</p>
-                        <p>По окончании матча происходит доигрывание текущего текущего очка.</p>
-                        <p>Если после этого разрыв в счете составляет <u>3 и  более очков</u> - <strong>матч заканчивается</strong>.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Атака vs Защита</strong></div>
-                    <div class="panel-body">
-                        <p>Атакующая команда имеет 45 секунд с начала розыгрыша очка для подачи сигнала о готовности к пуллу (введение диска в игру).</p>
-                        <p>Защищающаяся команда имеет не более 50 секунд с начала розыгрыша очка для введения диска в игру.</p>
-                        <div class="alert alert-danger" role="alert">
-                            <strong>Внимание!</strong> Через 60 секунд после начала розыгрыша очка, если команда не ввела диск, то берется <strong>принудительный тайм-аут</strong>. Если тайм-аута у команды нет или время вышло, то атакующая команда начинает игру <strong>с середины поля</strong>.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Тайм-ауты</strong></div>
-                    <div class="panel-body">
-                        <p>У каждой команды есть <strong>1 таймаут</strong> продолжительностью <strong>1 минута</strong>.</p>
-                        <p>По окончании игрового времени тайм-аут брать <strong>нельзя</strong>.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-<!-- End of Button 1 -->
 
-<!-- Start of Button 2 Play off -->
-        <div id="btn2" class="container-fluid">
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Время</strong></div>
-                    <div class="panel-body">
-                        <p>Продолжительность игр - <strong>25 минут</strong></p>
-                        <p>Перерыв между играми - <strong>3 минут</strong></p>
+                    </div>
+
+                    <div class="container-fluid">
+
                         <div class="alert alert-info" role="alert">
-                            <strong>Внимание!</strong> Если игры задерживаются, то перерыв между ними может быть сокращен. Тогда каждая следующая игра начинается по готовности команд.
+                            <strong>1.5</strong> Команда атаки выставляет на поле не менее одной девочки. Команда защиты
+                            выставляет девочек на поле не меньше, чем их выставила атакующая команда.
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Счет</strong></div>
-                    <div class="panel-body">
-                        <p>Победный счет: <strong>11 очков</strong></p>
-                        <p>Доигрывание: <strong>+1</strong></p>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>ПАГА-кап</strong></div>
-                    <div class="panel-body">
-                        <p>Действует правило <strong>ПАГА-кап</strong>:</p>
-                        <p>По окончании матча происходит доигрывание текущего текущего очка.</p>
-                        <p>Если после этого разрыв в счете составляет <u>3 и  более очков</u> - <strong>матч заканчивается</strong>.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Атака vs Защита</strong></div>
-                    <div class="panel-body">
-                        <p>Атакующая команда имеет 45 секунд с начала розыгрыша очка для подачи сигнала о готовности к пуллу (введение диска в игру).</p>
-                        <p>Защищающаяся команда имеет не более 50 секунд с начала розыгрыша очка для введения диска в игру.</p>
-                        <div class="alert alert-danger" role="alert">
-                            <strong>Внимание!</strong> Через 60 секунд после начала розыгрыша очка, если команда не ввела диск, то берется <strong>принудительный тайм-аут</strong>. Если тайм-аута у команды нет или время вышло, то атакующая команда начинает игру <strong>с середины поля</strong>.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Тайм-ауты</strong></div>
-                    <div class="panel-body">
-                        <p>У каждой команды есть <strong>1 таймаут</strong> продолжительностью <strong>1 минута</strong>.</p>
-                        <p>По окончании игрового времени тайм-аут брать <strong>нельзя</strong>.</p>
-                    </div>
-                </div>
-            </div>
 
-        </div>
-<!-- End of Button 2 -->
+                    </div>
 
-<!-- Start of Button 3 Final-->
-        <div id="btn3" class="container-fluid">
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Время</strong></div>
-                    <div class="panel-body">
-                        <p>Продолжительность игр - <strong>40 минут</strong></p>
-                        <p>Перерыв между таймами - <strong>2 минуты</strong></p>
-                        <div class="alert alert-info" role="alert">
-                            <strong>Внимание!</strong> Перерыв наступает после достижения одной из команд 8 очков, либо после истечения 20 минут игры.
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Счет</strong></div>
-                    <div class="panel-body">
-                        <p>Победный счет: <strong>15 очков</strong></p>
-                        <p>Доигрывание: <strong>+1</strong></p>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>ПАГА-кап</strong></div>
-                    <div class="panel-body">
-                        <div class="alert alert-danger" role="alert">
-                            <strong>Внимание!</strong> Правило ПАГА-кап не действует.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Атака vs Защита</strong></div>
-                    <div class="panel-body">
-                        <p>Атакующая команда имеет 45 секунд с начала розыгрыша очка для подачи сигнала о готовности к пуллу (введение диска в игру).</p>
-                        <p>Защищающаяся команда имеет не более 50 секунд с начала розыгрыша очка для введения диска в игру.</p>
-                        <div class="alert alert-danger" role="alert">
-                            <strong>Внимание!</strong> Через 60 секунд после начала розыгрыша очка, если команда не ввела диск, то берется <strong>принудительный тайм-аут</strong>. Если тайм-аута у команды нет или время вышло, то атакующая команда начинает игру <strong>с середины поля</strong>.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Тайм-ауты</strong></div>
-                    <div class="panel-body">
-                        <p>У каждой команды есть <strong>1 таймаут</strong> продолжительностью <strong>1 минута</strong>.</p>
-                        <p>По окончании игрового времени тайм-аут брать <strong>нельзя</strong>.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-<!-- End of Button 3 -->
-<!-- Start of Button 4 Rules-->
-        <div id="btn4" class="container-fluid">
 
-            <div class="container-fluid">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">Правила</div>
-                    <div class="panel-body">
-                        <ul>
-                            <li>Курение, распитие спиртных напитков, употребление наркотиков и психотропных средств на территории спорткомплекса категорически запрещено.</li>
-                            <li>Необходимо бережно относиться к имуществу спортивных сооружений МГТУ им. Н.Э. Баумана.</li>
-                            <li>Участники турнира должны соблюдать чистоту, убирать за собой и своими сокомандниками мусор в специально отведенные места.</li>
-                            <li>Все свои вещи участники соревнований должны оставлять в раздевалках (снаружи они будут закрыты).</li>
-                            <li>Участники соревнований должны уважительно относиться друг к другу, зрителям и коллективу спорткафедры.</li>
-                            <li>Участники соревнований должны уважительно относиться к играющим в данный	момент командам и выполнять следующие требования:<br/>
-                                            • освобождать линию в тот момент, когда вы понимаете что загораживаете хендлеру бросок или обзор; </br>
-                                            • не раскидывать свои вещи на поле и вне его таким образом, что они могут помещать командам или нанести травму участнику или зрителю; </br>
-                                            • не выбегать на поле во время игры; <br>
-                                            • не раскидываться над полем или в непосредственной близости от него во время игры таким образом, что это может помешать играющим.</li>
-                            <li>Запрещается заниматься в обуви, которая оставляет следы (цветные и белые) на покрытии и имеет шипы, в том числе резиновые.</li>
-                            <li>Запрещается проносить и употреблять в зале пищевые продукты и сладкие напитки. Для этого на втором этаже спорткомплекса расположена столовая.</li>
-                            <li>Верхнюю одежду необходимо сдать в гардероб.</li>
-                        </ul>
+
+<!-- Group games-->					<div id="menu1" class="tab-pane fade">
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading"><strong>2.1 Время</strong></div>
+
+                            <div class="panel-body">
+                                <p>Продолжительность игр - <strong>18 минут</strong></p>
+                                <p>Перерыв между играми - <strong>2 минуты</strong></p>
+                                <div class="alert alert-info" role="alert">
+                                    Если игры задерживаются, то перерыв между ними может быть сокращен. Тогда каждая следующая игра начинается по готовности команд.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading"><strong>2.2 Счет</strong></div>
+
+                            <div class="panel-body">
+                                <p>Победный счет: <strong>11 очков</strong></p>
+                                <p>Доигрывание: <strong>+1</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading"><strong>2.3 ПАГА-кап</strong></div>
+
+                            <div class="panel-body">
+                                <p>Действует правило <strong>ПАГА-кап</strong>:</p>
+                                <p>По окончании игрового времени происходит доигрывание текущего очка.</p>
+                                <p>Если после этого разрыв в счете составляет <u>3 и  более очков</u> - матч заканчивается.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading"><strong>2.4 Атака vs Защита</strong></div>
+
+                            <div class="panel-body">
+                                <p>Атакующая команда имеет <strong>45 секунд</strong> с начала розыгрыша очка для подачи сигнала о готовности к пуллу (введение диска в игру).</p>
+                                <p>Защищающаяся команда имеет не более <strong>50 секунд</strong> с начала розыгрыша очка для введения диска в игру.</p>
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Внимание! </strong> Через 60 секунд после начала розыгрыша очка, если команда не ввела диск, то берется принудительный тайм-аут. Если тайм-аута у команды нет или время вышло, то атакующая команда начинает игру с середины поля.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading"><strong>2.5 Тайм-ауты</strong></div>
+
+                            <div class="panel-body">
+                                <p>У каждой команды есть <strong>1 тайм-аут</strong> продолжительностью <strong>1 минута</strong>.</p>
+                                <p>По окончании игрового времени тайм-аут брать <strong>нельзя</strong>.</p>
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Внимание! </strong> По окончании игрового времени тайм-аут брать нельзя.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-fluid">
-                <div class="panel panel-danger">
-                    <div class="panel-heading">Правила лучше не нарушать. Иначе</div>
-                    <div class="panel-body">
-                        <ul id="disc">
-                            <li>Дисквалификации игрока</li>
-                            <li>Дисквалификации команды на турнире "KASKA"</li>
-                            <li>Дисквалификации команды, которую представляет игрок, на
-                            последующих студенческих соревнованиях, проводимых под
-                            эгидой МГТУ им. Н.Э. Баумана</li>
-                            <li>Дисквалификации команды, которую представляет игрок, на
-                            последующих студенческих соревнованиях России</li>
-                        </ul>
+
+<!-- Play offs-->					<div id="menu2" class="tab-pane fade">
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>3.1 Время</strong></div>
+                            <div class="panel-body">
+                                <p>Продолжительность игр - <strong>25 минут</strong></p>
+                                <p>Перерыв между играми - <strong>3 минуты</strong></p>
+                                <div class="alert alert-info" role="alert">
+                                    Если игры задерживаются, то перерыв между ними может быть сокращен. Тогда каждая следующая игра начинается по готовности команд.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>3.2 Счет</strong></div>
+                            <div class="panel-body">
+                                <p>Победный счет: <strong>11 очков</strong></p>
+                                <p>Доигрывание: <strong>+1</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>3.3 ПАГА-кап</strong></div>
+                            <div class="panel-body">
+                                <p>Действует правило <strong>ПАГА-кап</strong>:</p>
+                                <p>По окончании игрового времени происходит доигрывание текущего очка.</p>
+                                <p>Если после этого разрыв в счете составляет <u>3 и  более очков</u> - <strong>матч заканчивается</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>3.4 Атака vs Защита</strong></div>
+                            <div class="panel-body">
+                                <p>Атакующая команда имеет <strong>45 секунд</strong> с начала розыгрыша очка для подачи сигнала о готовности к пуллу (введение диска в игру).</p>
+                                <p>Защищающаяся команда имеет не более <strong>50 секунд</strong> с начала розыгрыша очка для введения диска в игру.</p>
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Внимание! </strong> Через 60 секунд после начала розыгрыша очка, если команда не ввела диск, то берется принудительный тайм-аут. Если тайм-аута у команды нет или время вышло, то атакующая команда начинает игру с середины поля.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>3.5 Тайм-ауты</strong></div>
+                            <div class="panel-body">
+                                <p>У каждой команды есть <strong>1 тайм-аут</strong> продолжительностью <strong>1 минута</strong>.</p>
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Внимание! </strong> По окончании игрового времени тайм-аут брать нельзя.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
+<!--Finals-->						<div id="menu3" class="tab-pane fade">
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>4.1 Время</strong></div>
+                            <div class="panel-body">
+                                <p>Продолжительность игр - <strong>40 минут</strong></p>
+                                <p>Перерыв между таймами - <strong>2 минуты</strong></p>
+                                <div class="alert alert-info" role="alert">
+                                    Перерыв наступает после достижения одной из команд 8 очков, либо после истечения 20 минут игры.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>4.2 Счет</strong></div>
+                            <div class="panel-body">
+                                <p>Победный счет: <strong>15 очков</strong></p>
+                                <p>Доигрывание: <strong>+1</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>4.3 ПАГА-кап</strong></div>
+                            <div class="panel-body">
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Внимание! </strong> Правило ПАГА-кап не действует.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>4.4 Атака vs Защита</strong></div>
+                            <div class="panel-body">
+                                <p>Атакующая команда имеет <strong>45 секунд</strong> с начала розыгрыша очка для подачи сигнала о готовности к пуллу (введение диска в игру).</p>
+                                <p>Защищающаяся команда имеет не более <strong>50 секунд</strong> с начала розыгрыша очка для введения диска в игру.</p>
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Внимание! </strong> Если команда защиты не ввела диск через 60 секунд после начала розыгрыша очка, этой командой берется <strong>принудительный тайм-аут</strong>. Если тайм-аута у команды нет или время вышло, атакующая команда начинает игру с середины поля.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>4.5 Тайм-ауты</strong></div>
+                            <div class="panel-body">
+                                <p>У каждой команды есть <strong>1 тайм-аут</strong> продолжительностью <strong>1 минута</strong> в каждом тайме.</p>
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Внимание! </strong> По окончании игрового времени тайм-аут брать нельзя.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+<!--Rules of behavior-->			<div id="menu4" class="tab-pane fade">
+                    <div class="container-fluid">
+                        <div class="panel panel-success">
+                            <div class="panel-heading"><strong>Правила у нас такие</strong></div>
+                            <div class="panel-body">
+
+                                    <blockquote><strong>5.1</strong> Курение, распитие спиртных напитков, употребление наркотиков и психотропных средств на территории спорткомплекса категорически запрещено.</blockquote>
+                                    <blockquote><strong>5.2</strong> Необходимо бережно относиться к имуществу спортивных сооружений МГТУ им. Н.Э. Баумана.</blockquote>
+                                    <blockquote><strong>5.3</strong> Участники турнира должны соблюдать чистоту, убирать за собой и своими сокомандниками мусор в специально отведенные места.</blockquote>
+                                    <blockquote><strong>5.4</strong> Все свои вещи участники соревнований должны оставлять в раздевалках (снаружи они будут закрыты).</blockquote>
+                                    <blockquote><strong>5.5</strong> Участники соревнований должны уважительно относиться друг к другу, зрителям и коллективу спорткафедры.</blockquote>
+                                    <blockquote><strong>5.6</strong> Участники соревнований должны уважительно относиться к играющим в данный	момент командам и выполнять следующие требования:
+                                        <blockquote>
+                                            <ul class="hyphen">
+
+                                                    <li>освобождать линию в тот момент, когда вы понимаете что загораживаете хендлеру бросок или обзор; </li>
+                                                    <li>не раскидывать свои вещи на поле и вне его таким образом, что они могут помешать командам или нанести травму участнику или зрителю; </li>
+                                                    <li>не выбегать на поле во время игры; </li>
+                                                    <li>не раскидываться над полем или в непосредственной близости от него во время игры таким образом, что это может помешать играющим.</li>
+                                            </ul>
+                                                    </blockquote>
+                                                    </blockquote>
+
+                                    <div class="alert alert-warning">
+                                        <ul class="hyphen">
+                                            <li>Запрещается заниматься в обуви, которая оставляет следы (цветные и белые) на покрытии и имеет шипы, в том числе резиновые.</li>
+                                            <li>Запрещается проносить и употреблять в зале пищевые продукты и сладкие напитки. Для этого на втором этаже спорткомплекса расположена столовая.</li>
+                                            <li>Верхнюю одежду необходимо сдать в гардероб.</li>
+                                        </ul>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading"><strong>И лучше их не нарушать, а иначе</strong></div>
+                            <div class="panel-body" id="lpad">
+                                <ul class="hyphen">
+                                    <li>Дисквалификации игрока;</li>
+                                    <li>Дисквалификации команды на турнире &laquo;KASKA&raquo;;</li>
+                                    <li>Дисквалификации команды, которую представляет игрок, на
+                                    последующих студенческих соревнованиях, проводимых под
+                                    эгидой МГТУ им. Н.Э. Баумана;</li>
+                                    <li>Дисквалификации команды, которую представляет игрок, на
+                                    последующих студенческих соревнованиях России.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="menu4" class="tab-pane fade">
+                  <h3>Menu 3</h3>
+                  <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                </div>
+
             </div>
         </div>
     </article>
@@ -364,8 +497,4 @@
             </div>
         </div>
     </article>
-{% endblock %}
-
-{% block scripts %}
-    <script src="{% static 'frontend/assets/js/reglament_selection.js' %}"></script>
 {% endblock %}
