@@ -1,13 +1,29 @@
+{#{% extends 'kaska_base.html' %}#}
 {% load staticfiles %}
 
-{% for i in teams %}
-    <button class="team_button" id="but{{ i.0 }}">{{ i.1 }}</button><br/>
-{% endfor %}
-<p hidden>{{ request.user.pool }}</p>
-<form action="{% url 'teams' %}" method="post">
-    {% csrf_token %}
-    <input id="team_submit" name="selected" type="hidden" value="" />
-    <input type="submit" value="GO" disabled />
-</form>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+{% block page_name %}{% url 'teams' %}{% endblock %}<br/>
+
+{% block content %}
+<div id="team_selection_page">
+    <img id="loading" src="{% static 'frontend/images/loading.gif' %}" style="width: 100px; height: auto; display: none;" /><br/>
+
+    <div id="ajax_errors" style="display: none;"></div>
+    {% for i in teams %}
+        <button class="team_button" id="but{{ i.0 }}">{{ i.1 }}</button><br/>
+    {% endfor %}
+
+    <div id="ajax_data" hidden>{{ request.user.pool }}</div>
+    <form action="{% url 'teams' %}" method="post">
+        {% csrf_token %}
+        <input id="team_submit" name="selected" type="hidden" value="" />
+        <input type="submit" value="GO" disabled />
+    </form>
+</div>
+{% endblock %}
+
+<script src="{% static 'frontend/assets/js/jquery.min.js' %}"></script>
+
+{% block scripts %}
+<noscript>Необходимо включить JavaScript для выбора команды.</noscript>
 <script src="{% static 'frontend/assets/js/team_selection.js' %}"></script>
+{% endblock %}

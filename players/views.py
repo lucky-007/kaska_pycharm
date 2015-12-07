@@ -29,7 +29,7 @@ from django.utils.encoding import force_text
 from django.utils.http import is_safe_url, urlsafe_base64_decode
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.views.static import was_modified_since
 
 from players.forms import SearchForm, PlayerSelfChangeForm, PlayerCreationForm, AuthenticationForm
@@ -365,21 +365,33 @@ def tournament(request):
 
 
 def teams(request):
+    error_msg = {
+        'bad_req': ugettext('Bad team selected'),
+        'already_selected': ugettext('This team was already selected'),
+    }
+
     # if not request.user.is_admin:
     #     return render(request, 'teams.html', {'request': request})
     context = {'request': request}
     if request.method == 'POST':
         if 'selected' in request.POST:
-            team = Team.objects.get(pk=request.POST['selected'])
-            player = Player.objects.get(pk=request.user.id)
-            player.team = team
-            player.save()
-
+            try:
+                team = Team.objects.get(pk=request.POST['selected'])
+            except Team.DoesNotExist:
+                return HttpResponse(json.dumps({'error': error_msg['bad_req']}), content_type='application/json')
             chosen = team.chosen
             pos = request.user.pool - 1
+            if chosen[pos] == '1':
+                return HttpResponse(json.dumps({'error': error_msg['already_selected']}),
+                                    content_type='application/json')
             chosen = chosen[:pos]+'1'+chosen[pos+1:]
             team.chosen = chosen
             team.save()
+
+            player = Player.objects.get(pk=request.user.id)
+            player.team = team
+            player.save()
+            return HttpResponse(json.dumps({'done': True}), content_type='application/json')
 
     intimations = [(t.id, t.get_intimation(request.user.pool)) for t in Team.objects.all()]
     random.shuffle(intimations)
@@ -395,4 +407,4 @@ def teams_available(request):
     pool = int(request.GET['pool'])
     available = {t.id: t.is_available(pool) for t in Team.objects.all()}
     available = json.dumps(available)
-    return HttpResponse(available)
+    return HttpResponse(available, content_type='application/json')
