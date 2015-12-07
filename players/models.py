@@ -194,7 +194,7 @@ class Player(AbstractBaseUser, PermissionsMixin):
         default='',
         blank=True,
     )
-    team = models.ForeignKey('Team', null=True)
+    team = models.ForeignKey('Team', null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
