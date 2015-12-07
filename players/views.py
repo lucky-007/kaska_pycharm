@@ -259,15 +259,13 @@ def logout(request):
 
 
 def index(request):
-    pl_registered = Player.objects.all().count()
+    pl_registered = Player.objects.filter(is_paid=True, is_active=True, is_student=True).count()
     now = datetime.datetime.now()
-    end = datetime.datetime(2015, 12, 8, 0, 0)
+    end = datetime.datetime(2015, 12, 20, 0, 0)
     til_end = end - now
     til_end = til_end.days
-    positions = 98
-    pos_remaining = positions - Player.objects.filter(is_paid=True, is_active=True, is_student=True).count()
     context = {'request': request, 'registered_players': pl_registered,
-               'til_end': til_end, 'pos_remaining': pos_remaining}
+               'til_end': til_end}
     return render(request, 'players/index.html', context)
 
 
