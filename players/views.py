@@ -417,15 +417,18 @@ def tournament(request):
     return render(request, 'tournament.html', {'request': request})
 
 
+@csrf_protect
+@login_required
 def teams(request):
     error_msg = {
         'bad_req': ugettext('Bad team selected'),
         'already_selected': ugettext('This team was already selected'),
     }
-
-    # if not request.user.is_admin:
-    #     return render(request, 'teams.html', {'request': request})
     context = {'request': request}
+
+    if not settings.TEAM_SELECTION_STARTED and not request.user.is_admin:
+        return render(request, 'teams.html', context)
+
     if request.method == 'POST':
         if 'selected' in request.POST:
             try:

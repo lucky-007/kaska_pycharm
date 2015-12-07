@@ -1,12 +1,11 @@
-var ajax_timeout = 3000;
+var ajax_timeout = 2000;
 var interval = null;
 
 function check_teams() {
     var $ =jQuery;
     var req_teams_available = $.ajax({
         method: 'GET',
-        //url: 'http://kaska.me/teams/available/',
-        url: 'http://127.0.0.1:8000/teams/available/',
+        url: 'http://kaska.me/teams/available/',
         data: {pool: $('#ajax_data').text()},
         dataType: 'json',
         timeout: ajax_timeout
@@ -26,8 +25,7 @@ function check_teams() {
 function get_part_of_html($){
     return $.ajax({
         method: 'GET',
-        //url: 'http://kaska.me/teams/success/',
-        url: 'http://127.0.0.1:8000/teams/success/',
+        url: 'http://kaska.me/teams/success/',
         dataType: 'html',
         async: false,
         error: function(){

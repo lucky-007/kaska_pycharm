@@ -7,6 +7,8 @@ with open('/home/u49036/secret_key/key.txt') as f:
 
 DEBUG = False
 
+TEAM_SELECTION_STARTED = False
+
 
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
