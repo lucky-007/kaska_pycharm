@@ -1,7 +1,7 @@
 {#{% extends 'kaska_base.html' %}#}
 {% load staticfiles %}
 
-{% block page_name %}{% url 'teams' %}{% endblock %}<br/>
+{% block page_name %}{% url 'teams:main' %}{% endblock %}<br/>
 
 {% block content %}
 <div id="team_selection_page">
@@ -13,7 +13,7 @@
     {% endfor %}
 
     <div id="ajax_data" hidden>{{ request.user.pool }}</div>
-    <form action="{% url 'teams' %}" method="post">
+    <form action="{% url 'teams:main' %}" method="post">
         {% csrf_token %}
         <input id="team_submit" name="selected" type="hidden" value="" />
         <input type="submit" value="GO" disabled />

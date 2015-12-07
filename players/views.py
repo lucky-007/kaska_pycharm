@@ -396,7 +396,7 @@ def teams(request):
     intimations = [(t.id, t.get_intimation(request.user.pool)) for t in Team.objects.all()]
     random.shuffle(intimations)
     context.update({'teams': intimations})
-    return render(request, 'teams_intimations.html', context)
+    return render(request, 'teams/teams.html', context)
 
 
 def info(request):
@@ -408,3 +408,7 @@ def teams_available(request):
     available = {t.id: t.is_available(pool) for t in Team.objects.all()}
     available = json.dumps(available)
     return HttpResponse(available, content_type='application/json')
+
+
+def teams_success(request):
+    return render(request, 'teams/teams_success.html', {})

@@ -23,6 +23,19 @@ function check_teams() {
     });
 }
 
+function get_part_of_html($){
+    return $.ajax({
+        method: 'GET',
+        //url: 'http://kaska.me/teams/success/',
+        url: 'http://127.0.0.1:8000/teams/success/',
+        dataType: 'html',
+        async: false,
+        error: function(){
+            alert('Request failed');
+        }
+    }).responseText;
+}
+
 (function($){
     $(document).ready(function(){
         var $submit_btn = $('input[type=submit]');
@@ -38,23 +51,23 @@ function check_teams() {
         });
 
         var form = $('form');
-        form.submit(function(event){
+        form.submit(function(){
             $submit_btn.prop('disabled', true);
             $.ajax({
                 method: form.attr('method'),
                 url: form.attr('action'),
                 data: form.serialize(),
                 dataType: 'json',
-                success: function (msg) {
+                success: function(msg){
                     if('error' in msg){
                         $('#ajax_errors').html(msg['error']).show("slow");
                         $submit_btn.prop('disable', true);
                     } else {
-                        $('#team_selection_page').html('<b>Thanks for selecting</b>');
+                        $('#team_selection_page').hide().html(get_part_of_html(jQuery)).show("fast");
                         clearInterval(interval);
                     }
                 },
-                error: function (msg) {
+                error: function(){
                     alert('Request failed');
                 }
 
@@ -62,10 +75,10 @@ function check_teams() {
             return false;
         });
 
-        $(document).ajaxSend(function(event, request, settings){
+        $(document).ajaxSend(function(){
             $('#loading').show();
         });
-        $(document).ajaxComplete(function(event, request, settings){
+        $(document).ajaxComplete(function(){
             $('#loading').hide();
         });
 
