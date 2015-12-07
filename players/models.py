@@ -194,6 +194,7 @@ class Player(AbstractBaseUser, PermissionsMixin):
         default='',
         blank=True,
     )
+    team = models.ForeignKey('Team', null=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -236,3 +237,39 @@ class Player(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.is_admin
+
+
+class Team(models.Model):
+    team_name = models.CharField(
+        verbose_name=_('Team name'),
+        max_length=50,
+    )
+    chosen = models.CharField(
+        max_length=8,
+        default=8*'0'
+    )
+
+    intimation1 = models.CharField(max_length=200)
+    intimation2 = models.CharField(max_length=200)
+    intimation3 = models.CharField(max_length=200)
+    intimation4 = models.CharField(max_length=200)
+    intimation5 = models.CharField(max_length=200)
+    intimation6 = models.CharField(max_length=200)
+    intimation7 = models.CharField(max_length=200)
+    intimation8 = models.CharField(max_length=200)
+
+    def get_intimation(self, pool):
+        single_int = self._meta.get_field_by_name('intimation'+str(pool))[0]
+        return single_int.value_to_string(self)
+
+    def is_available(self, pool):
+        if self.chosen[pool-1] == '0':
+            return True
+        else:
+            return False
+
+    def __str__(self):
+        return self.team_name
+
+    def __unicode__(self):
+        return self.team_name
