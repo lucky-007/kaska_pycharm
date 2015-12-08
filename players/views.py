@@ -427,7 +427,7 @@ def teams(request):
     context = {'request': request}
 
     if not settings.TEAM_SELECTION_STARTED and not request.user.is_admin:
-        return render(request, 'teams.html', context)
+        return render(request, 'teams/teams_soon.html', context)
 
     if request.method == 'POST':
         if 'selected' in request.POST:
