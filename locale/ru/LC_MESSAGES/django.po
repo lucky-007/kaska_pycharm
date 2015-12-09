@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-07 17:26+0300\n"
+"POT-Creation-Date: 2015-12-09 20:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -363,6 +363,14 @@ msgstr "Выбраная команда не найдена"
 #: .\players\views.py:370
 msgid "This team was already selected"
 msgstr "Эту команду только что выбрали"
+
+#: .\players\views.py:374
+msgid "You have already selected your team"
+msgstr "Вы уже выбрали свою команду"
+
+#: .\players\views.py:375
+msgid "You are not registered as player"
+msgstr "Вы не зарегистрированы как игрок"
 
 #: .\templates\400.html:10
 msgid "HTTP 400. Bad request."

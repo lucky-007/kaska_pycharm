@@ -370,6 +370,10 @@ def teams(request):
         'already_selected': ugettext('This team was already selected'),
     }
 
+    no_choice_msg = {
+        'have_selected': ugettext('You have already selected your team'),
+        'no_player': ugettext('You are not registered as player'),
+    }
     # if not request.user.is_admin:
     #     return render(request, 'teams.html', {'request': request})
     context = {'request': request}
