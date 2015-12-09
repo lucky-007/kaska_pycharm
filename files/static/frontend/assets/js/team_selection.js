@@ -1,12 +1,11 @@
-var ajax_timeout = 3000;
+var ajax_timeout = 2000;
 var interval = null;
 
 function check_teams() {
     var $ =jQuery;
     var req_teams_available = $.ajax({
         method: 'GET',
-        //url: 'http://kaska.me/teams/available/',
-        url: 'http://127.0.0.1:8000/teams/available/',
+        url: 'http://kaska.me/teams/available/',
         data: {pool: $('#ajax_data').text()},
         dataType: 'json',
         timeout: ajax_timeout
@@ -18,7 +17,7 @@ function check_teams() {
         }
     }).fail(function (jqXHR, textStatus) {
         if (textStatus == 'timeout') {
-            alert('Timeout error');
+            alert('Истекло ожидание ответа от сервера. Просто нажми ОК и продолжай выбор');
         }
     });
 }
@@ -26,19 +25,18 @@ function check_teams() {
 function get_part_of_html($){
     return $.ajax({
         method: 'GET',
-        //url: 'http://kaska.me/teams/success/',
-        url: 'http://127.0.0.1:8000/teams/success/',
+        url: 'http://kaska.me/teams/success/',
         dataType: 'html',
         async: false,
         error: function(){
-            alert('Request failed');
+            alert('Запрос к серверу неудачен');
         }
     }).responseText;
 }
 
 (function($){
     $(document).ready(function(){
-        var $submit_btn = $('input[type=submit]');
+        var $submit_btn = $('button[type=submit]');
 
         $('button.team_button').click(function(){
             $('button.team_button').each(function(){
@@ -46,7 +44,7 @@ function get_part_of_html($){
             });
             $(this).addClass('selected');
             $('#ajax_errors').hide('fast');
-            $('#team_submit').val(this.id[3]);
+            $('#team_submit').val(this.id.substring(3));
             $submit_btn.prop('disabled', false);
         });
 
@@ -60,7 +58,9 @@ function get_part_of_html($){
                 dataType: 'json',
                 success: function(msg){
                     if('error' in msg){
-                        $('#ajax_errors').html(msg['error']).show("slow");
+                        $('body').animate({scrollTop: $('#team_selection_page').offset().top}, function(){
+                            $('#ajax_errors').html(msg['error']).show("slow");
+                        });
                         $submit_btn.prop('disable', true);
                     } else {
                         $('#team_selection_page').hide().html(get_part_of_html(jQuery)).show("fast");
@@ -68,7 +68,7 @@ function get_part_of_html($){
                     }
                 },
                 error: function(){
-                    alert('Request failed');
+                    alert('Запрос к серверу неудачен');
                 }
 
             });
@@ -82,7 +82,9 @@ function get_part_of_html($){
             $('#loading').hide();
         });
 
-        check_teams();
-        interval = setInterval(check_teams, ajax_timeout);
+        if($('form').length) {
+            check_teams();
+            interval = setInterval(check_teams, ajax_timeout);
+        }
     });
 })(jQuery);

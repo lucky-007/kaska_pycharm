@@ -5,7 +5,10 @@
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\python\kaska\kaska_pycharm\db.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:mysql://127.0.0.1/u49036</jdbc-url>
+      <explain-plan-config>
+        <provider>com.intellij.database.plan.sqlite.SqliteExplainPlanProvider</provider>
+      </explain-plan-config>
     </data-source>
   </component>
 </project>

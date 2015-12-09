@@ -5,24 +5,24 @@
 {% block page_name %}{% url 'index' %}{% endblock %}
 
 {% block articles %}
-    {% if request.user.is_anonymous %}
-    <article class="box post" id="anons">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <header>
-                        <h1>До конца регистрации осталось {{ til_end }} дней</h1>
-                    </header>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                        <a href="{% url 'players:create' %}" class="button big">Присоединиться к турниру</a>
-                </div>
-            </div>
-        </div>
-    </article>
-    {% endif %}
+{#    {% if request.user.is_anonymous %}#}
+{#    <article class="box post" id="anons">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="col-md-12">#}
+{#                    <header>#}
+{#                        <h1>До конца регистрации осталось {{ til_end }} дней</h1>#}
+{#                    </header>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row">#}
+{#                <div class="col-md-12">#}
+{#                        <a href="{% url 'players:create' %}" class="button big">Присоединиться к турниру</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </article>#}
+{#    {% endif %}#}
 
     <div class="container two-col">
         <div class="row">
@@ -36,7 +36,7 @@
                                 <header>
                                     <h1>— {{ registered_players }} —</h1>
                                 </header>
-                                <p>человек подали заявки на участие</p>
+                                <p>человек будут участвовать в турнире</p>
                             </div>
                         </div>
 
@@ -51,9 +51,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <header>
-                                    <h1>— {{ pos_remaining }} —</h1>
+                                    <h1>— {{ til_end }} —</h1>
                                 </header>
-                                <p>мест осталось на турнире</p>
+                                <p>дней осталось до КАСКИ!</p>
                             </div>
                         </div>
 

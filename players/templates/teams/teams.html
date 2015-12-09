@@ -1,23 +1,59 @@
-{#{% extends 'kaska_base.html' %}#}
+{% extends 'kaska_base.html' %}
 {% load staticfiles %}
 
 {% block page_name %}{% url 'teams:main' %}{% endblock %}<br/>
 
 {% block content %}
 <div id="team_selection_page">
-    <img id="loading" src="{% static 'frontend/images/loading.gif' %}" style="width: 100px; height: auto; display: none;" /><br/>
+    <header>
+        <h2 style="text-align: center">
+            Команды
+        </h2>
+    </header>
 
-    <div id="ajax_errors" style="display: none;"></div>
-    {% for i in teams %}
-        <button class="team_button" id="but{{ i.0 }}">{{ i.1 }}</button><br/>
-    {% endfor %}
+    {% if cant_choose %}
+        <h3 style="text-align: center">{{ cant_choose }}</h3>
+    {% else %}
+        <img id="loading" src="{% static 'frontend/images/loading.gif' %}" style="
+            display: block;
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            width: 50px;
+            margin: 0;
+            padding: 0;
+            z-index: 1;
 
-    <div id="ajax_data" hidden>{{ request.user.pool }}</div>
-    <form action="{% url 'teams:main' %}" method="post">
-        {% csrf_token %}
-        <input id="team_submit" name="selected" type="hidden" value="" />
-        <input type="submit" value="GO" disabled />
-    </form>
+            height: auto;
+            display: none;
+        " />
+
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-5">
+                <h3>Что из этого тебе ближе?</h3>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-12" id="ajax_errors" style="margin-top: -10px; color:red; display: none;"></div>
+        </div>
+
+        {% for i in teams %}
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-default btn-lg btn-block team_button" id="but{{ i.0 }}">
+                        {{ i.1|safe }}
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div id="ajax_data" hidden>{{ request.user.pool }}</div>
+        <form action="{% url 'teams:main' %}" method="post">
+            {% csrf_token %}
+            <input id="team_submit" name="selected" type="hidden" value="" />
+            <button type="submit" class="btn btn-default btn-lg btn-block" id="team-sumbit-button" disabled>Выбрать</button>
+        </form>
+    {% endif %}
 </div>
 {% endblock %}
 
