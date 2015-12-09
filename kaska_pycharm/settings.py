@@ -118,6 +118,7 @@ ADMINS = (
 )
 
 PLAYERS_LOG_ROOT = '/home/u49036/kaska.me/django_logs/players.log'
+TEAMS_LOG_ROOT = '/home/u49036/kaska.me/django_logs/teams.log'
 
 LOGGING = {
     'version': 1,
@@ -153,11 +154,22 @@ LOGGING = {
             'filename': PLAYERS_LOG_ROOT,
             'formatter': 'simple',
         },
+        'file_teams': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': TEAMS_LOG_ROOT,
+            'formatter': 'simple',
+        },
     },
 
     'loggers': {
         'players_db_entries': {
             'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'teams_selection': {
+            'handlers': ['file_teams', 'console'],
             'level': 'INFO',
             'propagate': True,
         },

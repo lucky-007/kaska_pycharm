@@ -5,19 +5,23 @@
 
 {% block content %}
 <div id="team_selection_page">
-    <img id="loading" src="{% static 'frontend/images/loading.gif' %}" style="width: 100px; height: auto; display: none;" /><br/>
+    {% if cant_choose %}
+        {{ cant_choose }}
+    {% else %}
+        <img id="loading" src="{% static 'frontend/images/loading.gif' %}" style="width: 100px; height: auto; display: none;" /><br/>
 
-    <div id="ajax_errors" style="display: none;"></div>
-    {% for i in teams %}
-        <button class="team_button" id="but{{ i.0 }}">{{ i.1 }}</button><br/>
-    {% endfor %}
+        <div id="ajax_errors" style="display: none;"></div>
+        {% for i in teams %}
+            <button class="team_button" id="but{{ i.0 }}">{{ i.1|safe }}</button><br/>
+        {% endfor %}
 
-    <div id="ajax_data" hidden>{{ request.user.pool }}</div>
-    <form action="{% url 'teams:main' %}" method="post">
-        {% csrf_token %}
-        <input id="team_submit" name="selected" type="hidden" value="" />
-        <input type="submit" value="GO" disabled />
-    </form>
+        <div id="ajax_data" hidden>{{ request.user.pool }}</div>
+        <form action="{% url 'teams:main' %}" method="post">
+            {% csrf_token %}
+            <input id="team_submit" name="selected" type="hidden" value="" />
+            <input type="submit" value="GO" disabled />
+        </form>
+    {% endif %}
 </div>
 {% endblock %}
 

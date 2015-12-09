@@ -28,7 +28,7 @@ def teams_upload(request):
 
     teams = {}
     re_team = re.compile('^team(?P<team>\d{1,2}).(?P<name>.+):$')
-    re_intimation = re.compile('^(?P<num>\d).\w*(?P<phrase>.*)$')
+    re_intimation = re.compile('^(?P<num>\d).\s*(?P<phrase>.*)$')
     for l in lines:
         q = re_team.match(l)
         if q:
@@ -94,4 +94,8 @@ def teams_flush(request):
     for t in teams:
         t.chosen = 8*'0'
         t.save()
+    players = Player.objects.all()
+    for p in players:
+        p.team = None
+        p.save()
     return HttpResponse('teams were flushed')

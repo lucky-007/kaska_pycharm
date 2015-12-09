@@ -1,3 +1,4 @@
+import logging
 import mimetypes
 import os
 import posixpath
@@ -417,37 +418,51 @@ def tournament(request):
     return render(request, 'tournament.html', {'request': request})
 
 
+logger = logging.getLogger('teams_selection')
+
 @csrf_protect
 @login_required
 def teams(request):
+    context = {'request': request}
+
     error_msg = {
         'bad_req': ugettext('Bad team selected'),
         'already_selected': ugettext('This team was already selected'),
     }
-    context = {'request': request}
+
+    no_choice_msg = {
+        'have_selected': ugettext('You have already selected your team'),
+        'no_player': ugettext('You are not registered as player'),
+    }
 
     if not settings.TEAM_SELECTION_STARTED and not request.user.is_admin:
         return render(request, 'teams/teams_soon.html', context)
 
-    if request.method == 'POST':
-        if 'selected' in request.POST:
-            try:
-                team = Team.objects.get(pk=request.POST['selected'])
-            except Team.DoesNotExist:
-                return HttpResponse(json.dumps({'error': error_msg['bad_req']}), content_type='application/json')
-            chosen = team.chosen
-            pos = request.user.pool - 1
-            if chosen[pos] == '1':
-                return HttpResponse(json.dumps({'error': error_msg['already_selected']}),
-                                    content_type='application/json')
-            chosen = chosen[:pos]+'1'+chosen[pos+1:]
-            team.chosen = chosen
-            team.save()
+    if not (request.user.is_paid and request.user.is_student and request.user.is_active):
+        context.update({'cant_choose': no_choice_msg['no_player']})
+    elif request.user.team is not None:
+        context.update({'cant_choose': no_choice_msg['have_selected']})
+    else:
+        if request.method == 'POST':
+            if 'selected' in request.POST:
+                try:
+                    team = Team.objects.get(pk=request.POST['selected'])
+                except Team.DoesNotExist:
+                    return HttpResponse(json.dumps({'error': error_msg['bad_req']}), content_type='application/json')
+                chosen = team.chosen
+                pos = request.user.pool - 1
+                if chosen[pos] == '1':
+                    return HttpResponse(json.dumps({'error': error_msg['already_selected']}),
+                                        content_type='application/json')
+                chosen = chosen[:pos]+'1'+chosen[pos+1:]
+                team.chosen = chosen
+                team.save()
 
-            player = Player.objects.get(pk=request.user.id)
-            player.team = team
-            player.save()
-            return HttpResponse(json.dumps({'done': True}), content_type='application/json')
+                player = Player.objects.get(pk=request.user.id)
+                player.team = team
+                player.save()
+                logger.info('p=%d t=%d' % (player.id, team.id))
+                return HttpResponse(json.dumps({'done': True}), content_type='application/json')
 
     intimations = [(t.id, t.get_intimation(request.user.pool)) for t in Team.objects.all()]
     random.shuffle(intimations)

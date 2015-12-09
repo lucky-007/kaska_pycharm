@@ -80,7 +80,9 @@ function get_part_of_html($){
             $('#loading').hide();
         });
 
-        check_teams();
-        interval = setInterval(check_teams, ajax_timeout);
+        if($('form').length) {
+            check_teams();
+            interval = setInterval(check_teams, ajax_timeout);
+        }
     });
 })(jQuery);
