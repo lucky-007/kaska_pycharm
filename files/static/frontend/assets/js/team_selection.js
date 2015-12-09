@@ -44,7 +44,7 @@ function get_part_of_html($){
             });
             $(this).addClass('selected');
             $('#ajax_errors').hide('fast');
-            $('#team_submit').val(this.id[3]);
+            $('#team_submit').val(this.id.substring(3));
             $submit_btn.prop('disabled', false);
         });
 

@@ -40,6 +40,9 @@ class PlayerAdmin(UserAdmin):
     ]
 
 
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ['team_name', 'chosen']
+
 admin.site.register(Player, PlayerAdmin)
 admin.site.unregister(Group)
-admin.site.register(Team)
+admin.site.register(Team, TeamAdmin)
