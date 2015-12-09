@@ -32,7 +32,7 @@ team4.Терминатор:
 1. Идём со мной, если хочешь жить.
 2. Твоё будущее в его руках
 3. Мне нужна твоя одежда, ботинки и мотоцикл.
-4. - Ты мне руку сломала! - В человеческом организме 215 костей. Это была только одна
+4. — Ты мне руку сломала! <br/>— В человеческом организме 215 костей. Это была только одна
 5. I’ll be back.
 6. Hasta la vista, baby!
 7. SkyNET
@@ -75,7 +75,7 @@ team8.KISS:
 4. I wanna rock and roll all night and party every day
 5. Жизнь слишком коротка. Поэтому ты не успеваешь ничего накопить, кроме бредовых мыслей о самом себе.Если кто-то будет кричать, что его игра на гитаре несёт какую-то миссию, плюньте ему в глаза. 
 6. У Джеймса Бонда есть разрешение убивать, у рок звёзд быть гадкими. Rock существует для того, чтобы удивлять и злить.
-7. Наибольший для нас комплимент — это когда мы слышим: Чёрт, ненавижу эту музыку, но это шоу — был настоящий разрыв!
+7. Наибольший для нас комплимент — это когда мы слышим: «Чёрт, ненавижу эту музыку, но это шоу — был настоящий разрыв!»
 
 team9.Бэтмэн:
 1. Легенда начинается...
@@ -116,15 +116,15 @@ team12.Пауэр рейнджерс:
 7. Power Ranger Punks
 8. Mighty Morphin' Mutants
 
-team13.AC/DС(00000000000000000000000):
-1. See that girl, watch that scene, dig in the Dancing Queen
-2. Money, money, money must be funny 
-3. Mamma mia, now I really know 
-4. Super trouper beams are gonna blind me
-5. The winner takes it all
-6. Take me through the darkness to the break of the day 
-7. I can still recall our last summer
-8. If I had to do the same again, I would, my friend, Fernando
+team13.AC/DС:
+1.       Highway to hell
+2.       Thunderstruck
+3.       High voltage
+4.       T.N.T
+5.       Пионеры хард-рока
+6.       Рычащий звук Gibson SG
+7.       Музыка от дьяволенка
+8.       До сих пор выступает на сцене в шортах
 
 team14.ABBA:
 1. See that girl, watch that scene, dig in the Dancing Queen

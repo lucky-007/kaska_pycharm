@@ -17,7 +17,7 @@ function check_teams() {
         }
     }).fail(function (jqXHR, textStatus) {
         if (textStatus == 'timeout') {
-            alert('Timeout error');
+            alert('Истекло ожидание ответа от сервера. Просто нажми ОК и продолжай выбор');
         }
     });
 }
@@ -29,14 +29,14 @@ function get_part_of_html($){
         dataType: 'html',
         async: false,
         error: function(){
-            alert('Request failed');
+            alert('Запрос к серверу неудачен');
         }
     }).responseText;
 }
 
 (function($){
     $(document).ready(function(){
-        var $submit_btn = $('input[type=submit]');
+        var $submit_btn = $('button[type=submit]');
 
         $('button.team_button').click(function(){
             $('button.team_button').each(function(){
@@ -58,7 +58,9 @@ function get_part_of_html($){
                 dataType: 'json',
                 success: function(msg){
                     if('error' in msg){
-                        $('#ajax_errors').html(msg['error']).show("slow");
+                        $('body').animate({scrollTop: $('#team_selection_page').offset().top}, function(){
+                            $('#ajax_errors').html(msg['error']).show("slow");
+                        });
                         $submit_btn.prop('disable', true);
                     } else {
                         $('#team_selection_page').hide().html(get_part_of_html(jQuery)).show("fast");
@@ -66,7 +68,7 @@ function get_part_of_html($){
                     }
                 },
                 error: function(){
-                    alert('Request failed');
+                    alert('Запрос к серверу неудачен');
                 }
 
             });

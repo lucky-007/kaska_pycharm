@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import AdminPasswordChangeForm
 from django.contrib.auth.models import Group
 from players.forms import PlayerChangeForm, PlayerCreationForm
 
@@ -9,6 +10,7 @@ from players.models import Player, Team
 class PlayerAdmin(UserAdmin):
     form = PlayerChangeForm
     add_form = PlayerCreationForm
+    change_password_form = AdminPasswordChangeForm
 
     list_display = ('surname', 'name', 'phone', 'vk_id', 'stud_photo', 'is_student', 'is_paid', 'is_admin', 'pool',
                     'sex', 'experience', 'team')

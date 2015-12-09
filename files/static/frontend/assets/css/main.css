@@ -1330,7 +1330,8 @@
 	}
 
 	strong, b {
-		/*color: #252122;*/
+		/* color: #252122; */
+
 		font-weight: 600;
 	}
 
@@ -1584,6 +1585,115 @@
         }
 
     }
+
+/* Teams */
+	#team_selection_page {
+		/*align-self: center;*/
+	}
+/* BUTTON for teams.html */
+	.team_button {
+		margin-bottom: 15px;
+		white-space: normal;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+		background-image: none;
+	}
+	.team_button:hover {
+		background-image: none;
+		border-color: rgb(204, 204, 204);
+		border-style: solid;
+		border-width: 1px;
+	}
+
+	.team_button:disabled{
+		background-color: #F3E5E5;
+	}
+
+
+	.team_button:disabled:hover {
+		border-color: rgb(204, 204, 204);
+		border-style: solid;
+		border-width: 1px;
+	}
+
+	.team_button:focus:hover {
+		outline: none;
+	}
+
+	.team_button:focus, .team_button.selected {
+		/*border-color: #000;;
+		font-size: 10px; */
+		background-color:rgb(139, 195, 74); /*rgb(255, 193, 7); */
+		outline: none;
+	}
+	.team_button:focus:hover {
+		border-color: rgb(80, 80, 80);;
+		border-style: solid;
+		border-width: 1px;
+	}
+
+
+	/* SUBMIT BUTTON for teams.html*/
+	#team-sumbit-button {
+		display: inline-block;
+		cursor: pointer;
+		background: #ffc107;
+		background-image: -webkit-linear-gradient(top, #ffc107, #ffc107);
+		background-image: -moz-linear-gradient(top, #ffc107, #ffc107);
+		background-image: -ms-linear-gradient(top, #ffc107, #ffc107);
+		background-image: -o-linear-gradient(top, #ffc107, #ffc107);
+		background-image: linear-gradient(to bottom, #ffc107, #ffc107);
+		-webkit-border-radius: 5;
+		-moz-border-radius: 5;
+		border-radius: 5px;
+		-webkit-box-shadow: 3px 3px 0px #212121;
+		-moz-box-shadow: 3px 3px 0px #212121;
+		box-shadow: 3px 3px 0px #212121;
+		font-weight: 700;
+		outline: 0;
+		color: #212121;
+		text-decoration: none;
+		border: none;
+		outline: none;
+	}
+
+	#team-sumbit-button:hover {
+		color: black;
+		background: #ffc107;
+		background-image: -webkit-linear-gradient(top, #ffc107, #cf9b00);
+		background-image: -moz-linear-gradient(top, #ffc107, #cf9b00);
+		background-image: -ms-linear-gradient(top, #ffc107, #cf9b00);
+		background-image: -o-linear-gradient(top, #ffc107, #cf9b00);
+		background-image: linear-gradient(to bottom, #ffc107, #cf9b00);
+		text-decoration: none;
+		outline: none;
+		border: none;
+	}
+
+	#team-sumbit-button:active {
+		background: #ffc107;
+		background-image: -webkit-linear-gradient(top, #cf9b00, #ffc107);
+		background-image: -moz-linear-gradient(top, #cf9b00, #ffc107);
+		background-image: -ms-linear-gradient(top, #cf9b00, #ffc107);
+		background-image: -o-linear-gradient(top, #cf9b00, #ffc107);
+		background-image: linear-gradient(to bottom, #cf9b00, #ffc107);
+	}
+
+	#team-sumbit-button:disabled{
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+		background-image: none;
+		background-color: rgb(204, 204, 204);
+	}
+
+	#team-sumbit-button:disabled:hover{
+		color: rgb(33,33,33);
+	}
+
+
+	/*END edited by filletofish */
 
     .std_status_OK {
         color: #79DC23;
