@@ -23,6 +23,24 @@
 {#        </div>#}
 {#    </article>#}
 {#    {% endif %}#}
+    {% if choosing %}
+    <article class="box post" id="anons">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <header>
+                        <h1>Вы так долго этого ждали... Пришла пора!</h1>
+                    </header>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                        <a href="{% url 'teams:main' %}" class="button big">Выбери себе команду</a>
+                </div>
+            </div>
+        </div>
+    </article>
+    {% endif %}
 
     <div class="container two-col">
         <div class="row">

@@ -267,7 +267,7 @@ def index(request):
     til_end = end - now
     til_end = til_end.days
     context = {'request': request, 'registered_players': pl_registered,
-               'til_end': til_end}
+               'til_end': til_end, 'choosing': settings.TEAM_SELECTION_STARTED}
     return render(request, 'players/index.html', context)
 
 
