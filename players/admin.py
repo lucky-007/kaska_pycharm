@@ -10,10 +10,9 @@ from players.models import Player, Team
 class PlayerAdmin(UserAdmin):
     form = PlayerChangeForm
     add_form = PlayerCreationForm
-    change_password_form = AdminPasswordChangeForm
 
     list_display = ('surname', 'name', 'phone', 'vk_id', 'stud_photo', 'is_student', 'is_paid', 'is_admin', 'pool',
-                    'sex', 'experience', 'team')
+                    'sex', 'experience', 'team', 'size')
     list_display_links = ('surname', 'name')
 
     list_editable = ('is_student', 'is_paid', 'pool',)

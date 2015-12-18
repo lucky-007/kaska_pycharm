@@ -420,8 +420,7 @@ def tournament(request):
 
 logger = logging.getLogger('teams_selection')
 
-@csrf_protect
-@login_required
+
 def teams(request):
     context = {'request': request}
 
@@ -435,7 +434,15 @@ def teams(request):
         'no_player': ugettext('You are not registered as player'),
     }
 
-    if not settings.TEAM_SELECTION_STARTED and not request.user.is_admin:
+    # if request.user.is_anonymous():
+    #     context.update({'cant_choose': no_choice_msg['no_player']})
+    #     return render(request, 'teams/teams.html', context)
+
+    if not settings.TEAM_SELECTION_STARTED:  # and request.user.is_admin:
+        teams_list = []
+        for t in Team.objects.all():
+            teams_list.append({'name': t.team_name, 'players': t.player_set.all()})
+        context.update({'teams': teams_list})
         return render(request, 'teams/teams_soon.html', context)
 
     if not (request.user.is_paid and request.user.is_student and request.user.is_active):

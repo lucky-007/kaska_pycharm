@@ -23,7 +23,7 @@ import players.views
 urlpatterns = [
     url(r'^$', players.views.index, name='index'),
     url(r'^gallery/$', players.views.gallery, name='gallery'),
-    url(r'^tourn/$', players.views.tournament, name='tournament'),
+    url(r'^schedule/$', players.views.tournament, name='tournament'),
     url(r'^teams/', include('players.urls_teams', namespace='teams')),
     url(r'^info/$', players.views.info, name='info'),
     url(r'^players/', include('players.urls', namespace='players')),

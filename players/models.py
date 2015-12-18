@@ -238,6 +238,9 @@ class Player(AbstractBaseUser, PermissionsMixin):
     def is_staff(self):
         return self.is_admin
 
+    class Meta:
+        ordering = ['surname']
+
 
 class Team(models.Model):
     team_name = models.CharField(

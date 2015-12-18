@@ -2,13 +2,36 @@
 
 {% block page_name %}{% url 'teams:main' %}{% endblock %}
 
-{% block content %}
+{% block articles %}
 
-    <header>
-        <h2 style="text-align: center">
-            Команды
-        </h2>
-    </header>
-    <p>Распределение по командам будет доступно после регистрации всех пользователей</p>
+    {% for t in teams %}
+        {% cycle '<div class="row">' '' %}
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                    <caption class="header_table"><strong>{{ t.name }}</strong></caption>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ФИО</th>
+                            <th>VK</th>
+                            <th>Место учебы</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in t.players %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ p.get_full_name }}</td>
+                            <td><a href="http://vk.com/id{{ p.vk_id }}" style="color:#4E729A" target="_blank"><i class="fa fa-vk"></i></a></td>
+                            <td>{{ p.university }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        {% cycle '' '</div>' %}
+    {% endfor %}
 
 {% endblock %}
